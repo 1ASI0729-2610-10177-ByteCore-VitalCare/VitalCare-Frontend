@@ -1,0 +1,46 @@
+.language-switcher {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lang-group {
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  min-width: auto;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+}
+
+.lang-toggle .flag {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.lang-toggle .code {
+  display: inline-block;
+  min-width: 20px;
+}
+
+::ng-deep .mat-mdc-button-toggle.mat-mdc-button-toggle-checked {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  color: white;
+}
+
+::ng-deep .mat-mdc-button-toggle-group-appearance-standard .mat-mdc-button-toggle + .mat-mdc-button-toggle {
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.lang-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}

@@ -1,0 +1,25 @@
+{
+  "app": {
+    "title": "Vital Care"
+  },
+  "nav": {
+    "home": "Home",
+    "patients": "Patients",
+    "plans": "Plans",
+    "support": "Support",
+    "notifications": "Notifications",
+    "profile": "Profile"
+  },
+  "component": {
+    "profile-description": "Manage your profile information and preferences",
+    "patients-description": "View and manage patient records",
+    "plans-description": "Review subscription and plan details",
+    "support-description": "Get help and support",
+    "notifications-description": "View your notifications"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "powered-by": "Powered by",
+    "and": "and"
+  }
+}

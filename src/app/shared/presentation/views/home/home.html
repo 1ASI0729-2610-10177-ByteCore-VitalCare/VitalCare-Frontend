@@ -1,0 +1,32 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <img src="/public/assets/vital-care-logo.png" alt="Vital Care Logo" class="logo">
+    <div class="spacer"></div>
+
+    @for (option of navOptions(); track option.label) {
+      <a mat-button
+         [routerLink]="option.link"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }">
+        <mat-icon *ngIf="option.icon" class="nav-icon">{{ option.icon }}</mat-icon>
+        {{ option.label | translate }}
+      </a>
+    }
+
+    <div class="spacer"></div>
+
+    <div class="toolbar-actions">
+      <app-language-switcher />
+      <button mat-icon-button
+              [routerLink]="'/profile'"
+              matTooltip="Profile"
+              class="profile-btn">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>

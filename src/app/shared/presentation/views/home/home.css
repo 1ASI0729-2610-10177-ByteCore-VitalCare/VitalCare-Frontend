@@ -1,0 +1,56 @@
+/* home.css - AGREGAR ESTO */
+.logo {
+  height: 40px;
+  width: auto;
+  margin-right: 16px;
+  cursor: pointer;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav-icon {
+  margin-right: 8px;
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: 16px;
+}
+
+.profile-btn {
+  font-size: 28px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.profile-btn:hover {
+  transform: scale(1.1);
+}
+
+.main-content {
+  min-height: calc(100vh - 80px - 64px);
+  padding: 20px;
+  position: relative;
+}
+
+::ng-deep .active {
+  color: #ffeb3b;
+  font-weight: 500;
+  border-bottom: 2px solid #ffeb3b;
+}
+
+::ng-deep mat-toolbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
