@@ -15,6 +15,14 @@ export class VitalSignAssembler implements BaseAssembler<VitalSign, VitalSignRes
       oxygenSaturation: resource.oxygen_saturation,
       heartRate: resource.heart_rate,
       humidity: resource.humidity,
+      sodiumPotassium: resource.sodium_potassium,
+      alcoholLevel: resource.alcohol_level,
+      alcoholLevel2: resource.alcohol_level_2,
+      ketones: resource.ketones,
+      cytokines: resource.citocines,
+      specializedCells: resource.specialized_cells,
+      atmosphericPressure: resource.atmospheric_pressure,
+      airQuality: resource.air_quality,
       patchId: resource.patches_id,
     };
   }
@@ -30,6 +38,14 @@ export class VitalSignAssembler implements BaseAssembler<VitalSign, VitalSignRes
       oxygen_saturation: entity.oxygenSaturation,
       heart_rate: entity.heartRate,
       humidity: entity.humidity,
+      sodium_potassium: entity.sodiumPotassium,
+      alcohol_level: entity.alcoholLevel,
+      alcohol_level_2: entity.alcoholLevel2,
+      ketones: entity.ketones,
+      citocines: entity.cytokines,
+      specialized_cells: entity.specializedCells,
+      atmospheric_pressure: entity.atmosphericPressure,
+      air_quality: entity.airQuality,
       patches_id: entity.patchId,
     };
   }

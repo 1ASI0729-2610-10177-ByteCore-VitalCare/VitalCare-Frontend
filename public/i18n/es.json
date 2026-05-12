@@ -46,7 +46,24 @@
     "view_history": "Ver Registro",
     "no_data": "No hay signos vitales registrados para este paciente"
   },
-  "footer": {
+   "locations": {
+     "title": "Mapa del Paciente",
+     "close": "Cerrar",
+     "no_data": "No hay ubicaciones registradas para este paciente",
+     "latitude": "Latitud",
+     "longitude": "Longitud",
+     "recorded_at": "Registrado en"
+   },
+   "patients": {
+     "title": "Pacientes",
+     "header_patient": "Paciente",
+     "header_status": "Status del paciente",
+     "header_location": "Ubicación del paciente",
+     "view_status": "Ver Status",
+     "view_location": "Ver Ubicación",
+     "add_patch": "Agregar Parche"
+   },
+   "footer": {
     "rights": "Todos los derechos reservados.",
     "powered-by": "Impulsado por",
     "and": "y"

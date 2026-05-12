@@ -9,6 +9,14 @@ export interface VitalSign extends BaseEntity {
   oxygenSaturation?: number;
   heartRate: number;
   humidity?: number;
+  sodiumPotassium?: number;
+  alcoholLevel?: number;
+  alcoholLevel2?: number;
+  ketones?: number;
+  cytokines?: number;
+  specializedCells?: number;
+  atmosphericPressure?: number;
+  airQuality?: number;
   patchId: number;
 }
 

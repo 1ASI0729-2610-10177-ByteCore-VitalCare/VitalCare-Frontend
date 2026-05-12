@@ -46,7 +46,24 @@
     "view_history": "View History",
     "no_data": "No vital signs recorded for this patient"
   },
-  "footer": {
+   "locations": {
+     "title": "Patient Map",
+     "close": "Close",
+     "no_data": "No locations recorded for this patient",
+     "latitude": "Latitude",
+     "longitude": "Longitude",
+     "recorded_at": "Recorded at"
+   },
+   "patients": {
+     "title": "Patients",
+     "header_patient": "Patient",
+     "header_status": "Patient Status",
+     "header_location": "Patient Location",
+     "view_status": "View Status",
+     "view_location": "View Location",
+     "add_patch": "Add Patch"
+   },
+   "footer": {
     "rights": "All rights reserved.",
     "powered-by": "Powered by",
     "and": "and"

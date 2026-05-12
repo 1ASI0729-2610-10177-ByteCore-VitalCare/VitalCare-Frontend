@@ -42,7 +42,6 @@ export class VitalSignsModal implements OnInit {
     this.isLoading.set(true);
     this.error.set(null);
 
-    // Primero obtener el parche del paciente
     this.patchService.getByPatientId(this.patient.id).subscribe({
       next: (patch) => {
         if (!patch) {
@@ -53,7 +52,6 @@ export class VitalSignsModal implements OnInit {
 
         this.patch.set(patch);
 
-        // Luego obtener los signos vitales más recientes del parche
         this.vitalSignService.getLatestByPatchId(patch.id).subscribe({
           next: (vitalSign) => {
             this.vitalSigns.set(vitalSign);
@@ -108,6 +106,10 @@ export class VitalSignsModal implements OnInit {
       OTHER: 'Otro',
     };
     return genderMap[gender] || gender;
+  }
+
+  getVitalValue(value: number | undefined): number {
+    return value ?? 0;
   }
 }
 

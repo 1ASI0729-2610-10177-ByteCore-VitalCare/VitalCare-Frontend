@@ -1,0 +1,32 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal map-modal" (click)="$event.stopPropagation()">
+
+    <header class="modal-header header-center">
+      <h2>{{ 'locations.title' | translate }}</h2>
+    </header>
+
+    <div class="modal-body">
+      <ng-container *ngIf="isLoading()">
+        <div class="loading">{{ 'common.loading' | translate }}</div>
+      </ng-container>
+
+      <ng-container *ngIf="error() && !isLoading()">
+        <div class="error">{{ error() }}</div>
+      </ng-container>
+
+      <ng-container *ngIf="!isLoading() && !error()">
+        <div class="map-container">
+          <div id="map" class="map-frame"></div>
+
+          <div class="coordinates">
+            {{ 'locations.latitude' | translate }}: {{ location()?.latitude }} | {{ 'locations.longitude' | translate }}: {{ location()?.longitude }}
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn" (click)="onClose()">{{ 'common.close' | translate }}</button>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
