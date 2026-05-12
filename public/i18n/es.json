@@ -54,15 +54,25 @@
      "longitude": "Longitud",
      "recorded_at": "Registrado en"
    },
-   "patients": {
-     "title": "Pacientes",
-     "header_patient": "Paciente",
-     "header_status": "Status del paciente",
-     "header_location": "Ubicación del paciente",
-     "view_status": "Ver Status",
-     "view_location": "Ver Ubicación",
-     "add_patch": "Agregar Parche"
-   },
+    "patients": {
+      "title": "Pacientes",
+      "header_patient": "Paciente",
+      "header_status": "Status del paciente",
+      "header_location": "Ubicación del paciente",
+      "view_status": "Ver Status",
+      "view_location": "Ver Ubicación",
+      "add_patch": "Agregar Parche",
+      "add_patient_title": "Agregar Nuevo Paciente",
+      "add_photo": "Añadir foto",
+      "patch_code": "Código de Parche",
+      "birth_date": "Fecha de Nacimiento",
+      "gender_male": "Masculino",
+      "gender_female": "Femenino",
+      "gender_other": "Otro",
+      "add_button": "Agregar",
+      "placeholder_name": "Ingresa nombre",
+      "placeholder_patch_code": "ej: PTH-001"
+    },
    "footer": {
     "rights": "Todos los derechos reservados.",
     "powered-by": "Impulsado por",

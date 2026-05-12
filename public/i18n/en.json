@@ -54,15 +54,25 @@
      "longitude": "Longitude",
      "recorded_at": "Recorded at"
    },
-   "patients": {
-     "title": "Patients",
-     "header_patient": "Patient",
-     "header_status": "Patient Status",
-     "header_location": "Patient Location",
-     "view_status": "View Status",
-     "view_location": "View Location",
-     "add_patch": "Add Patch"
-   },
+    "patients": {
+      "title": "Patients",
+      "header_patient": "Patient",
+      "header_status": "Patient Status",
+      "header_location": "Patient Location",
+      "view_status": "View Status",
+      "view_location": "View Location",
+      "add_patch": "Add Patch",
+      "add_patient_title": "Add New Patient",
+      "add_photo": "Add Photo",
+      "patch_code": "Patch Code",
+      "birth_date": "Birth Date",
+      "gender_male": "Male",
+      "gender_female": "Female",
+      "gender_other": "Other",
+      "add_button": "Add",
+      "placeholder_name": "Enter name",
+      "placeholder_patch_code": "e.g.: PTH-001"
+    },
    "footer": {
     "rights": "All rights reserved.",
     "powered-by": "Powered by",

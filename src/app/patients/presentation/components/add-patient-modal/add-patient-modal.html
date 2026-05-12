@@ -1,0 +1,68 @@
+<div class="modal-overlay" (click)="onCancel()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h1 class="title">{{ 'patients.add_patient_title' | translate }}</h1>
+
+    <section class="card">
+      <div class="photo-circle" #photoInput (click)="fileInput.click()">
+        <img *ngIf="photo()" [src]="photo()" class="photo-preview" [alt]="name() || 'preview'">
+        <span *ngIf="!photo()">+ {{ 'patients.add_photo' | translate }}</span>
+        <input #fileInput type="file" accept="image/*" class="hidden-input" (change)="onPhotoSelected($event)">
+      </div>
+
+      <div class="form-grid">
+        <div>
+          <label>{{ 'patient.name' | translate }}</label>
+          <input
+            type="text"
+            [value]="name()"
+            (change)="name.set($any($event.target).value)"
+            [placeholder]="'patients.placeholder_name' | translate"
+            [disabled]="isLoading()">
+        </div>
+        <div>
+          <label>{{ 'patients.patch_code' | translate }}</label>
+          <input
+            type="text"
+            [value]="patchCode()"
+            (change)="patchCode.set($any($event.target).value)"
+            [placeholder]="'patients.placeholder_patch_code' | translate"
+            [disabled]="isLoading()">
+        </div>
+        <div>
+          <label>{{ 'patients.birth_date' | translate }}</label>
+          <input
+            type="date"
+            [value]="birthDate()"
+            (change)="birthDate.set($any($event.target).value)"
+            [disabled]="isLoading()">
+        </div>
+        <div>
+          <label>{{ 'patient.gender' | translate }}</label>
+          <select
+            [value]="gender()"
+            (change)="gender.set($any($event.target).value)"
+            [disabled]="isLoading()">
+            <option value="MALE">{{ 'patients.gender_male' | translate }}</option>
+            <option value="FEMALE">{{ 'patients.gender_female' | translate }}</option>
+            <option value="OTHER">{{ 'patients.gender_other' | translate }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div *ngIf="error()" class="error-message">
+        {{ error() }}
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-cancel" (click)="onCancel()" [disabled]="isLoading()">
+          {{ 'common.close' | translate }}
+        </button>
+        <button class="btn btn-add" (click)="addPatient()" [disabled]="isLoading()">
+          <span *ngIf="!isLoading()">{{ 'patients.add_button' | translate }}</span>
+          <span *ngIf="isLoading()">{{ 'common.loading' | translate }}</span>
+        </button>
+      </div>
+    </section>
+  </div>
+</div>
+
