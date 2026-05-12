@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { BaseApiEndpoint } from '../../../shared/infrastructure/base-api-endpoint';
 import { BaseResponse } from '../../../shared/infrastructure/base-response';
 import { Patient } from '../../domain/model/patient.entity';
@@ -21,6 +23,18 @@ export class PatientService extends BaseApiEndpoint<
       http,
       `${environment.platformProviderApiBaseUrl}${environment.platformProviderPatientsEndpointPath}`,
       new PatientAssembler(),
+    );
+  }
+
+  /**
+   * Crea un nuevo paciente
+   * @param patient - Datos del nuevo paciente
+   * @returns Observable con el paciente creado
+   */
+  override create(patient: Patient): Observable<Patient> {
+    const resource = this.assembler.toResourceFromEntity(patient);
+    return this.http.post<PatientResource>(this.endpointUrl, resource).pipe(
+      map(response => this.assembler.toEntityFromResource(response)),
     );
   }
 }

@@ -39,7 +39,7 @@
     </div>
 
     <footer class="card-footer">
-      <button class="btn">{{ 'patients.add_patch' | translate }}</button>
+      <button class="btn" (click)="openAddPatientModal()">{{ 'patients.add_patch' | translate }}</button>
     </footer>
   </section>
 
@@ -55,5 +55,12 @@
       [patient]="selectedPatient()!"
       (close)="closeLocationModal()">
     </app-location-modal>
+  }
+
+  @if (showAddPatientModal()) {
+    <app-add-patient-modal
+      (close)="closeAddPatientModal()"
+      (patientAdded)="onPatientAdded($event)">
+    </app-add-patient-modal>
   }
 </main>

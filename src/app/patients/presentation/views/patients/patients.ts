@@ -9,11 +9,12 @@ import { PatientService } from '../../../infrastructure/services/patient.service
 import { Patient } from '../../../domain/model/patient.entity';
 import { VitalSignsModal } from '../../components/vital-signs-modal/vital-signs-modal';
 import { LocationModal } from '../../components/location-modal/location-modal';
+import { AddPatientModal } from '../../components/add-patient-modal/add-patient-modal';
 
 @Component({
   selector: 'app-patients',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, TranslateModule, VitalSignsModal, LocationModal],
+  imports: [CommonModule, MatButtonModule, TranslateModule, VitalSignsModal, LocationModal, AddPatientModal],
   templateUrl: './patients.html',
   styleUrl: './patients.css',
 })
@@ -24,6 +25,7 @@ export class Patients implements OnInit {
   selectedPatient = signal<Patient | null>(null);
   showVitalSignsModal = signal(false);
   showLocationModal = signal(false);
+  showAddPatientModal = signal(false);
 
   ngOnInit(): void {
     this.loadPatients();
@@ -54,6 +56,21 @@ export class Patients implements OnInit {
   closeLocationModal(): void {
     this.showLocationModal.set(false);
     this.selectedPatient.set(null);
+  }
+
+  openAddPatientModal(): void {
+    this.showAddPatientModal.set(true);
+  }
+
+  closeAddPatientModal(): void {
+    this.showAddPatientModal.set(false);
+  }
+
+  onPatientAdded(newPatient: Patient): void {
+    // Agregar el nuevo paciente a la lista
+    const currentPatients = this.patients();
+    this.patients.set([...currentPatients, newPatient]);
+    this.closeAddPatientModal();
   }
 
   onImageError(event: ErrorEvent): void {
