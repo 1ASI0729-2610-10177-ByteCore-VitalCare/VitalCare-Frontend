@@ -1,0 +1,45 @@
+<main class="page">
+  <h1 class="title">{{ 'nav.patients' | translate }}</h1>
+
+  <section class="card">
+    <header class="card-header">
+      <div class="col">Paciente</div>
+      <div class="col">Status del paciente</div>
+      <div class="col">Ubicación del paciente</div>
+    </header>
+
+    <div class="card-body">
+      @for (patient of patients(); track patient.id) {
+        <div class="row">
+          <div class="col patient">
+            <img *ngIf="patient.photo"
+                 [src]="'/assets/' + patient.photo"
+                 [alt]="patient.name"
+                 class="avatar-img"
+                 (error)="onImageError($event)">
+            <div class="avatar" [style.display]="patient.photo ? 'none' : 'block'"></div>
+            <span>{{ patient.name }}</span>
+          </div>
+
+          <div class="col">
+            <button class="btn">VER STATUS</button>
+          </div>
+
+          <div class="col">
+            <button class="btn">
+              <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              VER UBICACIÓN
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+
+    <footer class="card-footer">
+      <button class="btn">AGREGAR PARCHE</button>
+    </footer>
+  </section>
+</main>
