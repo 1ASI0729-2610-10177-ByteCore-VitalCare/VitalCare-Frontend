@@ -22,7 +22,7 @@
           </div>
 
           <div class="col">
-            <button class="btn">VER STATUS</button>
+            <button class="btn" (click)="openVitalSignsModal(patient)">VER STATUS</button>
           </div>
 
           <div class="col">
@@ -42,4 +42,11 @@
       <button class="btn">AGREGAR PARCHE</button>
     </footer>
   </section>
+
+  @if (showVitalSignsModal() && selectedPatient()) {
+    <app-vital-signs-modal
+      [patient]="selectedPatient()!"
+      (close)="closeVitalSignsModal()">
+    </app-vital-signs-modal>
+  }
 </main>

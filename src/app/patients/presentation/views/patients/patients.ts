@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { PatientService } from '../../../infrastructure/services/patient.service';
 import { Patient } from '../../../domain/model/patient.entity';
+import { VitalSignsModal } from '../../components/vital-signs-modal/vital-signs-modal';
 
 @Component({
   selector: 'app-patients',
@@ -15,6 +16,7 @@ import { Patient } from '../../../domain/model/patient.entity';
     CommonModule,
     MatButtonModule,
     TranslateModule,
+    VitalSignsModal,
   ],
   templateUrl: './patients.html',
   styleUrl: './patients.css',
@@ -23,6 +25,8 @@ export class Patients implements OnInit {
   private patientService = inject(PatientService);
 
   patients = signal<Patient[]>([]);
+  selectedPatient = signal<Patient | null>(null);
+  showVitalSignsModal = signal(false);
 
   ngOnInit(): void {
     this.loadPatients();
@@ -33,6 +37,16 @@ export class Patients implements OnInit {
       next: (data) => this.patients.set(data),
       error: (err) => console.error('Error fetching patients:', err),
     });
+  }
+
+  openVitalSignsModal(patient: Patient): void {
+    this.selectedPatient.set(patient);
+    this.showVitalSignsModal.set(true);
+  }
+
+  closeVitalSignsModal(): void {
+    this.showVitalSignsModal.set(false);
+    this.selectedPatient.set(null);
   }
 
   onImageError(event: ErrorEvent): void {

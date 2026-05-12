@@ -1,0 +1,183 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <!-- Header con info del paciente -->
+    <header class="modal-header">
+      <div class="avatar">
+        <img *ngIf="patient.photo"
+             [src]="'/assets/' + patient.photo"
+             [alt]="patient.name"
+             class="avatar-img"
+             (error)="onImageError($event)">
+      </div>
+      <div class="patient-info">
+        <p><strong>{{ 'patient.name' | translate }}:</strong> {{ patient.name }}</p>
+        <p><strong>{{ 'patient.gender' | translate }}:</strong> {{ getGenderLabel(patient.gender) }}</p>
+      </div>
+      <div class="patient-age">
+        <p><strong>{{ 'patient.age' | translate }}:</strong> {{ calculateAge(patient.birthDate) }}</p>
+      </div>
+    </header>
+
+    <!-- Body con signos vitales -->
+    <div class="modal-body">
+      <ng-container *ngIf="isLoading()">
+        <div class="loading">{{ 'common.loading' | translate }}</div>
+      </ng-container>
+
+      <ng-container *ngIf="error() && !isLoading()">
+        <div class="error">{{ error() }}</div>
+      </ng-container>
+
+      <ng-container *ngIf="!isLoading() && !error()">
+        <div *ngIf="vitalSigns()" class="grid">
+          <!-- Fila 1 -->
+          <div class="vital">
+            <span class="label">{{ 'vital_signs.glucose_level' | translate }}</span>
+            <span class="value">{{ vitalSigns()?.glucoseLevel | number: '1.0-0' }} mg/dL</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="19" x2="12" y2="5"/>
+              <polyline points="5 12 12 5 19 12"/>
+            </svg>
+          </div>
+
+          <div class="vital">
+            <span class="label">{{ 'vital_signs.sodium_potassium' | translate }}</span>
+            <span class="value">000 mg/dL</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <polyline points="19 12 12 19 5 12"/>
+            </svg>
+          </div>
+
+          <!-- Fila 2 -->
+          <div class="vital">
+            <span class="label">{{ 'vital_signs.lactate_concentration' | translate }}</span>
+            <span class="value">{{ vitalSigns()?.lactateConcentration | number: '1.0-2' }} mmol/L</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
+            </svg>
+          </div>
+
+          <div class="vital">
+            <span class="label">{{ 'vital_signs.heart_rate' | translate }}</span>
+            <span class="value">{{ vitalSigns()?.heartRate | number: '1.0-0' }} mmol/L</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
+            </svg>
+          </div>
+
+          <!-- Fila 3 -->
+          <div class="vital">
+            <span class="label">{{ 'vital_signs.alcohol_level' | translate }}</span>
+            <span class="value">000 mL</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
+            </svg>
+          </div>
+
+          <div class="vital">
+            <span class="label">{{ 'vital_signs.alcohol_level_2' | translate }}</span>
+            <span class="value">000 mL</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
+            </svg>
+          </div>
+
+          <!-- Fila 4 -->
+          <div class="vital">
+            <span class="label">{{ 'vital_signs.ketones' | translate }}</span>
+            <span class="value">000 mmol/L</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
+            </svg>
+          </div>
+
+          <div class="vital">
+            <span class="label">{{ 'vital_signs.citocines' | translate }}</span>
+            <span class="value">000 mmol/L</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+
+          <!-- Fila 5 -->
+          <div class="vital">
+            <span class="label">{{ 'vital_signs.blood_pressure' | translate }}</span>
+            <span class="value">{{ vitalSigns()?.bloodPressure | number: '1.0-1' }} mmHg</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <polyline points="19 12 12 19 5 12"/>
+            </svg>
+          </div>
+
+          <div class="vital">
+            <span class="label">{{ 'vital_signs.specialized_cells' | translate }}</span>
+            <span class="value">000 mmHg</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
+            </svg>
+          </div>
+
+          <!-- Fila 6 -->
+          <div class="vital">
+            <span class="label">{{ 'vital_signs.temperature' | translate }}</span>
+            <span class="value">{{ vitalSigns()?.temperature | number: '1.0-1' }} mmHg</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
+            </svg>
+          </div>
+
+          <div class="vital">
+            <span class="label">{{ 'vital_signs.temperature_humidity' | translate }}</span>
+            <span class="value">{{ vitalSigns()?.humidity | number: '1.0-1' }} mmHg</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <polyline points="19 12 12 19 5 12"/>
+            </svg>
+          </div>
+
+          <!-- Fila 7 -->
+          <div class="vital">
+            <span class="label">{{ 'vital_signs.oxygen_saturation' | translate }}</span>
+            <span class="value">{{ vitalSigns()?.oxygenSaturation | number: '1.0-1' }} mmHg</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
+            </svg>
+          </div>
+
+          <div class="vital">
+            <span class="label">{{ 'vital_signs.atmospheric_pressure' | translate }}</span>
+            <span class="value">000 mmol/L</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
+            </svg>
+          </div>
+
+          <!-- Fila 8 -->
+          <div class="vital empty"></div>
+          <div class="vital">
+            <span class="label">{{ 'vital_signs.air_quality' | translate }}</span>
+            <span class="value">000 mmol/L</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+        </div>
+
+        <div *ngIf="!vitalSigns()" class="no-data">
+          <p>{{ 'vital_signs.no_data' | translate }}</p>
+        </div>
+
+        <div class="actions">
+          <button class="btn" (click)="onClose()">{{ 'common.close' | translate }}</button>
+          <button class="btn">{{ 'vital_signs.view_history' | translate }}</button>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
