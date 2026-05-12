@@ -26,7 +26,7 @@
           </div>
 
           <div class="col">
-            <button class="btn">
+            <button class="btn" (click)="openLocationModal(patient)">
               <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                 <circle cx="12" cy="10" r="3"/>
@@ -48,5 +48,12 @@
       [patient]="selectedPatient()!"
       (close)="closeVitalSignsModal()">
     </app-vital-signs-modal>
+  }
+
+  @if (showLocationModal() && selectedPatient()) {
+    <app-location-modal
+      [patient]="selectedPatient()!"
+      (close)="closeLocationModal()">
+    </app-location-modal>
   }
 </main>

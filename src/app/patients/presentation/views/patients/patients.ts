@@ -8,16 +8,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { PatientService } from '../../../infrastructure/services/patient.service';
 import { Patient } from '../../../domain/model/patient.entity';
 import { VitalSignsModal } from '../../components/vital-signs-modal/vital-signs-modal';
+import { LocationModal } from '../../components/location-modal/location-modal';
 
 @Component({
   selector: 'app-patients',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    TranslateModule,
-    VitalSignsModal,
-  ],
+  imports: [CommonModule, MatButtonModule, TranslateModule, VitalSignsModal, LocationModal],
   templateUrl: './patients.html',
   styleUrl: './patients.css',
 })
@@ -27,6 +23,7 @@ export class Patients implements OnInit {
   patients = signal<Patient[]>([]);
   selectedPatient = signal<Patient | null>(null);
   showVitalSignsModal = signal(false);
+  showLocationModal = signal(false);
 
   ngOnInit(): void {
     this.loadPatients();
@@ -46,6 +43,16 @@ export class Patients implements OnInit {
 
   closeVitalSignsModal(): void {
     this.showVitalSignsModal.set(false);
+    this.selectedPatient.set(null);
+  }
+
+  openLocationModal(patient: Patient): void {
+    this.selectedPatient.set(patient);
+    this.showLocationModal.set(true);
+  }
+
+  closeLocationModal(): void {
+    this.showLocationModal.set(false);
     this.selectedPatient.set(null);
   }
 
