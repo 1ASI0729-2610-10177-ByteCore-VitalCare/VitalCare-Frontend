@@ -1,0 +1,57 @@
+<div class="pricing-container">
+
+  <div class="pricing-header">
+    <h1>Suscripción y Planes</h1>
+    <p>Gestione su plan actual o mejore su experiencia con Vital Care.</p>
+  </div>
+
+  <div class="tabs-container">
+    <button class="tab-btn" [class.active]="activeTab === 'current'" (click)="switchTab('current')">
+      Mi Plan Actual
+    </button>
+    <button class="tab-btn" [class.active]="activeTab === 'explore'" (click)="switchTab('explore')">
+      Explorar Planes
+    </button>
+  </div>
+
+  @if (activeTab === 'current') {
+    <div class="current-plan-view-figma">
+      @if (activeSubscription) {
+
+        <div class="figma-header">
+          <h2>Suscripción Activa</h2>
+          <p>Acaba: {{ activeSubscription.endDate }}</p>
+        </div>
+
+        <div class="pricing-grid">
+          @for (item of plans; track item.name) {
+            <app-plan-card
+              [plan]="item"
+              [isActive]="item.name.toLowerCase() === activeSubscription.plan.toLowerCase()">
+            </app-plan-card>
+          }
+        </div>
+
+        <div class="cancel-action">
+          <button class="btn-outline-danger">Cancelar Suscripción</button>
+        </div>
+
+      } @else {
+        <div class="no-plan-card">
+          <h3>No tienes un plan activo</h3>
+          <p>Explora nuestras opciones y comienza a monitorear la salud de los tuyos.</p>
+          <button class="btn-primary" (click)="switchTab('explore')">Ver Planes</button>
+        </div>
+      }
+    </div>
+  }
+
+  @if (activeTab === 'explore') {
+    <div class="pricing-grid">
+      @for (item of plans; track item.name) {
+        <app-plan-card [plan]="item"></app-plan-card>
+      }
+    </div>
+  }
+
+</div>
