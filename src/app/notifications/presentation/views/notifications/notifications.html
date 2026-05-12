@@ -1,0 +1,104 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <img src="/public/assets/vital-care-logo.png" alt="Vital Care Logo" class="logo">
+    <div class="spacer"></div>
+
+    @for (option of navOptions; track option.label) {
+      <a mat-button [routerLink]="option.link">
+        <mat-icon *ngIf="option.label === 'Home'" class="nav-icon">home</mat-icon>
+        <mat-icon *ngIf="option.label === 'Pacientes'" class="nav-icon">people</mat-icon>
+        <mat-icon *ngIf="option.label === 'Ver Plan'" class="nav-icon">assignment</mat-icon>
+        <mat-icon *ngIf="option.label === 'Soporte'" class="nav-icon">help</mat-icon>
+        {{ option.label }}
+      </a>
+    }
+
+    <div class="spacer"></div>
+
+    <button mat-icon-button [routerLink]="'/profile'" matTooltip="Perfil" class="profile-btn">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<main class="main-content">
+  <div class="title-container">
+    <h1 class="page-title">Notificaciones</h1>
+  </div>
+
+  <div class="search-section">
+    <mat-icon class="search-icon">search</mat-icon>
+    <button mat-raised-button color="primary" class="view-desc-btn">
+      Ver descripción
+    </button>
+  </div>
+
+  <div class="table-container">
+    <table class="notifications-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Fecha</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (notification of notifications(); track notification.id) {
+          <tr>
+            <td>{{ notification.nombre }}</td>
+            <td>{{ notification.fecha }}</td>
+            <td>
+              <button mat-raised-button color="primary" (click)="showDescription(notification.descripcion)">
+                VER DESCRIPCIÓN
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="examples-section">
+    <div class="example-card">
+      <div class="example-name">Reporte de Datos</div>
+      <div class="example-date">12/05/2026 10:30</div>
+    </div>
+    <div class="example-card">
+      <div class="example-name">Métricas Irregulares</div>
+      <div class="example-date">11/05/2026 22:15</div>
+    </div>
+    <div class="example-card">
+      <div class="example-name">Reporte Mensual de Datos</div>
+      <div class="example-date">10/04/2026 09:00</div>
+    </div>
+  </div>
+
+  @if (selectedDescription()) {
+    <div class="description-overlay">
+      <div class="description-card">
+        <h3>Descripción</h3>
+        <p>{{ selectedDescription() }}</p>
+        <button mat-button (click)="selectedDescription.set(null)">CERRAR</button>
+      </div>
+    </div>
+  }
+
+  <div class="actions-container">
+    <button mat-raised-button color="primary" class="back-button" (click)="goBack()">
+      REGRESAR
+    </button>
+  </div>
+</main>
+
+<footer class="footer-bar">
+  <div class="footer-left">
+    <button mat-icon-button matTooltip="Accesibilidad" class="accessibility-btn">
+      <mat-icon>accessibility_new</mat-icon>
+    </button>
+  </div>
+  <div class="footer-right">
+    <button mat-icon-button matTooltip="Configuración" class="settings-btn">
+      <mat-icon>settings</mat-icon>
+    </button>
+  </div>
+</footer>
