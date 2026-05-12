@@ -67,7 +67,6 @@ export class Patients implements OnInit {
   }
 
   onPatientAdded(newPatient: Patient): void {
-    // Agregar el nuevo paciente a la lista
     const currentPatients = this.patients();
     this.patients.set([...currentPatients, newPatient]);
     this.closeAddPatientModal();
