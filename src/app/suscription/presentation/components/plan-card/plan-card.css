@@ -1,0 +1,35 @@
+.plan-card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px 30px;
+  position: relative;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 500px;
+  border: 1px solid #e2e8f0;
+}
+.plan-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+.popular-card { border: 2px solid #0C7AB5; transform: scale(1.05); }
+.popular-card:hover { transform: scale(1.05) translateY(-5px); }
+.popular-tag {
+  position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+  background: #3b82f6; color: white; padding: 4px 16px; border-radius: 20px;
+  font-size: 0.85rem; font-weight: 600;
+}
+.plan-name { font-size: 1.5rem; color: #1e293b; margin-bottom: 15px; }
+.plan-price { font-size: 2.5rem; font-weight: 700; color: #0C7AB5; margin-bottom: 10px; }
+.plan-price span { font-size: 1rem; color: #64748b; font-weight: 400; }
+.plan-description { color: #64748b; font-size: 0.95rem; margin-bottom: 30px; line-height: 1.5; }
+.features-list { list-style: none; padding: 0; margin: 0 0 30px 0; }
+.features-list li { display: flex; align-items: center; gap: 12px; color: #475569; margin-bottom: 12px; font-size: 0.95rem; }
+.check-icon { color: #0C7AB5; flex-shrink: 0; }
+.plan-button {
+  width: 100%; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer;
+  transition: all 0.2s; background: white; border: 2px solid #3b82f6; color: #3b82f6;
+}
+.plan-button:hover { background: #f1f5f9; }
+.btn-filled { background: #3b82f6; color: white; border: none; }
+.btn-filled:hover { background: #2563eb; }
