@@ -1,0 +1,126 @@
+<div class="modal-overlay" (click)="closeHistoryModal()">
+  <div class="modal history-modal" (click)="$event.stopPropagation()">
+    <!-- ENCABEZADO -->
+    <header class="modal-header">
+      <h2>Historial — {{ selectedPatient()?.name }}</h2>
+      <span class="close-btn" (click)="closeHistoryModal()">&times;</span>
+    </header>
+
+    <!-- CUERPO MODAL -->
+    <div class="modal-body">
+      <!-- Estado: Cargando -->
+      @if (historyLoading()) {
+        <div class="loading-container">
+          <div class="spinner"></div>
+          <p>Cargando historial...</p>
+        </div>
+      }
+
+      <!-- Estado: Error -->
+      @if (historyError() && !historyLoading()) {
+        <div class="error-container">
+          <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <p>{{ historyError() }}</p>
+        </div>
+      }
+
+      <!-- Estado: Datos cargados -->
+      @if (!historyLoading() && !historyError()) {
+        @if (historyData().length > 0) {
+          <!-- TIMELINE -->
+          <div class="timeline-container">
+            <!-- Línea vertical central -->
+            <div class="timeline-line"></div>
+
+            <!-- Items de la timeline -->
+            <div class="timeline-items">
+              @for (vital of historyData(); track vital.id; let first = $first) {
+                <div class="timeline-item" [class.irregular]="isIrregular(vital)">
+                  <!-- Punto/Marcador -->
+                  <div class="timeline-marker">
+                    <div class="timeline-dot" [class.alert-dot]="isIrregular(vital)">
+                      @if (isIrregular(vital)) {
+                        <span class="marker-icon">⚠</span>
+                      } @else {
+                        <span class="marker-icon">✓</span>
+                      }
+                    </div>
+                  </div>
+
+                  <!-- Contenido -->
+                  <div class="timeline-content">
+                    <div class="content-header">
+                      <span class="timestamp">
+                        {{ vital.recordedAt | date:'dd/MM/yyyy HH:mm' }}
+                      </span>
+                      @if (first) {
+                        <span class="badge-latest">Más reciente</span>
+                      }
+                    </div>
+
+                    <!-- Chips de signos vitales -->
+                    <div class="vital-chips">
+                      <span class="vital-chip"
+                            [class.out-of-range]="vital.glucoseLevel < 70 || vital.glucoseLevel > 180">
+                        <strong>Glucosa:</strong> {{ vital.glucoseLevel }} mg/dL
+                      </span>
+                      <span class="vital-chip"
+                            [class.out-of-range]="vital.bloodPressure < 90 || vital.bloodPressure > 140">
+                        <strong>P.A.:</strong> {{ vital.bloodPressure }} mmHg
+                      </span>
+                      <span class="vital-chip"
+                            [class.out-of-range]="vital.heartRate < 60 || vital.heartRate > 100">
+                        <strong>FC:</strong> {{ vital.heartRate }} bpm
+                      </span>
+                      <span class="vital-chip"
+                            [class.out-of-range]="vital.temperature < 36.1 || vital.temperature > 37.5">
+                        <strong>Temp.:</strong> {{ vital.temperature }}°C
+                      </span>
+                      @if (vital.oxygenSaturation != null) {
+                        <span class="vital-chip"
+                              [class.out-of-range]="vital.oxygenSaturation < 95">
+                          <strong>SpO₂:</strong> {{ vital.oxygenSaturation }}%
+                        </span>
+                      }
+                    </div>
+
+                    <!-- Alertas (si hay valores fuera de rango) -->
+                    @if (isIrregular(vital)) {
+                      <div class="alerts-section">
+                        @for (reason of getIrregularReasons(vital); track reason) {
+                          <div class="alert-badge">
+                            <svg class="alert-icon-small" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                            </svg>
+                            {{ reason }}
+                          </div>
+                        }
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        } @else {
+          <!-- Sin datos -->
+          <div class="empty-state">
+            <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            <p>No hay historial disponible para este paciente.</p>
+          </div>
+        }
+      }
+    </div>
+
+    <!-- PIE DE MODAL -->
+    <footer class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeHistoryModal()">Cerrar</button>
+    </footer>
+  </div>
+</div>
