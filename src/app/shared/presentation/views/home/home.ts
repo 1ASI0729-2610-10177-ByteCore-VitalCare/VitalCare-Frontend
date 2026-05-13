@@ -36,9 +36,9 @@ interface NavOption {
 export class Home {
   navOptions = signal<NavOption[]>([
     { link: '/home', label: 'nav.home', icon: 'home' },
-    { link: '/patients', label: 'nav.patients', icon: 'people' },
-    { link: '/plans', label: 'nav.plans', icon: 'assignment' },
-    { link: '/support', label: 'nav.support', icon: 'help' },
-    { link: '/notification', label: 'nav.notifications', icon: 'notifications' },
+    { link: '/home/patients', label: 'nav.patients', icon: 'people' },
+    { link: '/home/plans', label: 'nav.plans', icon: 'assignment' },
+    { link: '/home/support', label: 'nav.support', icon: 'help' },
+    { link: '/home/notification', label: 'nav.notifications', icon: 'notifications' },
   ]);
 }

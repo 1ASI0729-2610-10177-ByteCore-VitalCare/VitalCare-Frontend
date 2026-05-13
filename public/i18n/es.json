@@ -17,7 +17,63 @@
     "support-description": "Obtener ayuda y soporte",
     "notifications-description": "Ver tus notificaciones"
   },
-  "footer": {
+  "patient": {
+    "name": "Nombre",
+    "gender": "Género",
+    "age": "Edad"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "close": "Cerrar",
+    "error": "Error"
+  },
+  "vital_signs": {
+    "glucose_level": "Nivel de Glucosa",
+    "sodium_potassium": "Sodio y Potasio",
+    "lactate_concentration": "Concentración de Lactato",
+    "heart_rate": "Frecuencia Cardíaca y ECG",
+    "alcohol_level": "Nivel de Alcohol",
+    "alcohol_level_2": "Nivel de Alcohol",
+    "ketones": "Cetonas",
+    "citocines": "Citocinas",
+    "blood_pressure": "Presión Arterial",
+    "specialized_cells": "Células Especializadas",
+    "temperature": "Temperatura",
+    "temperature_humidity": "Temperatura y Humedad",
+    "oxygen_saturation": "Saturación de Oxígeno",
+    "atmospheric_pressure": "Presión Atmosférica",
+    "air_quality": "Calidad del Aire",
+    "view_history": "Ver Registro",
+    "no_data": "No hay signos vitales registrados para este paciente"
+  },
+   "locations": {
+     "title": "Mapa del Paciente",
+     "close": "Cerrar",
+     "no_data": "No hay ubicaciones registradas para este paciente",
+     "latitude": "Latitud",
+     "longitude": "Longitud",
+     "recorded_at": "Registrado en"
+   },
+    "patients": {
+      "title": "Pacientes",
+      "header_patient": "Paciente",
+      "header_status": "Status del paciente",
+      "header_location": "Ubicación del paciente",
+      "view_status": "Ver Status",
+      "view_location": "Ver Ubicación",
+      "add_patch": "Agregar Parche",
+      "add_patient_title": "Agregar Nuevo Paciente",
+      "add_photo": "Añadir foto",
+      "patch_code": "Código de Parche",
+      "birth_date": "Fecha de Nacimiento",
+      "gender_male": "Masculino",
+      "gender_female": "Femenino",
+      "gender_other": "Otro",
+      "add_button": "Agregar",
+      "placeholder_name": "Ingresa nombre",
+      "placeholder_patch_code": "ej: PTH-001"
+    },
+   "footer": {
     "rights": "Todos los derechos reservados.",
     "powered-by": "Impulsado por",
     "and": "y"

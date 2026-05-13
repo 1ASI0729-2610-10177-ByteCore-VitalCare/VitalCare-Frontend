@@ -1,0 +1,82 @@
+<main class="page">
+  <h1 class="title">{{ 'nav.patients' | translate }}</h1>
+
+  <section class="card">
+    <header class="card-header">
+      <div class="col">{{ 'patients.header_patient' | translate }}</div>
+      <div class="col">{{ 'patients.header_status' | translate }}</div>
+      <div class="col">{{ 'patients.header_location' | translate }}</div>
+      <div class="col">Historial</div>
+    </header>
+
+    <div class="card-body">
+      @for (patient of patients(); track patient.id) {
+        <div class="row">
+          <div class="col patient">
+            <img *ngIf="patient.photo"
+                 [src]="'/assets/' + patient.photo"
+                 [alt]="patient.name"
+                 class="avatar-img"
+                 (error)="onImageError($event)">
+            <div class="avatar" [style.display]="patient.photo ? 'none' : 'block'"></div>
+            <span>{{ patient.name }}</span>
+          </div>
+
+          <div class="col">
+            <button class="btn" (click)="openVitalSignsModal(patient)">{{ 'patients.view_status' | translate }}</button>
+          </div>
+
+          <div class="col">
+            <button class="btn" (click)="openLocationModal(patient)">
+              <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              {{ 'patients.view_location' | translate }}
+            </button>
+          </div>
+
+          <div class="col">
+            <button class="btn" (click)="openHistoryModal(patient)">Ver Historial</button>
+          </div>
+        </div>
+      }
+    </div>
+
+    <footer class="card-footer">
+      <button class="btn" (click)="openAddPatientModal()">{{ 'patients.add_patch' | translate }}</button>
+    </footer>
+  </section>
+
+  <!-- Modal: Vital Signs -->
+  @if (showVitalSignsModal() && selectedPatient()) {
+    <app-vital-signs-modal
+      [patient]="selectedPatient()!"
+      (close)="closeVitalSignsModal()">
+    </app-vital-signs-modal>
+  }
+
+  <!-- Modal: Location -->
+  @if (showLocationModal() && selectedPatient()) {
+    <app-location-modal
+      [patient]="selectedPatient()!"
+      (close)="closeLocationModal()">
+    </app-location-modal>
+  }
+
+  <!-- Modal: Add Patient -->
+  @if (showAddPatientModal()) {
+    <app-add-patient-modal
+      (close)="closeAddPatientModal()"
+      (patientAdded)="onPatientAdded($event)">
+    </app-add-patient-modal>
+  }
+
+  <!-- Modal: Patient History -->
+  @if (showHistoryModal() && selectedPatient()) {
+    <app-patient-history-modal
+      [patient]="selectedPatient()!"
+      (close)="closeHistoryModal()">
+    </app-patient-history-modal>
+  }
+</main>
