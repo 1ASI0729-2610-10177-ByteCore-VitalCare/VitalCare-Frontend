@@ -12,11 +12,7 @@ import { PatchService } from '../../../infrastructure/services/patch.service';
 @Component({
   selector: 'app-vital-signs-modal',
   standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    MatButtonModule,
-  ],
+  imports: [CommonModule, TranslateModule, MatButtonModule],
   templateUrl: './vital-signs-modal.html',
   styleUrl: './vital-signs-modal.css',
 })
@@ -112,4 +108,3 @@ export class VitalSignsModal implements OnInit {
     return value ?? 0;
   }
 }
-

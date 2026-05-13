@@ -1,8 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { MatButtonModule } from '@angular/material/button';
-
 import { TranslateModule } from '@ngx-translate/core';
 
 import { PatientService } from '../../../infrastructure/services/patient.service';
@@ -10,11 +8,20 @@ import { Patient } from '../../../domain/model/patient.entity';
 import { VitalSignsModal } from '../../components/vital-signs-modal/vital-signs-modal';
 import { LocationModal } from '../../components/location-modal/location-modal';
 import { AddPatientModal } from '../../components/add-patient-modal/add-patient-modal';
+import { PatientHistoryModal } from '../patient-history-modal/patient-history-modal';
 
 @Component({
   selector: 'app-patients',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, TranslateModule, VitalSignsModal, LocationModal, AddPatientModal],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    TranslateModule,
+    VitalSignsModal,
+    LocationModal,
+    AddPatientModal,
+    PatientHistoryModal,
+  ],
   templateUrl: './patients.html',
   styleUrl: './patients.css',
 })
@@ -26,6 +33,7 @@ export class Patients implements OnInit {
   showVitalSignsModal = signal(false);
   showLocationModal = signal(false);
   showAddPatientModal = signal(false);
+  showHistoryModal = signal(false);
 
   ngOnInit(): void {
     this.loadPatients();
@@ -55,6 +63,16 @@ export class Patients implements OnInit {
 
   closeLocationModal(): void {
     this.showLocationModal.set(false);
+    this.selectedPatient.set(null);
+  }
+
+  openHistoryModal(patient: Patient): void {
+    this.selectedPatient.set(patient);
+    this.showHistoryModal.set(true);
+  }
+
+  closeHistoryModal(): void {
+    this.showHistoryModal.set(false);
     this.selectedPatient.set(null);
   }
 
