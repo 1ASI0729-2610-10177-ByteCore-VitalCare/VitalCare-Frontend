@@ -77,5 +77,9 @@
     "rights": "Todos los derechos reservados.",
     "powered-by": "Impulsado por",
     "and": "y"
+  },
+  "home": {
+    "logoAlt": "Logo de Vital Care",
+    "profileTooltip": "Perfil"
   }
 }

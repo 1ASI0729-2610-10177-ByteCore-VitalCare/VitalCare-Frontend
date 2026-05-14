@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <img src="/public/assets/vital-care-logo.png" alt="Vital Care Logo" class="logo">
+    <img src="/public/assets/vital-care-logo.png" [alt]="'home.logoAlt' | translate" class="logo">
     <div class="spacer"></div>
 
     @for (option of navOptions(); track option.label) {
@@ -19,7 +19,7 @@
       <app-language-switcher />
       <button mat-icon-button
               [routerLink]="'/profile'"
-              matTooltip="Profile"
+              [matTooltip]="'home.profileTooltip' | translate"
               class="profile-btn">
         <mat-icon>account_circle</mat-icon>
       </button>
