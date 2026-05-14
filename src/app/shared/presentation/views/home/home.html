@@ -28,5 +28,86 @@
 </mat-toolbar>
 
 <main class="main-content">
+
+  @if (isHomeDashboard()) {
+
+    @if (isLoading()) {
+      <div class="dash-state">
+        <mat-spinner diameter="56"></mat-spinner>
+        <p class="dash-state-text">Cargando estadísticas...</p>
+      </div>
+    } @else if (hasError()) {
+      <div class="dash-state">
+        <mat-icon class="dash-error-icon">error_outline</mat-icon>
+        <p class="dash-state-text">No se pudieron cargar los datos. Verifica tu conexión.</p>
+        <button mat-raised-button color="primary" (click)="retry()">
+          <mat-icon>refresh</mat-icon>
+          Reintentar
+        </button>
+      </div>
+    } @else if (stats()) {
+      <div class="dash-header">
+        <div class="dash-title">
+          <mat-icon class="dash-title-icon">dashboard</mat-icon>
+          <span>Panel de estadísticas</span>
+        </div>
+        <p class="dash-subtitle">Resumen general de la plataforma Vital Care</p>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="kpi-grid">
+        @for (kpi of stats()!.kpis; track kpi.title) {
+          <mat-card class="kpi-card" appearance="outlined">
+            <mat-card-content>
+              <div class="kpi-content">
+                <div class="kpi-icon-wrap" [style.background]="kpi.color + '22'">
+                  <mat-icon [style.color]="kpi.color">{{ kpi.icon }}</mat-icon>
+                </div>
+                <div class="kpi-text">
+                  <span class="kpi-value" [style.color]="kpi.color">{{ kpi.value }}</span>
+                  <span class="kpi-label">{{ kpi.title }}</span>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        }
+      </div>
+
+      <div class="charts-grid">
+        @for (chart of stats()!.charts; track chart.title) {
+          <mat-card class="chart-card" appearance="outlined">
+            <mat-card-header>
+              <mat-card-title>
+                <div class="chart-title-row">
+                  <mat-icon class="chart-icon">{{ chart.icon }}</mat-icon>
+                  {{ chart.title }}
+                </div>
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="bars-list">
+                @for (bar of chart.bars; track bar.label) {
+                  <div class="bar-item">
+                    <div class="bar-meta">
+                      <span class="bar-label">{{ bar.label }}</span>
+                      <span class="bar-count">{{ bar.count }} &middot; {{ bar.percentage }}%</span>
+                    </div>
+                    <div class="bar-track">
+                      <div class="bar-fill"
+                           [style.width.%]="bar.percentage"
+                           [style.background]="bar.color">
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
+            </mat-card-content>
+          </mat-card>
+        }
+      </div>
+    }
+
+  }
+
   <router-outlet></router-outlet>
 </main>

@@ -1,24 +1,4 @@
 {
-  "notifications": [
-    {
-      "id": 1,
-      "nombre": "Reporte Mensual de Datos",
-      "fecha": "12/05/2026 10:30",
-      "descripcion": "Detalle del reporte mensual..."
-    },
-    {
-      "id": 2,
-      "nombre": "Métricas Irregulares",
-      "fecha": "11/05/2026 22:15",
-      "descripcion": "Alerta de signos vitales fuera de rango..."
-    },
-    {
-      "id": 3,
-      "nombre": "Reporte Mensual de Datos",
-      "fecha": "10/04/2026 09:00",
-      "descripcion": "Historial de datos anteriores..."
-    }
-  ],
   "users": [
     { "id": 1, "name": "Carlos Ruiz", "email": "carlos@mail.com", "password": "hash1", "created_at": "2024-01-10 08:00:00" },
     { "id": 2, "name": "Ana Belén", "email": "ana@mail.com", "password": "hash2", "created_at": "2024-01-11 09:30:00" },
@@ -80,7 +60,18 @@
     { "id": 10, "patch_code": "PTH-010", "linked_at": "2024-05-05 10:00:00", "status": "ACTIVE", "patients_id": 10 }
   ],
   "vital_signs": [
-    { "id": 1, "recorded_at": "2024-05-11 12:00:00", "glucose_level": 95.50, "lactate_concentration": 1.20, "blood_pressure": 120.80, "temperature": 36.60, "oxygen_saturation": 98.00, "heart_rate": 72.00, "humidity": 45.50, "patches_id": 1 },
+    {
+      "id": 1,
+      "recorded_at": "2024-05-11 12:00:00",
+      "glucose_level": 95.50,
+      "lactate_concentration": 1.20,
+      "blood_pressure": 120.80,
+      "temperature": 36.60,
+      "oxygen_saturation": 98.00,
+      "heart_rate": 72.00,
+      "humidity": 45.50,
+      "patches_id": 1
+    },
     { "id": 2, "recorded_at": "2024-05-11 12:10:00", "glucose_level": 110.00, "blood_pressure": 130.00, "temperature": 37.20, "heart_rate": 85.00, "patches_id": 1 },
     { "id": 3, "recorded_at": "2024-05-11 12:05:00", "glucose_level": 90.00, "blood_pressure": 115.00, "temperature": 36.50, "heart_rate": 70.00, "patches_id": 3 },
     { "id": 4, "recorded_at": "2024-05-11 12:15:00", "glucose_level": 105.00, "blood_pressure": 125.00, "temperature": 36.80, "heart_rate": 78.00, "patches_id": 4 },
