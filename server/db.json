@@ -1,121 +1,753 @@
 {
   "users": [
-    { "id": 1, "name": "Carlos Ruiz", "email": "carlos@mail.com", "password": "hash1", "created_at": "2024-01-10 08:00:00" },
-    { "id": 2, "name": "Ana Belén", "email": "ana@mail.com", "password": "hash2", "created_at": "2024-01-11 09:30:00" },
-    { "id": 3, "name": "Luis Mora", "email": "luis@mail.com", "password": "hash3", "created_at": "2024-01-12 10:15:00" },
-    { "id": 4, "name": "Elena Paz", "email": "elena@mail.com", "password": "hash4", "created_at": "2024-01-13 11:00:00" },
-    { "id": 5, "name": "Pedro S.", "email": "pedro@mail.com", "password": "hash5", "created_at": "2024-01-14 14:20:00" },
-    { "id": 6, "name": "Marta G.", "email": "marta@mail.com", "password": "hash6", "created_at": "2024-01-15 15:45:00" },
-    { "id": 7, "name": "Jorge V.", "email": "jorge@mail.com", "password": "hash7", "created_at": "2024-01-16 16:10:00" },
-    { "id": 8, "name": "Sofía L.", "email": "sofia@mail.com", "password": "hash8", "created_at": "2024-01-17 17:30:00" },
-    { "id": 9, "name": "Raúl M.", "email": "raul@mail.com", "password": "hash9", "created_at": "2024-01-18 18:05:00" },
-    { "id": 10, "name": "Lucía H.", "email": "lucia@mail.com", "password": "hash10", "created_at": "2024-01-19 19:00:00" }
+    {
+      "id": 1,
+      "name": "Carlos Ruiz",
+      "email": "carlos@mail.com",
+      "password": "hash1",
+      "created_at": "2024-01-10 08:00:00"
+    },
+    {
+      "id": 2,
+      "name": "Ana Belén",
+      "email": "ana@mail.com",
+      "password": "hash2",
+      "created_at": "2024-01-11 09:30:00"
+    },
+    {
+      "id": 3,
+      "name": "Luis Mora",
+      "email": "luis@mail.com",
+      "password": "hash3",
+      "created_at": "2024-01-12 10:15:00"
+    },
+    {
+      "id": 4,
+      "name": "Elena Paz",
+      "email": "elena@mail.com",
+      "password": "hash4",
+      "created_at": "2024-01-13 11:00:00"
+    },
+    {
+      "id": 5,
+      "name": "Pedro S.",
+      "email": "pedro@mail.com",
+      "password": "hash5",
+      "created_at": "2024-01-14 14:20:00"
+    },
+    {
+      "id": 6,
+      "name": "Marta G.",
+      "email": "marta@mail.com",
+      "password": "hash6",
+      "created_at": "2024-01-15 15:45:00"
+    },
+    {
+      "id": 7,
+      "name": "Jorge V.",
+      "email": "jorge@mail.com",
+      "password": "hash7",
+      "created_at": "2024-01-16 16:10:00"
+    },
+    {
+      "id": 8,
+      "name": "Sofía L.",
+      "email": "sofia@mail.com",
+      "password": "hash8",
+      "created_at": "2024-01-17 17:30:00"
+    },
+    {
+      "id": 9,
+      "name": "Raúl M.",
+      "email": "raul@mail.com",
+      "password": "hash9",
+      "created_at": "2024-01-18 18:05:00"
+    },
+    {
+      "id": 10,
+      "name": "Lucía H.",
+      "email": "lucia@mail.com",
+      "password": "hash10",
+      "created_at": "2024-01-19 19:00:00"
+    }
   ],
   "user_preferences": [
-    { "id": 1, "language": "es", "font_size": "MEDIUM", "background_color": "DARK", "email_notifications": 1, "push_notifications": 1, "users_id": 1 },
-    { "id": 2, "language": "en", "font_size": "SMALL", "background_color": "LIGHT", "email_notifications": 0, "push_notifications": 1, "users_id": 2 },
-    { "id": 3, "language": "es", "font_size": "LARGE", "background_color": "DARK", "email_notifications": 1, "push_notifications": 0, "users_id": 3 },
-    { "id": 4, "language": "fr", "font_size": "MEDIUM", "background_color": "LIGHT", "email_notifications": 1, "push_notifications": 1, "users_id": 4 },
-    { "id": 5, "language": "es", "font_size": "MEDIUM", "background_color": "DARK", "email_notifications": 0, "push_notifications": 0, "users_id": 5 },
-    { "id": 6, "language": "en", "font_size": "SMALL", "background_color": "BLUE", "email_notifications": 1, "push_notifications": 1, "users_id": 6 },
-    { "id": 7, "language": "es", "font_size": "LARGE", "background_color": "LIGHT", "email_notifications": 1, "push_notifications": 1, "users_id": 7 },
-    { "id": 8, "language": "pt", "font_size": "MEDIUM", "background_color": "DARK", "email_notifications": 0, "push_notifications": 1, "users_id": 8 },
-    { "id": 9, "language": "es", "font_size": "MEDIUM", "background_color": "LIGHT", "email_notifications": 1, "push_notifications": 0, "users_id": 9 },
-    { "id": 10, "language": "en", "font_size": "MEDIUM", "background_color": "DARK", "email_notifications": 1, "push_notifications": 1, "users_id": 10 }
+    {
+      "id": 1,
+      "language": "es",
+      "font_size": "MEDIUM",
+      "background_color": "DARK",
+      "email_notifications": 1,
+      "push_notifications": 1,
+      "users_id": 1
+    },
+    {
+      "id": 2,
+      "language": "en",
+      "font_size": "SMALL",
+      "background_color": "LIGHT",
+      "email_notifications": 0,
+      "push_notifications": 1,
+      "users_id": 2
+    },
+    {
+      "id": 3,
+      "language": "es",
+      "font_size": "LARGE",
+      "background_color": "DARK",
+      "email_notifications": 1,
+      "push_notifications": 0,
+      "users_id": 3
+    },
+    {
+      "id": 4,
+      "language": "fr",
+      "font_size": "MEDIUM",
+      "background_color": "LIGHT",
+      "email_notifications": 1,
+      "push_notifications": 1,
+      "users_id": 4
+    },
+    {
+      "id": 5,
+      "language": "es",
+      "font_size": "MEDIUM",
+      "background_color": "DARK",
+      "email_notifications": 0,
+      "push_notifications": 0,
+      "users_id": 5
+    },
+    {
+      "id": 6,
+      "language": "en",
+      "font_size": "SMALL",
+      "background_color": "BLUE",
+      "email_notifications": 1,
+      "push_notifications": 1,
+      "users_id": 6
+    },
+    {
+      "id": 7,
+      "language": "es",
+      "font_size": "LARGE",
+      "background_color": "LIGHT",
+      "email_notifications": 1,
+      "push_notifications": 1,
+      "users_id": 7
+    },
+    {
+      "id": 8,
+      "language": "pt",
+      "font_size": "MEDIUM",
+      "background_color": "DARK",
+      "email_notifications": 0,
+      "push_notifications": 1,
+      "users_id": 8
+    },
+    {
+      "id": 9,
+      "language": "es",
+      "font_size": "MEDIUM",
+      "background_color": "LIGHT",
+      "email_notifications": 1,
+      "push_notifications": 0,
+      "users_id": 9
+    },
+    {
+      "id": 10,
+      "language": "en",
+      "font_size": "MEDIUM",
+      "background_color": "DARK",
+      "email_notifications": 1,
+      "push_notifications": 1,
+      "users_id": 10
+    }
   ],
   "subscriptions": [
-    { "id": 1, "plan": "GOLD", "price": 29.99, "start_date": "2024-01-01", "end_date": "2024-12-31", "status": "ACTIVE", "users_id": 1 },
-    { "id": 2, "plan": "FREE", "price": 0.00, "start_date": "2024-01-05", "end_date": "2024-02-05", "status": "EXPIRED", "users_id": 2 },
-    { "id": 3, "plan": "SILVER", "price": 15.50, "start_date": "2024-02-01", "end_date": "2025-02-01", "status": "ACTIVE", "users_id": 3 },
-    { "id": 4, "plan": "GOLD", "price": 29.99, "start_date": "2024-01-10", "end_date": "2025-01-10", "status": "ACTIVE", "users_id": 4 },
-    { "id": 5, "plan": "FREE", "price": 0.00, "start_date": "2024-03-01", "end_date": "2024-04-01", "status": "PENDING", "users_id": 5 },
-    { "id": 6, "plan": "SILVER", "price": 15.50, "start_date": "2024-01-15", "end_date": "2025-01-15", "status": "ACTIVE", "users_id": 6 },
-    { "id": 7, "plan": "GOLD", "price": 29.99, "start_date": "2024-02-20", "end_date": "2025-02-20", "status": "ACTIVE", "users_id": 7 },
-    { "id": 8, "plan": "FREE", "price": 0.00, "start_date": "2024-01-20", "end_date": "2024-02-20", "status": "CANCELED", "users_id": 8 },
-    { "id": 9, "plan": "SILVER", "price": 15.50, "start_date": "2024-04-01", "end_date": "2025-04-01", "status": "ACTIVE", "users_id": 9 },
-    { "id": 10, "plan": "GOLD", "price": 29.99, "start_date": "2024-03-15", "end_date": "2025-03-15", "status": "ACTIVE", "users_id": 10 }
+    {
+      "id": 1,
+      "plan": "GOLD",
+      "price": 29.99,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "status": "ACTIVE",
+      "users_id": 1
+    },
+    {
+      "id": 2,
+      "plan": "FREE",
+      "price": 0.0,
+      "start_date": "2024-01-05",
+      "end_date": "2024-02-05",
+      "status": "EXPIRED",
+      "users_id": 2
+    },
+    {
+      "id": 3,
+      "plan": "SILVER",
+      "price": 15.5,
+      "start_date": "2024-02-01",
+      "end_date": "2025-02-01",
+      "status": "ACTIVE",
+      "users_id": 3
+    },
+    {
+      "id": 4,
+      "plan": "GOLD",
+      "price": 29.99,
+      "start_date": "2024-01-10",
+      "end_date": "2025-01-10",
+      "status": "ACTIVE",
+      "users_id": 4
+    },
+    {
+      "id": 5,
+      "plan": "FREE",
+      "price": 0.0,
+      "start_date": "2024-03-01",
+      "end_date": "2024-04-01",
+      "status": "PENDING",
+      "users_id": 5
+    },
+    {
+      "id": 6,
+      "plan": "SILVER",
+      "price": 15.5,
+      "start_date": "2024-01-15",
+      "end_date": "2025-01-15",
+      "status": "ACTIVE",
+      "users_id": 6
+    },
+    {
+      "id": 7,
+      "plan": "GOLD",
+      "price": 29.99,
+      "start_date": "2024-02-20",
+      "end_date": "2025-02-20",
+      "status": "ACTIVE",
+      "users_id": 7
+    },
+    {
+      "id": 8,
+      "plan": "FREE",
+      "price": 0.0,
+      "start_date": "2024-01-20",
+      "end_date": "2024-02-20",
+      "status": "CANCELED",
+      "users_id": 8
+    },
+    {
+      "id": 9,
+      "plan": "SILVER",
+      "price": 15.5,
+      "start_date": "2024-04-01",
+      "end_date": "2025-04-01",
+      "status": "ACTIVE",
+      "users_id": 9
+    },
+    {
+      "id": 10,
+      "plan": "GOLD",
+      "price": 29.99,
+      "start_date": "2024-03-15",
+      "end_date": "2025-03-15",
+      "status": "ACTIVE",
+      "users_id": 10
+    }
   ],
   "patients": [
-    { "id": 1, "name": "Mario Bros", "birth_date": "1985-03-10", "gender": "MALE", "photo": "img1.jpg", "users_id": 1 },
-    { "id": 2, "name": "Luigi Bros", "birth_date": "1987-05-12", "gender": "MALE", "photo": "img2.jpg", "users_id": 1 },
-    { "id": 3, "name": "Princess Peach", "birth_date": "1990-08-20", "gender": "FEMALE", "photo": "img3.jpg", "users_id": 2 },
-    { "id": 4, "name": "Zelda Hyrule", "birth_date": "1992-02-21", "gender": "FEMALE", "photo": "img4.jpg", "users_id": 3 },
-    { "id": 5, "name": "Link Knight", "birth_date": "1992-02-21", "gender": "MALE", "photo": "img5.jpg", "users_id": 4 },
-    { "id": 6, "name": "Samus Aran", "birth_date": "1986-07-04", "gender": "FEMALE", "photo": "img6.jpg", "users_id": 5 },
-    { "id": 7, "name": "Donkey Kong", "birth_date": "1981-06-01", "gender": "OTHER", "photo": "img7.jpg", "users_id": 6 },
-    { "id": 8, "name": "Yoshi Dino", "birth_date": "1991-04-13", "gender": "OTHER", "photo": "img8.jpg", "users_id": 7 },
-    { "id": 9, "name": "Daisy Flower", "birth_date": "1989-11-30", "gender": "FEMALE", "photo": "img9.jpg", "users_id": 8 },
-    { "id": 10, "name": "Wario Bad", "birth_date": "1980-01-01", "gender": "MALE", "photo": "img10.jpg", "users_id": 9 }
+    {
+      "id": 1,
+      "name": "Mario Bros",
+      "birth_date": "1985-03-10",
+      "gender": "MALE",
+      "photo": "img1.jpg",
+      "users_id": 1
+    },
+    {
+      "id": 2,
+      "name": "Luigi Bros",
+      "birth_date": "1987-05-12",
+      "gender": "MALE",
+      "photo": "img2.jpg",
+      "users_id": 1
+    },
+    {
+      "id": 3,
+      "name": "Princess Peach",
+      "birth_date": "1990-08-20",
+      "gender": "FEMALE",
+      "photo": "img3.jpg",
+      "users_id": 2
+    },
+    {
+      "id": 4,
+      "name": "Zelda Hyrule",
+      "birth_date": "1992-02-21",
+      "gender": "FEMALE",
+      "photo": "img4.jpg",
+      "users_id": 3
+    },
+    {
+      "id": 5,
+      "name": "Link Knight",
+      "birth_date": "1992-02-21",
+      "gender": "MALE",
+      "photo": "img5.jpg",
+      "users_id": 4
+    },
+    {
+      "id": 6,
+      "name": "Samus Aran",
+      "birth_date": "1986-07-04",
+      "gender": "FEMALE",
+      "photo": "img6.jpg",
+      "users_id": 5
+    },
+    {
+      "id": 7,
+      "name": "Donkey Kong",
+      "birth_date": "1981-06-01",
+      "gender": "OTHER",
+      "photo": "img7.jpg",
+      "users_id": 6
+    },
+    {
+      "id": 8,
+      "name": "Yoshi Dino",
+      "birth_date": "1991-04-13",
+      "gender": "OTHER",
+      "photo": "img8.jpg",
+      "users_id": 7
+    },
+    {
+      "id": 9,
+      "name": "Daisy Flower",
+      "birth_date": "1989-11-30",
+      "gender": "FEMALE",
+      "photo": "img9.jpg",
+      "users_id": 8
+    },
+    {
+      "id": 10,
+      "name": "Wario Bad",
+      "birth_date": "1980-01-01",
+      "gender": "MALE",
+      "photo": "img10.jpg",
+      "users_id": 9
+    }
   ],
   "patches": [
-    { "id": 1, "patch_code": "PTH-001", "linked_at": "2024-05-01 10:00:00", "status": "ACTIVE", "patients_id": 1 },
-    { "id": 2, "patch_code": "PTH-002", "linked_at": "2024-05-01 10:05:00", "status": "INACTIVE", "patients_id": 2 },
-    { "id": 3, "patch_code": "PTH-003", "linked_at": "2024-05-02 11:00:00", "status": "ACTIVE", "patients_id": 3 },
-    { "id": 4, "patch_code": "PTH-004", "linked_at": "2024-05-02 11:15:00", "status": "ACTIVE", "patients_id": 4 },
-    { "id": 5, "patch_code": "PTH-005", "linked_at": "2024-05-03 09:00:00", "status": "LOW_BATTERY", "patients_id": 5 },
-    { "id": 6, "patch_code": "PTH-006", "linked_at": "2024-05-03 09:30:00", "status": "ACTIVE", "patients_id": 6 },
-    { "id": 7, "patch_code": "PTH-007", "linked_at": "2024-05-04 14:00:00", "status": "ACTIVE", "patients_id": 7 },
-    { "id": 8, "patch_code": "PTH-008", "linked_at": "2024-05-04 14:45:00", "status": "ERROR", "patients_id": 8 },
-    { "id": 9, "patch_code": "PTH-009", "linked_at": "2024-05-05 08:20:00", "status": "ACTIVE", "patients_id": 9 },
-    { "id": 10, "patch_code": "PTH-010", "linked_at": "2024-05-05 10:00:00", "status": "ACTIVE", "patients_id": 10 }
+    {
+      "id": 1,
+      "patch_code": "PTH-001",
+      "linked_at": "2024-05-01 10:00:00",
+      "status": "ACTIVE",
+      "patients_id": 1
+    },
+    {
+      "id": 2,
+      "patch_code": "PTH-002",
+      "linked_at": "2024-05-01 10:05:00",
+      "status": "INACTIVE",
+      "patients_id": 2
+    },
+    {
+      "id": 3,
+      "patch_code": "PTH-003",
+      "linked_at": "2024-05-02 11:00:00",
+      "status": "ACTIVE",
+      "patients_id": 3
+    },
+    {
+      "id": 4,
+      "patch_code": "PTH-004",
+      "linked_at": "2024-05-02 11:15:00",
+      "status": "ACTIVE",
+      "patients_id": 4
+    },
+    {
+      "id": 5,
+      "patch_code": "PTH-005",
+      "linked_at": "2024-05-03 09:00:00",
+      "status": "LOW_BATTERY",
+      "patients_id": 5
+    },
+    {
+      "id": 6,
+      "patch_code": "PTH-006",
+      "linked_at": "2024-05-03 09:30:00",
+      "status": "ACTIVE",
+      "patients_id": 6
+    },
+    {
+      "id": 7,
+      "patch_code": "PTH-007",
+      "linked_at": "2024-05-04 14:00:00",
+      "status": "ACTIVE",
+      "patients_id": 7
+    },
+    {
+      "id": 8,
+      "patch_code": "PTH-008",
+      "linked_at": "2024-05-04 14:45:00",
+      "status": "ERROR",
+      "patients_id": 8
+    },
+    {
+      "id": 9,
+      "patch_code": "PTH-009",
+      "linked_at": "2024-05-05 08:20:00",
+      "status": "ACTIVE",
+      "patients_id": 9
+    },
+    {
+      "id": 10,
+      "patch_code": "PTH-010",
+      "linked_at": "2024-05-05 10:00:00",
+      "status": "ACTIVE",
+      "patients_id": 10
+    }
   ],
   "vital_signs": [
     {
       "id": 1,
       "recorded_at": "2024-05-11 12:00:00",
-      "glucose_level": 95.50,
-      "lactate_concentration": 1.20,
-      "blood_pressure": 120.80,
-      "temperature": 36.60,
-      "oxygen_saturation": 98.00,
-      "heart_rate": 72.00,
-      "humidity": 45.50,
+      "glucose_level": 95.5,
+      "lactate_concentration": 1.2,
+      "blood_pressure": 120.8,
+      "temperature": 36.6,
+      "oxygen_saturation": 98.0,
+      "heart_rate": 72.0,
+      "humidity": 45.5,
       "patches_id": 1
     },
-    { "id": 2, "recorded_at": "2024-05-11 12:10:00", "glucose_level": 110.00, "blood_pressure": 130.00, "temperature": 37.20, "heart_rate": 85.00, "patches_id": 1 },
-    { "id": 3, "recorded_at": "2024-05-11 12:05:00", "glucose_level": 90.00, "blood_pressure": 115.00, "temperature": 36.50, "heart_rate": 70.00, "patches_id": 3 },
-    { "id": 4, "recorded_at": "2024-05-11 12:15:00", "glucose_level": 105.00, "blood_pressure": 125.00, "temperature": 36.80, "heart_rate": 78.00, "patches_id": 4 },
-    { "id": 5, "recorded_at": "2024-05-11 12:20:00", "glucose_level": 98.00, "blood_pressure": 118.00, "temperature": 36.40, "heart_rate": 74.00, "patches_id": 6 },
-    { "id": 6, "recorded_at": "2024-05-11 12:30:00", "glucose_level": 102.00, "blood_pressure": 122.00, "temperature": 36.70, "heart_rate": 80.00, "patches_id": 7 },
-    { "id": 7, "recorded_at": "2024-05-11 12:40:00", "glucose_level": 94.00, "blood_pressure": 110.00, "temperature": 36.20, "heart_rate": 68.00, "patches_id": 9 },
-    { "id": 8, "recorded_at": "2024-05-11 12:50:00", "glucose_level": 115.00, "blood_pressure": 140.00, "temperature": 38.00, "heart_rate": 95.00, "patches_id": 10 },
-    { "id": 9, "recorded_at": "2024-05-11 13:00:00", "glucose_level": 97.00, "blood_pressure": 119.00, "temperature": 36.50, "heart_rate": 73.00, "patches_id": 1 },
-    { "id": 10, "recorded_at": "2024-05-11 13:10:00", "glucose_level": 99.00, "blood_pressure": 121.00, "temperature": 36.60, "heart_rate": 75.00, "patches_id": 3 }
+    {
+      "id": 2,
+      "recorded_at": "2024-05-11 12:10:00",
+      "glucose_level": 110.0,
+      "blood_pressure": 130.0,
+      "temperature": 37.2,
+      "heart_rate": 85.0,
+      "patches_id": 1
+    },
+    {
+      "id": 3,
+      "recorded_at": "2024-05-11 12:05:00",
+      "glucose_level": 90.0,
+      "blood_pressure": 115.0,
+      "temperature": 36.5,
+      "heart_rate": 70.0,
+      "patches_id": 3
+    },
+    {
+      "id": 4,
+      "recorded_at": "2024-05-11 12:15:00",
+      "glucose_level": 105.0,
+      "blood_pressure": 125.0,
+      "temperature": 36.8,
+      "heart_rate": 78.0,
+      "patches_id": 4
+    },
+    {
+      "id": 5,
+      "recorded_at": "2024-05-11 12:20:00",
+      "glucose_level": 98.0,
+      "blood_pressure": 118.0,
+      "temperature": 36.4,
+      "heart_rate": 74.0,
+      "patches_id": 6
+    },
+    {
+      "id": 6,
+      "recorded_at": "2024-05-11 12:30:00",
+      "glucose_level": 102.0,
+      "blood_pressure": 122.0,
+      "temperature": 36.7,
+      "heart_rate": 80.0,
+      "patches_id": 7
+    },
+    {
+      "id": 7,
+      "recorded_at": "2024-05-11 12:40:00",
+      "glucose_level": 94.0,
+      "blood_pressure": 110.0,
+      "temperature": 36.2,
+      "heart_rate": 68.0,
+      "patches_id": 9
+    },
+    {
+      "id": 8,
+      "recorded_at": "2024-05-11 12:50:00",
+      "glucose_level": 115.0,
+      "blood_pressure": 140.0,
+      "temperature": 38.0,
+      "heart_rate": 95.0,
+      "patches_id": 10
+    },
+    {
+      "id": 9,
+      "recorded_at": "2024-05-11 13:00:00",
+      "glucose_level": 97.0,
+      "blood_pressure": 119.0,
+      "temperature": 36.5,
+      "heart_rate": 73.0,
+      "patches_id": 1
+    },
+    {
+      "id": 10,
+      "recorded_at": "2024-05-11 13:10:00",
+      "glucose_level": 99.0,
+      "blood_pressure": 121.0,
+      "temperature": 36.6,
+      "heart_rate": 75.0,
+      "patches_id": 3
+    }
   ],
   "alerts": [
-    { "id": 1, "type": "CRITICAL", "description": "Alta frecuencia cardiaca", "created_at": "2024-05-11 12:12:00", "is_read": 0, "users_id": 1, "patients_id": 1 },
-    { "id": 2, "type": "WARNING", "description": "Batería del parche baja", "created_at": "2024-05-11 10:00:00", "is_read": 1, "users_id": 4, "patients_id": 5 },
-    { "id": 3, "type": "INFO", "description": "Sincronización exitosa", "created_at": "2024-05-11 09:00:00", "is_read": 1, "users_id": 2, "patients_id": 3 },
-    { "id": 4, "type": "CRITICAL", "description": "Glucosa fuera de rango", "created_at": "2024-05-11 12:55:00", "is_read": 0, "users_id": 9, "patients_id": 10 },
-    { "id": 5, "type": "WARNING", "description": "Temperatura elevada", "created_at": "2024-05-11 12:52:00", "is_read": 0, "users_id": 9, "patients_id": 10 },
-    { "id": 6, "type": "INFO", "description": "Inicio de monitoreo", "created_at": "2024-05-11 08:00:00", "is_read": 1, "users_id": 1, "patients_id": 2 },
-    { "id": 7, "type": "CRITICAL", "description": "Desconexión de parche", "created_at": "2024-05-11 14:00:00", "is_read": 0, "users_id": 7, "patients_id": 8 },
-    { "id": 8, "type": "WARNING", "description": "Presión arterial alta", "created_at": "2024-05-11 12:11:00", "is_read": 1, "users_id": 1, "patients_id": 1 },
-    { "id": 9, "type": "INFO", "description": "Reporte diario generado", "created_at": "2024-05-11 07:00:00", "is_read": 1, "users_id": 3, "patients_id": 4 },
-    { "id": 10, "type": "WARNING", "description": "Humedad ambiente excesiva", "created_at": "2024-05-11 12:01:00", "is_read": 0, "users_id": 1, "patients_id": 1 }
+    {
+      "id": 1,
+      "type": "CRITICAL",
+      "description": "Alta frecuencia cardiaca",
+      "created_at": "2024-05-11 12:12:00",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 1
+    },
+    {
+      "id": 2,
+      "type": "WARNING",
+      "description": "Batería del parche baja",
+      "created_at": "2024-05-11 10:00:00",
+      "is_read": 1,
+      "users_id": 4,
+      "patients_id": 5
+    },
+    {
+      "id": 3,
+      "type": "INFO",
+      "description": "Sincronización exitosa",
+      "created_at": "2024-05-11 09:00:00",
+      "is_read": 1,
+      "users_id": 2,
+      "patients_id": 3
+    },
+    {
+      "id": 4,
+      "type": "CRITICAL",
+      "description": "Glucosa fuera de rango",
+      "created_at": "2024-05-11 12:55:00",
+      "is_read": 0,
+      "users_id": 9,
+      "patients_id": 10
+    },
+    {
+      "id": 5,
+      "type": "WARNING",
+      "description": "Temperatura elevada",
+      "created_at": "2024-05-11 12:52:00",
+      "is_read": 0,
+      "users_id": 9,
+      "patients_id": 10
+    },
+    {
+      "id": 6,
+      "type": "INFO",
+      "description": "Inicio de monitoreo",
+      "created_at": "2024-05-11 08:00:00",
+      "is_read": 1,
+      "users_id": 1,
+      "patients_id": 2
+    },
+    {
+      "id": 7,
+      "type": "CRITICAL",
+      "description": "Desconexión de parche",
+      "created_at": "2024-05-11 14:00:00",
+      "is_read": 0,
+      "users_id": 7,
+      "patients_id": 8
+    },
+    {
+      "id": 8,
+      "type": "WARNING",
+      "description": "Presión arterial alta",
+      "created_at": "2024-05-11 12:11:00",
+      "is_read": 1,
+      "users_id": 1,
+      "patients_id": 1
+    },
+    {
+      "id": 9,
+      "type": "INFO",
+      "description": "Reporte diario generado",
+      "created_at": "2024-05-11 07:00:00",
+      "is_read": 1,
+      "users_id": 3,
+      "patients_id": 4
+    },
+    {
+      "id": 10,
+      "type": "WARNING",
+      "description": "Humedad ambiente excesiva",
+      "created_at": "2024-05-11 12:01:00",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 1
+    }
   ],
   "support_tickets": [
-    { "idsupport_tickets": 1, "subject": "Error al vincular parche", "message": "No detecta el bluetooth", "created_at": "2024-05-01 10:00:00", "status": "OPEN", "users_id": 1 },
-    { "idsupport_tickets": 2, "subject": "Cambio de plan", "message": "Quiero pasar a Silver", "created_at": "2024-05-02 11:00:00", "status": "CLOSED", "users_id": 2 },
-    { "idsupport_tickets": 3, "subject": "App se cierra", "message": "En Android 14 falla", "created_at": "2024-05-03 12:00:00", "status": "IN_PROGRESS", "users_id": 3 },
-    { "idsupport_tickets": 4, "subject": "Pago duplicado", "message": "Me cobraron dos veces", "created_at": "2024-05-04 13:00:00", "status": "OPEN", "users_id": 4 },
-    { "idsupport_tickets": 5, "subject": "Duda sobre gráficas", "message": "No entiendo el eje X", "created_at": "2024-05-05 14:00:00", "status": "CLOSED", "users_id": 5 },
-    { "idsupport_tickets": 6, "subject": "Problema de login", "message": "Olvide mi clave", "created_at": "2024-05-06 15:00:00", "status": "OPEN", "users_id": 6 },
-    { "idsupport_tickets": 7, "subject": "Falta de datos", "message": "No veo datos de ayer", "created_at": "2024-05-07 16:00:00", "status": "IN_PROGRESS", "users_id": 7 },
-    { "idsupport_tickets": 8, "subject": "Sugerencia", "message": "Añadir modo noche", "created_at": "2024-05-08 17:00:00", "status": "OPEN", "users_id": 8 },
-    { "idsupport_tickets": 9, "subject": "Parche roto", "message": "Se rompió la correa", "created_at": "2024-05-09 18:00:00", "status": "OPEN", "users_id": 9 },
-    { "idsupport_tickets": 10, "subject": "Felicitaciones", "message": "Muy buena app", "created_at": "2024-05-10 19:00:00", "status": "CLOSED", "users_id": 10 }
+    {
+      "idsupport_tickets": 1,
+      "subject": "Error al vincular parche",
+      "message": "No detecta el bluetooth",
+      "created_at": "2024-05-01 10:00:00",
+      "status": "OPEN",
+      "users_id": 1
+    },
+    {
+      "idsupport_tickets": 2,
+      "subject": "Cambio de plan",
+      "message": "Quiero pasar a Silver",
+      "created_at": "2024-05-02 11:00:00",
+      "status": "CLOSED",
+      "users_id": 2
+    },
+    {
+      "idsupport_tickets": 3,
+      "subject": "App se cierra",
+      "message": "En Android 14 falla",
+      "created_at": "2024-05-03 12:00:00",
+      "status": "IN_PROGRESS",
+      "users_id": 3
+    },
+    {
+      "idsupport_tickets": 4,
+      "subject": "Pago duplicado",
+      "message": "Me cobraron dos veces",
+      "created_at": "2024-05-04 13:00:00",
+      "status": "OPEN",
+      "users_id": 4
+    },
+    {
+      "idsupport_tickets": 5,
+      "subject": "Duda sobre gráficas",
+      "message": "No entiendo el eje X",
+      "created_at": "2024-05-05 14:00:00",
+      "status": "CLOSED",
+      "users_id": 5
+    },
+    {
+      "idsupport_tickets": 6,
+      "subject": "Problema de login",
+      "message": "Olvide mi clave",
+      "created_at": "2024-05-06 15:00:00",
+      "status": "OPEN",
+      "users_id": 6
+    },
+    {
+      "idsupport_tickets": 7,
+      "subject": "Falta de datos",
+      "message": "No veo datos de ayer",
+      "created_at": "2024-05-07 16:00:00",
+      "status": "IN_PROGRESS",
+      "users_id": 7
+    },
+    {
+      "idsupport_tickets": 8,
+      "subject": "Sugerencia",
+      "message": "Añadir modo noche",
+      "created_at": "2024-05-08 17:00:00",
+      "status": "OPEN",
+      "users_id": 8
+    },
+    {
+      "idsupport_tickets": 9,
+      "subject": "Parche roto",
+      "message": "Se rompió la correa",
+      "created_at": "2024-05-09 18:00:00",
+      "status": "OPEN",
+      "users_id": 9
+    },
+    {
+      "idsupport_tickets": 10,
+      "subject": "Felicitaciones",
+      "message": "Muy buena app",
+      "created_at": "2024-05-10 19:00:00",
+      "status": "CLOSED",
+      "users_id": 10
+    }
   ],
   "locations": [
-    { "id": 1, "latitude": -12.0463, "longitude": -77.0427, "recorded_at": "2024-05-11 12:00:00", "patches_id": 1 },
-    { "id": 2, "latitude": -12.0465, "longitude": -77.0430, "recorded_at": "2024-05-11 12:10:00", "patches_id": 1 },
-    { "id": 3, "latitude": 40.7128, "longitude": -74.0060, "recorded_at": "2024-05-11 12:00:00", "patches_id": 3 },
-    { "id": 4, "latitude": 34.0522, "longitude": -118.2437, "recorded_at": "2024-05-11 12:00:00", "patches_id": 4 },
-    { "id": 5, "latitude": 48.8566, "longitude": 2.3522, "recorded_at": "2024-05-11 12:00:00", "patches_id": 6 },
-    { "id": 6, "latitude": 51.5074, "longitude": -0.1278, "recorded_at": "2024-05-11 12:00:00", "patches_id": 7 },
-    { "id": 7, "latitude": 35.6895, "longitude": 139.6917, "recorded_at": "2024-05-11 12:00:00", "patches_id": 9 },
-    { "id": 8, "latitude": -33.4489, "longitude": -70.6693, "recorded_at": "2024-05-11 12:00:00", "patches_id": 10 },
-    { "id": 9, "latitude": -12.0470, "longitude": -77.0435, "recorded_at": "2024-05-11 12:20:00", "patches_id": 1 },
-    { "id": 10, "latitude": 19.4326, "longitude": -99.1332, "recorded_at": "2024-05-11 12:00:00", "patches_id": 4 }
-  ]
+    {
+      "id": 1,
+      "latitude": -12.0463,
+      "longitude": -77.0427,
+      "recorded_at": "2024-05-11 12:00:00",
+      "patches_id": 1
+    },
+    {
+      "id": 2,
+      "latitude": -12.0465,
+      "longitude": -77.043,
+      "recorded_at": "2024-05-11 12:10:00",
+      "patches_id": 1
+    },
+    {
+      "id": 3,
+      "latitude": 40.7128,
+      "longitude": -74.006,
+      "recorded_at": "2024-05-11 12:00:00",
+      "patches_id": 3
+    },
+    {
+      "id": 4,
+      "latitude": 34.0522,
+      "longitude": -118.2437,
+      "recorded_at": "2024-05-11 12:00:00",
+      "patches_id": 4
+    },
+    {
+      "id": 5,
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "recorded_at": "2024-05-11 12:00:00",
+      "patches_id": 6
+    },
+    {
+      "id": 6,
+      "latitude": 51.5074,
+      "longitude": -0.1278,
+      "recorded_at": "2024-05-11 12:00:00",
+      "patches_id": 7
+    },
+    {
+      "id": 7,
+      "latitude": 35.6895,
+      "longitude": 139.6917,
+      "recorded_at": "2024-05-11 12:00:00",
+      "patches_id": 9
+    },
+    {
+      "id": 8,
+      "latitude": -33.4489,
+      "longitude": -70.6693,
+      "recorded_at": "2024-05-11 12:00:00",
+      "patches_id": 10
+    },
+    {
+      "id": 9,
+      "latitude": -12.047,
+      "longitude": -77.0435,
+      "recorded_at": "2024-05-11 12:20:00",
+      "patches_id": 1
+    },
+    {
+      "id": 10,
+      "latitude": 19.4326,
+      "longitude": -99.1332,
+      "recorded_at": "2024-05-11 12:00:00",
+      "patches_id": 4
+    }
+   ]
 }

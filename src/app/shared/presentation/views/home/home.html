@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <img src="/public/assets/vital-care-logo.png" [alt]="'home.logoAlt' | translate" class="logo">
+    <img src="/assets/vital-care-logo.png" [alt]="'home.logoAlt' | translate" class="logo">
     <div class="spacer"></div>
 
     @for (option of navOptions(); track option.label) {
@@ -34,24 +34,24 @@
     @if (isLoading()) {
       <div class="dash-state">
         <mat-spinner diameter="56"></mat-spinner>
-        <p class="dash-state-text">Cargando estadísticas...</p>
+        <p class="dash-state-text">{{ 'home.loadingStats' | translate }}</p>
       </div>
     } @else if (hasError()) {
       <div class="dash-state">
         <mat-icon class="dash-error-icon">error_outline</mat-icon>
-        <p class="dash-state-text">No se pudieron cargar los datos. Verifica tu conexión.</p>
+        <p class="dash-state-text">{{ 'home.errorConnection' | translate }}</p>
         <button mat-raised-button color="primary" (click)="retry()">
           <mat-icon>refresh</mat-icon>
-          Reintentar
+          {{ 'home.retry' | translate }}
         </button>
       </div>
     } @else if (stats()) {
       <div class="dash-header">
         <div class="dash-title">
           <mat-icon class="dash-title-icon">dashboard</mat-icon>
-          <span>Panel de estadísticas</span>
+          <span>{{ 'home.dashboardTitle' | translate }}</span>
         </div>
-        <p class="dash-subtitle">Resumen general de la plataforma Vital Care</p>
+        <p class="dash-subtitle">{{ 'home.dashboardSubtitle' | translate }}</p>
         <mat-divider></mat-divider>
       </div>
 

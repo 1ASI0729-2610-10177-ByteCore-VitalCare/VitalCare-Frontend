@@ -1,10 +1,20 @@
 /* ── Toolbar ── */
 
+::ng-deep mat-toolbar {
+  background: linear-gradient(135deg, #2196d3 0%, #1a82bd 100%) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
 .logo {
   height: 40px;
   width: auto;
-  margin-right: 16px;
+  margin-right: 20px;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
 }
 
 .spacer {
@@ -18,37 +28,56 @@
   width: 20px;
 }
 
+::ng-deep .mat-mdc-button {
+  font-size: 14px !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.2s ease !important;
+  gap: 12px !important;
+  margin: 0 6px !important;
+}
+
+::ng-deep .mat-mdc-button:hover:not([disabled]) {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
 .toolbar-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-left: 16px;
+  gap: 24px;
+  margin-left: 20px;
+  padding: 0 8px;
 }
 
 .profile-btn {
-  font-size: 28px;
-  width: 40px;
-  height: 40px;
+  font-size: 26px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: all 0.2s ease;
+  border-radius: 50%;
 }
 
 .profile-btn:hover {
   transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 ::ng-deep .active {
-  color: #ffeb3b;
-  font-weight: 500;
-  border-bottom: 2px solid #ffeb3b;
+  color: #fff;
+  font-weight: 600;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.8);
+  padding-bottom: 8px;
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
-::ng-deep mat-toolbar {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+::ng-deep mat-toolbar-row {
+  padding: 0 16px !important;
+  height: 64px !important;
 }
+
 
 /* ── Main layout ── */
 

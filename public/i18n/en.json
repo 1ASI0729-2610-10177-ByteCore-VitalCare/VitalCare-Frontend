@@ -80,6 +80,16 @@
   },
   "home": {
     "logoAlt": "Vital Care Logo",
-    "profileTooltip": "Profile"
+    "profileTooltip": "Profile",
+    "loadingStats": "Loading statistics...",
+    "errorConnection": "Could not load data. Check your connection.",
+    "retry": "Retry",
+    "dashboardTitle": "Statistics Dashboard",
+    "dashboardSubtitle": "General summary of the Vital Care platform"
+  },
+  "page-not-found": {
+    "title": "Page not found",
+    "content": "The route {{invalid_path}} does not exist. Please go back to home.",
+    "go-home": "Go to home"
   }
 }

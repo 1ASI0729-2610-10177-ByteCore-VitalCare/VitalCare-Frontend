@@ -1,0 +1,151 @@
+/* ── Global Styles ── */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:host {
+  --primary-color: #2196d3;
+  --primary-dark: #1a82bd;
+  --primary-light: #42a5f5;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --background: #f3f5f7;
+  --border-color: #e5e7eb;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 10px 32px rgba(0, 0, 0, 0.15);
+}
+
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-primary);
+  background: transparent;
+}
+
+/* ── Typography ── */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+p {
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* ── Material Overrides ── */
+
+::ng-deep .mat-mdc-toolbar {
+  background: linear-gradient(135deg, #2196d3 0%, #1a82bd 100%) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+::ng-deep .mat-mdc-button {
+  text-transform: none !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+::ng-deep .mat-mdc-raised-button:not([disabled]) {
+  background: var(--primary-color) !important;
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-raised-button:not([disabled]):hover {
+  background: var(--primary-dark) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+::ng-deep .mdc-button__label {
+  letter-spacing: 0.3px;
+}
+
+::ng-deep .mat-mdc-card {
+  box-shadow: var(--shadow-sm) !important;
+  border-radius: 8px !important;
+}
+
+::ng-deep .mat-mdc-card:hover {
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* ── Scrollbar ── */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(33, 150, 211, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(33, 150, 211, 0.5);
+}
+
+/* ── Animations ── */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Utility Classes ── */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mt-3 { margin-top: 24px; }
+
+.mb-1 { margin-bottom: 8px; }
+.mb-2 { margin-bottom: 16px; }
+.mb-3 { margin-bottom: 24px; }
+
+.px-1 { padding: 0 8px; }
+.px-2 { padding: 0 16px; }
+.px-3 { padding: 0 24px; }
+
+.py-1 { padding: 8px 0; }
+.py-2 { padding: 16px 0; }
+.py-3 { padding: 24px 0; }
+

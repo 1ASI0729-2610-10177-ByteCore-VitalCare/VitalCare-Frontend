@@ -78,8 +78,18 @@
     "powered-by": "Impulsado por",
     "and": "y"
   },
-  "home": {
-    "logoAlt": "Logo de Vital Care",
-    "profileTooltip": "Perfil"
-  }
-}
+   "home": {
+     "logoAlt": "Logo de Vital Care",
+     "profileTooltip": "Perfil",
+     "loadingStats": "Cargando estadísticas...",
+     "errorConnection": "No se pudieron cargar los datos. Verifica tu conexión.",
+     "retry": "Reintentar",
+     "dashboardTitle": "Panel de estadísticas",
+     "dashboardSubtitle": "Resumen general de la plataforma Vital Care"
+   },
+   "page-not-found": {
+     "title": "Página no encontrada",
+     "content": "La ruta {{invalid_path}} no existe. Por favor, regresa al inicio.",
+     "go-home": "Ir al inicio"
+   }
+ }

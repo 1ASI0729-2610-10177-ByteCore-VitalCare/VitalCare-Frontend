@@ -1,46 +1,88 @@
 .language-switcher {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  height: 64px;
+  padding: 0 4px;
+  margin: 0 -8px;
 }
 
 .lang-group {
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  padding: 1px;
+  display: inline-flex;
+  gap: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.lang-group:hover {
+  background: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 .lang-toggle {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 6px 12px;
-  font-size: 12px;
-  font-weight: 500;
+  justify-content: center;
+  gap: 2px;
+  padding: 5px 8px;
+  font-size: 10px;
+  font-weight: 800;
   min-width: auto;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: all 0.2s ease;
+  letter-spacing: 0.3px;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: #999;
+  border-radius: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
 }
 
 .lang-toggle .flag {
-  font-size: 16px;
+  font-size: 10px;
+  font-weight: 800;
   line-height: 1;
+  display: inline-block;
 }
 
 .lang-toggle .code {
-  display: inline-block;
-  min-width: 20px;
-}
-
-::ng-deep .mat-mdc-button-toggle.mat-mdc-button-toggle-checked {
-  background-color: rgba(255, 255, 255, 0.25) !important;
-  color: white;
-}
-
-::ng-deep .mat-mdc-button-toggle-group-appearance-standard .mat-mdc-button-toggle + .mat-mdc-button-toggle {
-  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  display: none;
 }
 
 .lang-toggle:hover {
-  background-color: rgba(255, 255, 255, 0.15);
+  color: #333;
+  transform: translateY(-1px);
 }
+
+::ng-deep .mat-mdc-button-toggle.mat-mdc-button-toggle-checked {
+  background-color: #2196d3 !important;
+  color: white !important;
+  box-shadow: none !important;
+}
+
+::ng-deep .mat-mdc-button-toggle.mat-mdc-button-toggle-checked:hover {
+  background-color: #1a82bd !important;
+}
+
+::ng-deep .mat-mdc-button-toggle-group-appearance-standard .mat-mdc-button-toggle + .mat-mdc-button-toggle {
+  border-left: none;
+}
+
+::ng-deep .mat-mdc-button-toggle-group-appearance-standard {
+  border: none;
+  background: transparent;
+  gap: 0;
+}
+
+
+
+
+
+
+
+

@@ -24,8 +24,8 @@ interface Language {
 export class LanguageSwitcher implements OnInit {
   protected currentLanguage: string = 'en';
   protected languages: Language[] = [
-    { code: 'en', name: 'English', flag: '🇬🇧' },
-    { code: 'es', name: 'Español', flag: '🇪🇸' }
+    { code: 'en', name: 'English', flag: 'EN' },
+    { code: 'es', name: 'Español', flag: 'ES' }
   ];
 
   private translate!: TranslateService;
