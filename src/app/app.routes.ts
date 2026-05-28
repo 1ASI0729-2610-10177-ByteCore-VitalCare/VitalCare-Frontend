@@ -9,7 +9,7 @@ import { Notifications } from './notifications/presentation/views/notifications/
 
 const baseTitle = 'Vital Care';
 const pageNotFound = () =>
-  import('./shared/presentation/views/page-not-found/page-not-found').then((m) => m.PageNotFound);
+  import('./shared/presentation/views/page-not-found/page-not-found').then((m) => m.PageNotFoundComponent);
 
 export const routes: Routes = [
   {

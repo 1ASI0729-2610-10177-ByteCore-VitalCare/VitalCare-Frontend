@@ -1,30 +1,28 @@
-import { Component, inject, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {TranslatePipe} from '@ngx-translate/core';
-import {MatButton} from '@angular/material/button';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-page-not-found',
+  standalone: true,
   imports: [
-    TranslatePipe,
-    MatButton
+    CommonModule,
+    MatIconModule,
+    TranslateModule
   ],
   templateUrl: './page-not-found.html',
-  styleUrl: './page-not-found.css',
+  styleUrls: ['./page-not-found.css']
 })
-export class PageNotFound implements OnInit {
-  protected  invalidPath: string = '';
+export class PageNotFoundComponent {
+  invalidPath: string;
 
-  private route: ActivatedRoute = inject(ActivatedRoute);
-
-  private router: Router = inject(Router);
-
-  protected navigateToHome() {
-    this.router.navigate(['home']).then();
+  constructor(private router: Router) {
+    this.invalidPath = this.router.url;
   }
 
-  ngOnInit() {
-    this.invalidPath = this.route.snapshot.url.map(url => url.path).join('/');
+  navigateToHome(): void {
+    this.router.navigate(['/']);
   }
-
 }
