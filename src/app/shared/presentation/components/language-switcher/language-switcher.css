@@ -2,87 +2,65 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 64px;
-  padding: 0 4px;
-  margin: 0 -8px;
 }
 
 .lang-group {
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.95);
-  border: none;
-  padding: 1px;
-  display: inline-flex;
-  gap: 0;
-  transition: all 0.3s ease;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  position: relative;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 4px;
+  display: flex;
+  align-items: center;
 }
 
-.lang-group:hover {
+.lang-group::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
   background: white;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transform: translateX(0);
+  /* Aceleración por hardware (GPU) para eliminar cualquier lag o pesadez */
+  will-change: transform;
+  /* Animación ultra rápida (0.15s) con curva súper reactiva */
+  transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1);
+  z-index: 0;
+}
+
+.lang-group.es-active::before {
+  transform: translateX(100%);
 }
 
 .lang-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2px;
-  padding: 5px 8px;
-  font-size: 10px;
-  font-weight: 800;
-  min-width: auto;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  color: #999;
-  border-radius: 12px;
-  background: transparent;
+  letter-spacing: 0.4px;
+  /* Sincronizado con la animación principal */
+  transition: color 0.15s cubic-bezier(0.2, 0, 0, 1);
+  color: rgba(255, 255, 255, 0.7);
   border: none;
+  background: transparent;
   cursor: pointer;
   position: relative;
+  z-index: 1;
+  flex: 1;
+  box-sizing: border-box;
 }
 
-.lang-toggle .flag {
-  font-size: 10px;
-  font-weight: 800;
-  line-height: 1;
-  display: inline-block;
+.lang-toggle.active {
+  color: #1a82bd;
 }
 
-.lang-toggle .code {
-  display: none;
+.lang-toggle:not(.active):hover {
+  color: white;
 }
-
-.lang-toggle:hover {
-  color: #333;
-  transform: translateY(-1px);
-}
-
-::ng-deep .mat-mdc-button-toggle.mat-mdc-button-toggle-checked {
-  background-color: #2196d3 !important;
-  color: white !important;
-  box-shadow: none !important;
-}
-
-::ng-deep .mat-mdc-button-toggle.mat-mdc-button-toggle-checked:hover {
-  background-color: #1a82bd !important;
-}
-
-::ng-deep .mat-mdc-button-toggle-group-appearance-standard .mat-mdc-button-toggle + .mat-mdc-button-toggle {
-  border-left: none;
-}
-
-::ng-deep .mat-mdc-button-toggle-group-appearance-standard {
-  border: none;
-  background: transparent;
-  gap: 0;
-}
-
-
-
-
-
-
-
-

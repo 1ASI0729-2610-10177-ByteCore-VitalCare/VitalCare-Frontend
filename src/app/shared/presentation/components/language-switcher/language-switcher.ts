@@ -1,7 +1,5 @@
-// language-switcher.ts - COPIAR Y PEGAR
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { CommonModule } from '@angular/common';
 
 interface Language {
@@ -14,9 +12,7 @@ interface Language {
   selector: 'app-language-switcher',
   standalone: true,
   imports: [
-    CommonModule,
-    MatButtonToggleGroup,
-    MatButtonToggle
+    CommonModule
   ],
   templateUrl: './language-switcher.html',
   styleUrl: './language-switcher.css',
