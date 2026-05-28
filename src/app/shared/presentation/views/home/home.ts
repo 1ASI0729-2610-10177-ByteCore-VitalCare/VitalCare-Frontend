@@ -90,7 +90,8 @@ interface DashboardStats {
 function toStatBars<T extends object>(
   items: T[],
   key: keyof T,
-  colorMap: Record<string, string>
+  colorMap: Record<string, string>,
+  labelMap?: Record<string, string>
 ): StatBar[] {
   const counts: Record<string, number> = {};
   for (const item of items) {
@@ -99,12 +100,13 @@ function toStatBars<T extends object>(
   }
   const total = items.length || 1;
   return Object.entries(counts).map(([label, count]) => ({
-    label,
+    label: labelMap?.[label] ?? label,
     count,
     percentage: Math.round((count / total) * 100),
     color: colorMap[label] ?? '#607d8b',
   }));
 }
+
 
 function buildDashboardStats(data: {
   users: User[];
@@ -118,28 +120,28 @@ function buildDashboardStats(data: {
 
   return {
     kpis: [
-      { title: 'Usuarios', value: users.length, icon: 'people', color: '#1976d2' },
-      { title: 'Pacientes', value: patients.length, icon: 'personal_injury', color: '#388e3c' },
+      { title: 'home.kpi_users', value: users.length, icon: 'people', color: '#1976d2' },
+      { title: 'home.kpi_patients', value: patients.length, icon: 'personal_injury', color: '#388e3c' },
       {
-        title: 'Suscripciones activas',
+        title: 'home.kpi_active_subscriptions',
         value: subscriptions.filter(s => s.status === 'ACTIVE').length,
         icon: 'verified',
         color: '#f57c00',
       },
       {
-        title: 'Parches activos',
+        title: 'home.kpi_active_patches',
         value: patches.filter(p => p.status === 'ACTIVE').length,
         icon: 'sensors',
         color: '#7b1fa2',
       },
       {
-        title: 'Alertas sin leer',
+        title: 'home.kpi_unread_alerts',
         value: alerts.filter(a => a.is_read === 0).length,
         icon: 'notifications_active',
         color: '#d32f2f',
       },
       {
-        title: 'Tickets abiertos',
+        title: 'home.kpi_open_tickets',
         value: tickets.filter(t => t.status === 'OPEN').length,
         icon: 'support_agent',
         color: '#0288d1',
@@ -147,45 +149,67 @@ function buildDashboardStats(data: {
     ],
     charts: [
       {
-        title: 'Suscripciones por plan',
+        title: 'home.chart_subscriptions_by_plan',
         icon: 'workspace_premium',
         bars: toStatBars(subscriptions, 'plan', {
           GOLD: '#f9a825', SILVER: '#78909c', FREE: '#4caf50',
         }),
       },
       {
-        title: 'Estado de suscripciones',
+        title: 'home.chart_subscription_status',
         icon: 'receipt_long',
         bars: toStatBars(subscriptions, 'status', {
           ACTIVE: '#4caf50', EXPIRED: '#f44336', CANCELED: '#9e9e9e', PENDING: '#ff9800',
+        }, {
+          ACTIVE: 'home.status_active',
+          EXPIRED: 'home.status_expired',
+          CANCELED: 'home.status_canceled',
+          PENDING: 'home.status_pending'
         }),
       },
       {
-        title: 'Pacientes por género',
+        title: 'home.chart_patients_by_gender',
         icon: 'wc',
         bars: toStatBars(patients, 'gender', {
           MALE: '#1976d2', FEMALE: '#e91e63', OTHER: '#9c27b0',
+        }, {
+          MALE: 'home.gender_male',
+          FEMALE: 'home.gender_female',
+          OTHER: 'home.gender_other'
         }),
       },
       {
-        title: 'Estado de parches',
+        title: 'home.chart_patch_status',
         icon: 'sensors',
         bars: toStatBars(patches, 'status', {
           ACTIVE: '#4caf50', INACTIVE: '#9e9e9e', LOW_BATTERY: '#ff9800', ERROR: '#f44336',
+        }, {
+          ACTIVE: 'home.status_active',
+          INACTIVE: 'home.status_inactive',
+          LOW_BATTERY: 'home.status_low_battery',
+          ERROR: 'home.status_error'
         }),
       },
       {
-        title: 'Tipos de alertas',
+        title: 'home.chart_alert_types',
         icon: 'warning_amber',
         bars: toStatBars(alerts, 'type', {
           CRITICAL: '#f44336', WARNING: '#ff9800', INFO: '#2196f3',
+        }, {
+          CRITICAL: 'home.alert_critical',
+          WARNING: 'home.alert_warning',
+          INFO: 'home.alert_info'
         }),
       },
       {
-        title: 'Estado de tickets',
+        title: 'home.chart_ticket_status',
         icon: 'support',
         bars: toStatBars(tickets, 'status', {
           OPEN: '#f44336', IN_PROGRESS: '#ff9800', CLOSED: '#4caf50',
+        }, {
+          OPEN: 'home.status_open',
+          IN_PROGRESS: 'home.status_in_progress',
+          CLOSED: 'home.status_closed'
         }),
       },
     ],

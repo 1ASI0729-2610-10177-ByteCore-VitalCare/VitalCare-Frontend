@@ -65,7 +65,7 @@
                 </div>
                 <div class="kpi-text">
                   <span class="kpi-value" [style.color]="kpi.color">{{ kpi.value }}</span>
-                  <span class="kpi-label">{{ kpi.title }}</span>
+                  <span class="kpi-label">{{ kpi.title | translate }}</span>
                 </div>
               </div>
             </mat-card-content>
@@ -80,7 +80,7 @@
               <mat-card-title>
                 <div class="chart-title-row">
                   <mat-icon class="chart-icon">{{ chart.icon }}</mat-icon>
-                  {{ chart.title }}
+                  {{ chart.title | translate }}
                 </div>
               </mat-card-title>
             </mat-card-header>
@@ -89,7 +89,7 @@
                 @for (bar of chart.bars; track bar.label) {
                   <div class="bar-item">
                     <div class="bar-meta">
-                      <span class="bar-label">{{ bar.label }}</span>
+                      <span class="bar-label">{{ bar.label | translate }}</span>
                       <span class="bar-count">{{ bar.count }} &middot; {{ bar.percentage }}%</span>
                     </div>
                     <div class="bar-track">
