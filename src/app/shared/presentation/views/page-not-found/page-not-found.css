@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 64px); /* Resta la altura del header */
+  height: calc(100vh - 64px);
   text-align: center;
   padding: 24px;
   background: linear-gradient(135deg, #f5f7fa 0%, #f0f3f7 100%);

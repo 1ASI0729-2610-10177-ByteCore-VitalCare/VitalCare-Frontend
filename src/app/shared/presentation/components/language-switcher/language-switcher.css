@@ -25,9 +25,7 @@
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   transform: translateX(0);
-  /* Aceleración por hardware (GPU) para eliminar cualquier lag o pesadez */
   will-change: transform;
-  /* Animación ultra rápida (0.15s) con curva súper reactiva */
   transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1);
   z-index: 0;
 }
@@ -45,7 +43,6 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.4px;
-  /* Sincronizado con la animación principal */
   transition: color 0.15s cubic-bezier(0.2, 0, 0, 1);
   color: rgba(255, 255, 255, 0.7);
   border: none;
