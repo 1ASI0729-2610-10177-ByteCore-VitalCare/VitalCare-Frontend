@@ -40,7 +40,7 @@
 
           <div class="vital">
             <span class="label">{{ 'vital_signs.sodium_potassium' | translate }}</span>
-            <span class="value">{{ getVitalValue(vitalSigns()?.sodiumPotassium) }} mg/dL</span>
+            <span class="value">{{ sodiumPotassium | number: '1.0-1' }} mEq/L</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="12" y1="5" x2="12" y2="19"/>
               <polyline points="19 12 12 19 5 12"/>
@@ -49,7 +49,7 @@
 
           <div class="vital">
             <span class="label">{{ 'vital_signs.lactate_concentration' | translate }}</span>
-            <span class="value">{{ getVitalValue(vitalSigns()?.lactateConcentration) | number: '1.0-2' }} mmol/L</span>
+            <span class="value">{{ lactateConcentration | number: '1.0-2' }} mmol/L</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
             </svg>
@@ -65,7 +65,7 @@
 
           <div class="vital">
             <span class="label">{{ 'vital_signs.alcohol_level' | translate }}</span>
-            <span class="value">{{ getVitalValue(vitalSigns()?.alcoholLevel) }} mL</span>
+            <span class="value">{{ alcoholLevel | number: '1.0-2' }} g/dL</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
             </svg>
@@ -73,7 +73,7 @@
 
           <div class="vital">
             <span class="label">{{ 'vital_signs.alcohol_level_2' | translate }}</span>
-            <span class="value">{{ getVitalValue(vitalSigns()?.alcoholLevel2) }} mL</span>
+            <span class="value">{{ alcoholLevel | number: '1.0-2' }} g/dL</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
             </svg>
@@ -81,7 +81,7 @@
 
           <div class="vital">
             <span class="label">{{ 'vital_signs.ketones' | translate }}</span>
-            <span class="value">{{ getVitalValue(vitalSigns()?.ketones) }} mmol/L</span>
+            <span class="value">{{ ketones | number: '1.0-2' }} mmol/L</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
             </svg>
@@ -89,7 +89,7 @@
 
           <div class="vital">
             <span class="label">{{ 'vital_signs.citocines' | translate }}</span>
-            <span class="value">{{ getVitalValue(vitalSigns()?.cytokines) }} mmol/L</span>
+            <span class="value">{{ cytokines | number: '1.0-1' }} pg/mL</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
               <line x1="12" y1="9" x2="12" y2="13"/>
@@ -108,7 +108,7 @@
 
           <div class="vital">
             <span class="label">{{ 'vital_signs.specialized_cells' | translate }}</span>
-            <span class="value">{{ getVitalValue(vitalSigns()?.specializedCells) }} mmHg</span>
+            <span class="value">{{ specializedCells | number: '1.0-1' }} ×10³/μL</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
             </svg>
@@ -125,7 +125,7 @@
 
           <div class="vital">
             <span class="label">{{ 'vital_signs.temperature_humidity' | translate }}</span>
-            <span class="value">{{ getVitalValue(vitalSigns()?.humidity) | number: '1.0-1' }} mmHg</span>
+            <span class="value">{{ humidity | number: '1.0-1' }} %</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="12" y1="5" x2="12" y2="19"/>
               <polyline points="19 12 12 19 5 12"/>
@@ -142,7 +142,7 @@
 
           <div class="vital">
             <span class="label">{{ 'vital_signs.atmospheric_pressure' | translate }}</span>
-            <span class="value">{{ getVitalValue(vitalSigns()?.atmosphericPressure) }} mmol/L</span>
+            <span class="value">{{ atmosphericPressure | number: '1.0-1' }} hPa</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
             </svg>
@@ -151,7 +151,7 @@
           <div class="vital empty"></div>
           <div class="vital">
             <span class="label">{{ 'vital_signs.air_quality' | translate }}</span>
-            <span class="value">{{ getVitalValue(vitalSigns()?.airQuality) }} mmol/L</span>
+            <span class="value">{{ airQuality | number: '1.0-0' }} AQI</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
               <line x1="12" y1="9" x2="12" y2="13"/>

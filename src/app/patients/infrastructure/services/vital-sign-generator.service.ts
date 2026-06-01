@@ -8,6 +8,15 @@ export interface GeneratedVitalSign {
   bloodPressure: number;
   glucoseLevel: number;
   oxygenSaturation: number;
+  lactateConcentration: number;
+  humidity: number;
+  sodiumPotassium: number;
+  alcoholLevel: number;
+  ketones: number;
+  cytokines: number;
+  specializedCells: number;
+  atmosphericPressure: number;
+  airQuality: number;
   alerts: VitalAlert[];
 }
 
@@ -43,11 +52,20 @@ export class VitalSignGeneratorService {
   }
 
   generateForPatient(patient: Patient): GeneratedVitalSign {
-    const temperature     = this.maybeOutOfRange(36.0, 37.5, 34.0, 41.0);
-    const heartRate       = this.maybeOutOfRange(60,   100,  30,   150);
-    const bloodPressure   = this.maybeOutOfRange(90,   130,  60,   180);
-    const glucoseLevel    = this.maybeOutOfRange(70,   110,  40,   200);
-    const oxygenSaturation = this.maybeOutOfRange(95,  100,  80,   100);
+    const temperature      = this.maybeOutOfRange(36.0, 37.5,  34.0, 41.0);
+    const heartRate        = this.maybeOutOfRange(60,   100,   30,   150);
+    const bloodPressure    = this.maybeOutOfRange(90,   130,   60,   180);
+    const glucoseLevel     = this.maybeOutOfRange(70,   110,   40,   200);
+    const oxygenSaturation = this.maybeOutOfRange(95,   100,   80,   100);
+    const lactateConcentration = this.rand(0.5, 2.0);
+    const humidity         = this.rand(30, 70);
+    const sodiumPotassium  = this.rand(135, 145);
+    const alcoholLevel     = this.rand(0, 0.05);
+    const ketones          = this.rand(0.1, 1.0);
+    const cytokines        = this.rand(1.0, 10.0);
+    const specializedCells = this.rand(4.5, 11.0);
+    const atmosphericPressure = this.rand(990, 1020);
+    const airQuality       = this.rand(10, 50);
 
     const alerts: VitalAlert[] = [];
 
@@ -92,6 +110,10 @@ export class VitalSignGeneratorService {
       });
     }
 
-    return { patient, temperature, heartRate, bloodPressure, glucoseLevel, oxygenSaturation, alerts };
+    return {
+      patient, temperature, heartRate, bloodPressure, glucoseLevel, oxygenSaturation,
+      lactateConcentration, humidity, sodiumPotassium, alcoholLevel, ketones,
+      cytokines, specializedCells, atmosphericPressure, airQuality, alerts,
+    };
   }
 }

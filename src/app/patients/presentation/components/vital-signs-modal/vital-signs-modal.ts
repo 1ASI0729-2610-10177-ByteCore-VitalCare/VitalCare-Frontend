@@ -110,20 +110,18 @@ export class VitalSignsModal implements OnInit {
     return value ?? 0;
   }
 
-  // Retorna el valor generado si existe, sino el del DB, sino 0
-  get temperature(): number {
-    return this.generatedVitals?.temperature ?? this.vitalSigns()?.temperature ?? 0;
-  }
-  get heartRate(): number {
-    return this.generatedVitals?.heartRate ?? this.vitalSigns()?.heartRate ?? 0;
-  }
-  get bloodPressure(): number {
-    return this.generatedVitals?.bloodPressure ?? this.vitalSigns()?.bloodPressure ?? 0;
-  }
-  get glucoseLevel(): number {
-    return this.generatedVitals?.glucoseLevel ?? this.vitalSigns()?.glucoseLevel ?? 0;
-  }
-  get oxygenSaturation(): number {
-    return this.generatedVitals?.oxygenSaturation ?? this.vitalSigns()?.oxygenSaturation ?? 0;
-  }
+  get temperature(): number        { return this.generatedVitals?.temperature        ?? this.vitalSigns()?.temperature        ?? 0; }
+  get heartRate(): number           { return this.generatedVitals?.heartRate           ?? this.vitalSigns()?.heartRate           ?? 0; }
+  get bloodPressure(): number       { return this.generatedVitals?.bloodPressure       ?? this.vitalSigns()?.bloodPressure       ?? 0; }
+  get glucoseLevel(): number        { return this.generatedVitals?.glucoseLevel        ?? this.vitalSigns()?.glucoseLevel        ?? 0; }
+  get oxygenSaturation(): number    { return this.generatedVitals?.oxygenSaturation    ?? this.vitalSigns()?.oxygenSaturation    ?? 0; }
+  get lactateConcentration(): number{ return this.generatedVitals?.lactateConcentration ?? this.vitalSigns()?.lactateConcentration ?? 0; }
+  get humidity(): number            { return this.generatedVitals?.humidity            ?? this.vitalSigns()?.humidity            ?? 0; }
+  get sodiumPotassium(): number     { return this.generatedVitals?.sodiumPotassium     ?? this.vitalSigns()?.sodiumPotassium     ?? 0; }
+  get alcoholLevel(): number        { return this.generatedVitals?.alcoholLevel        ?? this.vitalSigns()?.alcoholLevel        ?? 0; }
+  get ketones(): number             { return this.generatedVitals?.ketones             ?? this.vitalSigns()?.ketones             ?? 0; }
+  get cytokines(): number           { return this.generatedVitals?.cytokines           ?? this.vitalSigns()?.cytokines           ?? 0; }
+  get specializedCells(): number    { return this.generatedVitals?.specializedCells    ?? this.vitalSigns()?.specializedCells    ?? 0; }
+  get atmosphericPressure(): number { return this.generatedVitals?.atmosphericPressure ?? this.vitalSigns()?.atmosphericPressure ?? 0; }
+  get airQuality(): number          { return this.generatedVitals?.airQuality          ?? this.vitalSigns()?.airQuality          ?? 0; }
 }
