@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VitalAlert } from '../../../../infrastructure/services/vital-sign-generator.service';
+import { VitalAlert } from '../../../infrastructure/services/vital-sign-generator.service';
 
 @Component({
   selector: 'app-vital-alert-banner',
