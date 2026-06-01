@@ -9,6 +9,8 @@ import { VitalSignsModal } from '../../components/vital-signs-modal/vital-signs-
 import { LocationModal } from '../../components/location-modal/location-modal';
 import { AddPatientModal } from '../../components/add-patient-modal/add-patient-modal';
 import { PatientHistoryModal } from '../patient-history-modal/patient-history-modal';
+import { VitalAlertBanner } from '../../components/vital-alert-banner/vital-alert-banner';
+import { VitalSignGeneratorService, VitalAlert } from '../../../infrastructure/services/vital-sign-generator.service';
 
 @Component({
   selector: 'app-patients',
@@ -21,12 +23,14 @@ import { PatientHistoryModal } from '../patient-history-modal/patient-history-mo
     LocationModal,
     AddPatientModal,
     PatientHistoryModal,
+    VitalAlertBanner,
   ],
   templateUrl: './patients.html',
   styleUrl: './patients.css',
 })
 export class Patients implements OnInit {
   private patientService = inject(PatientService);
+  private vitalGenerator = inject(VitalSignGeneratorService);
 
   patients = signal<Patient[]>([]);
   selectedPatient = signal<Patient | null>(null);
@@ -34,6 +38,8 @@ export class Patients implements OnInit {
   showLocationModal = signal(false);
   showAddPatientModal = signal(false);
   showHistoryModal = signal(false);
+  activeAlerts = signal<VitalAlert[]>([]);
+  showAlertBanner = signal(false);
 
   ngOnInit(): void {
     this.loadPatients();
@@ -41,9 +47,26 @@ export class Patients implements OnInit {
 
   private loadPatients(): void {
     this.patientService.getAll().subscribe({
-      next: (data) => this.patients.set(data),
+      next: (data) => {
+        this.patients.set(data);
+        this.checkVitalAlerts(data);
+      },
       error: (err) => console.error('Error fetching patients:', err),
     });
+  }
+
+  private checkVitalAlerts(patients: Patient[]): void {
+    const results = this.vitalGenerator.generateForPatients(patients);
+    const allAlerts = results.flatMap(r => r.alerts);
+    if (allAlerts.length > 0) {
+      this.activeAlerts.set(allAlerts);
+      this.showAlertBanner.set(true);
+    }
+  }
+
+  dismissAlerts(): void {
+    this.showAlertBanner.set(false);
+    this.activeAlerts.set([]);
   }
 
   openVitalSignsModal(patient: Patient): void {

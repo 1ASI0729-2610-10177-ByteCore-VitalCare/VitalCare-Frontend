@@ -72,6 +72,14 @@
     </app-add-patient-modal>
   }
 
+  <!-- Alert Banner: Vital Signs -->
+  @if (showAlertBanner()) {
+    <app-vital-alert-banner
+      [alerts]="activeAlerts()"
+      (dismiss)="dismissAlerts()">
+    </app-vital-alert-banner>
+  }
+
   <!-- Modal: Patient History -->
   @if (showHistoryModal() && selectedPatient()) {
     <app-patient-history-modal
