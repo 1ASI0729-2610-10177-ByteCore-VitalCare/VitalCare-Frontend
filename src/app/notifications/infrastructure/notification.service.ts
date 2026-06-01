@@ -8,7 +8,7 @@ import { Notification } from '../domain/notification';
   providedIn: 'root'
 })
 export class NotificationService {
-  private apiUrl = `${environment.platformProviderApiBaseUrl}/notifications`;
+  private apiUrl = `${environment.platformProviderApiBaseUrl}notifications`;
 
   constructor(private http: HttpClient) {}
 
