@@ -31,7 +31,7 @@
           <!-- Fila 1 -->
           <div class="vital">
             <span class="label">{{ 'vital_signs.glucose_level' | translate }}</span>
-            <span class="value">{{ vitalSigns()?.glucoseLevel | number: '1.0-0' }} mg/dL</span>
+            <span class="value">{{ glucoseLevel | number: '1.0-0' }} mg/dL</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="12" y1="19" x2="12" y2="5"/>
               <polyline points="5 12 12 5 19 12"/>
@@ -57,7 +57,7 @@
 
           <div class="vital">
             <span class="label">{{ 'vital_signs.heart_rate' | translate }}</span>
-            <span class="value">{{ getVitalValue(vitalSigns()?.heartRate) | number: '1.0-0' }} mmol/L</span>
+            <span class="value">{{ heartRate | number: '1.0-0' }} bpm</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
             </svg>
@@ -99,7 +99,7 @@
 
           <div class="vital">
             <span class="label">{{ 'vital_signs.blood_pressure' | translate }}</span>
-            <span class="value">{{ getVitalValue(vitalSigns()?.bloodPressure) | number: '1.0-1' }} mmHg</span>
+            <span class="value">{{ bloodPressure | number: '1.0-1' }} mmHg</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="12" y1="5" x2="12" y2="19"/>
               <polyline points="19 12 12 19 5 12"/>
@@ -117,7 +117,7 @@
           <!-- Fila 6 -->
           <div class="vital">
             <span class="label">{{ 'vital_signs.temperature' | translate }}</span>
-            <span class="value">{{ getVitalValue(vitalSigns()?.temperature) | number: '1.0-1' }} mmHg</span>
+            <span class="value">{{ temperature | number: '1.0-1' }} °C</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
             </svg>
@@ -134,7 +134,7 @@
 
           <div class="vital">
             <span class="label">{{ 'vital_signs.oxygen_saturation' | translate }}</span>
-            <span class="value">{{ getVitalValue(vitalSigns()?.oxygenSaturation) | number: '1.0-1' }} mmHg</span>
+            <span class="value">{{ oxygenSaturation | number: '1.0-1' }} %</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
             </svg>

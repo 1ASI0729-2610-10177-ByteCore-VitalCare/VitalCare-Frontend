@@ -10,7 +10,7 @@ import { LocationModal } from '../../components/location-modal/location-modal';
 import { AddPatientModal } from '../../components/add-patient-modal/add-patient-modal';
 import { PatientHistoryModal } from '../patient-history-modal/patient-history-modal';
 import { VitalAlertBanner } from '../../components/vital-alert-banner/vital-alert-banner';
-import { VitalSignGeneratorService, VitalAlert } from '../../../infrastructure/services/vital-sign-generator.service';
+import { VitalSignGeneratorService, VitalAlert, GeneratedVitalSign } from '../../../infrastructure/services/vital-sign-generator.service';
 
 @Component({
   selector: 'app-patients',
@@ -40,6 +40,7 @@ export class Patients implements OnInit {
   showHistoryModal = signal(false);
   activeAlerts = signal<VitalAlert[]>([]);
   showAlertBanner = signal(false);
+  generatedVitals = new Map<number, GeneratedVitalSign>();
 
   ngOnInit(): void {
     this.loadPatients();
@@ -57,11 +58,16 @@ export class Patients implements OnInit {
 
   private checkVitalAlerts(patients: Patient[]): void {
     const results = this.vitalGenerator.generateForPatients(patients);
+    results.forEach(r => this.generatedVitals.set(r.patient.id, r));
     const allAlerts = results.flatMap(r => r.alerts);
     if (allAlerts.length > 0) {
       this.activeAlerts.set(allAlerts);
       this.showAlertBanner.set(true);
     }
+  }
+
+  getGeneratedVitals(patient: Patient): GeneratedVitalSign | null {
+    return this.generatedVitals.get(patient.id) ?? null;
   }
 
   dismissAlerts(): void {

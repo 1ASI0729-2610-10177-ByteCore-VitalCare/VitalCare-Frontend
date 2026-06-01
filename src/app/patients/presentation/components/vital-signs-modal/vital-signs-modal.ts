@@ -8,6 +8,7 @@ import { VitalSign } from '../../../domain/model/vital-sign.entity';
 import { Patch } from '../../../domain/model/patch.entity';
 import { VitalSignService } from '../../../infrastructure/services/vital-sign.service';
 import { PatchService } from '../../../infrastructure/services/patch.service';
+import { GeneratedVitalSign } from '../../../infrastructure/services/vital-sign-generator.service';
 
 @Component({
   selector: 'app-vital-signs-modal',
@@ -18,6 +19,7 @@ import { PatchService } from '../../../infrastructure/services/patch.service';
 })
 export class VitalSignsModal implements OnInit {
   @Input() patient!: Patient;
+  @Input() generatedVitals: GeneratedVitalSign | null = null;
   @Output() close = new EventEmitter<void>();
 
   vitalSigns = signal<VitalSign | null>(null);
@@ -106,5 +108,22 @@ export class VitalSignsModal implements OnInit {
 
   getVitalValue(value: number | undefined): number {
     return value ?? 0;
+  }
+
+  // Retorna el valor generado si existe, sino el del DB, sino 0
+  get temperature(): number {
+    return this.generatedVitals?.temperature ?? this.vitalSigns()?.temperature ?? 0;
+  }
+  get heartRate(): number {
+    return this.generatedVitals?.heartRate ?? this.vitalSigns()?.heartRate ?? 0;
+  }
+  get bloodPressure(): number {
+    return this.generatedVitals?.bloodPressure ?? this.vitalSigns()?.bloodPressure ?? 0;
+  }
+  get glucoseLevel(): number {
+    return this.generatedVitals?.glucoseLevel ?? this.vitalSigns()?.glucoseLevel ?? 0;
+  }
+  get oxygenSaturation(): number {
+    return this.generatedVitals?.oxygenSaturation ?? this.vitalSigns()?.oxygenSaturation ?? 0;
   }
 }

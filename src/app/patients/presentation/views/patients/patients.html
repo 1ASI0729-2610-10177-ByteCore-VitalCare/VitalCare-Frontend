@@ -52,6 +52,7 @@
   @if (showVitalSignsModal() && selectedPatient()) {
     <app-vital-signs-modal
       [patient]="selectedPatient()!"
+      [generatedVitals]="getGeneratedVitals(selectedPatient()!)"
       (close)="closeVitalSignsModal()">
     </app-vital-signs-modal>
   }
