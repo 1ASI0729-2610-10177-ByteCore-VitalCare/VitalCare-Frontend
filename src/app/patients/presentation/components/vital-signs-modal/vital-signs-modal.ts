@@ -33,6 +33,11 @@ export class VitalSignsModal implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Si ya tenemos vitales generados, no necesitamos cargar del DB
+    if (this.generatedVitals) {
+      this.isLoading.set(false);
+      return;
+    }
     this.loadData();
   }
 
@@ -43,30 +48,19 @@ export class VitalSignsModal implements OnInit {
     this.patchService.getByPatientId(this.patient.id).subscribe({
       next: (patch) => {
         if (!patch) {
-          this.error.set('No patch found for this patient');
           this.isLoading.set(false);
           return;
         }
-
         this.patch.set(patch);
-
         this.vitalSignService.getLatestByPatchId(patch.id).subscribe({
           next: (vitalSign) => {
             this.vitalSigns.set(vitalSign);
             this.isLoading.set(false);
           },
-          error: (err) => {
-            console.error('Error loading vital signs:', err);
-            this.error.set('Error loading vital signs');
-            this.isLoading.set(false);
-          },
+          error: () => this.isLoading.set(false),
         });
       },
-      error: (err) => {
-        console.error('Error loading patch:', err);
-        this.error.set('Error loading patch information');
-        this.isLoading.set(false);
-      },
+      error: () => this.isLoading.set(false),
     });
   }
 

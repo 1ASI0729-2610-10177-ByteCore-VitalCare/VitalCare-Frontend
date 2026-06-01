@@ -27,7 +27,7 @@
       </ng-container>
 
       <ng-container *ngIf="!isLoading() && !error()">
-        <div *ngIf="vitalSigns()" class="grid">
+        <div *ngIf="vitalSigns() || generatedVitals" class="grid">
           <!-- Fila 1 -->
           <div class="vital">
             <span class="label">{{ 'vital_signs.glucose_level' | translate }}</span>
@@ -72,8 +72,8 @@
           </div>
 
           <div class="vital">
-            <span class="label">{{ 'vital_signs.alcohol_level_2' | translate }}</span>
-            <span class="value">{{ alcoholLevel | number: '1.0-2' }} g/dL</span>
+            <span class="label">{{ 'vital_signs.sodium_potassium' | translate }}</span>
+            <span class="value">{{ sodiumPotassium | number: '1.0-1' }} mEq/L</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/>
             </svg>
@@ -160,7 +160,7 @@
           </div>
         </div>
 
-        <div *ngIf="!vitalSigns()" class="no-data">
+        <div *ngIf="!vitalSigns() && !generatedVitals" class="no-data">
           <p>{{ 'vital_signs.no_data' | translate }}</p>
         </div>
 
