@@ -53,7 +53,8 @@
     <app-vital-signs-modal
       [patient]="selectedPatient()!"
       [generatedVitals]="getGeneratedVitals(selectedPatient()!)"
-      (close)="closeVitalSignsModal()">
+      (close)="closeVitalSignsModal()"
+      (openHistory)="openHistoryFromVitals()">
     </app-vital-signs-modal>
   }
 

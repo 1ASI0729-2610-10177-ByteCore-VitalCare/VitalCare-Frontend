@@ -166,7 +166,7 @@
 
         <div class="actions">
           <button class="btn" (click)="onClose()">{{ 'common.close' | translate }}</button>
-          <button class="btn">{{ 'vital_signs.view_history' | translate }}</button>
+          <button class="btn" (click)="openHistory.emit()">{{ 'vital_signs.view_history' | translate }}</button>
         </div>
       </ng-container>
     </div>

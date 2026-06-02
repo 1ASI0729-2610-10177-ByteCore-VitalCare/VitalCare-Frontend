@@ -21,6 +21,7 @@ export class VitalSignsModal implements OnInit {
   @Input() patient!: Patient;
   @Input() generatedVitals: GeneratedVitalSign | null = null;
   @Output() close = new EventEmitter<void>();
+  @Output() openHistory = new EventEmitter<void>();
 
   vitalSigns = signal<VitalSign | null>(null);
   patch = signal<Patch | null>(null);

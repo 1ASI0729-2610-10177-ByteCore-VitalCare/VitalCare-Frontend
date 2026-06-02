@@ -85,6 +85,12 @@ export class Patients implements OnInit {
     this.selectedPatient.set(null);
   }
 
+  openHistoryFromVitals(): void {
+    this.showVitalSignsModal.set(false);
+    this.showHistoryModal.set(true);
+    // selectedPatient ya está seteado
+  }
+
   openLocationModal(patient: Patient): void {
     this.selectedPatient.set(patient);
     this.showLocationModal.set(true);
