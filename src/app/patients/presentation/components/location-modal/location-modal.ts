@@ -49,8 +49,10 @@ export class LocationModal implements OnInit, OnDestroy {
     this.patchService.getByPatientId(this.patient.id).subscribe({
       next: (patch) => {
         if (!patch) {
-          this.error.set('No patch found for this patient');
+          // Sin patch: mostrar ubicación aleatoria
           this.isLoading.set(false);
+          const { lat, lng } = this.randomLocation();
+          setTimeout(() => this.initMap(lat, lng), 150);
           return;
         }
 
@@ -60,25 +62,40 @@ export class LocationModal implements OnInit, OnDestroy {
           next: (loc) => {
             this.location.set(loc);
             this.isLoading.set(false);
-
-            // Si hay ubicación, dibujamos el mapa después de que Angular renderice el HTML
             if (loc) {
               setTimeout(() => this.initMap(loc.latitude, loc.longitude), 150);
+            } else {
+              const { lat, lng } = this.randomLocation();
+              setTimeout(() => this.initMap(lat, lng), 150);
             }
           },
-          error: (err) => {
-            console.error('Error loading location:', err);
-            this.error.set('Error loading location');
+          error: () => {
             this.isLoading.set(false);
+            const { lat, lng } = this.randomLocation();
+            setTimeout(() => this.initMap(lat, lng), 150);
           },
         });
       },
-      error: (err) => {
-        console.error('Error loading patch:', err);
-        this.error.set('Error loading patch information');
+      error: () => {
         this.isLoading.set(false);
+        const { lat, lng } = this.randomLocation();
+        setTimeout(() => this.initMap(lat, lng), 150);
       },
     });
+  }
+
+  private randomLocation(): { lat: number; lng: number } {
+    // Ciudades base para variar ubicaciones de forma realista
+    const bases = [
+      { lat: -12.0464, lng: -77.0428 },  // Lima
+      { lat: 40.7128,  lng: -74.0060 },  // Nueva York
+      { lat: 34.0522,  lng: -118.2437 }, // Los Ángeles
+      { lat: 48.8566,  lng: 2.3522 },    // París
+      { lat: 19.4326,  lng: -99.1332 },  // Ciudad de México
+    ];
+    const base = bases[this.patient.id % bases.length];
+    const offset = () => (Math.random() - 0.5) * 0.05;
+    return { lat: base.lat + offset(), lng: base.lng + offset() };
   }
 
   private initMap(lat: number, lng: number): void {
