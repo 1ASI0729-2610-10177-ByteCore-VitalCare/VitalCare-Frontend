@@ -3,6 +3,9 @@ import { Home } from './shared/presentation/views/home/home';
 import { Patients } from './patients/presentation/views/patients/patients';
 import { Plans } from './suscription/presentation/views/plans/plans';
 import { Notifications } from './notifications/presentation/views/notifications/notifications';
+import { authGuard, guestGuard } from './iam/application/guards/auth.guard';
+import { Login } from './iam/presentation/views/login/login';
+import { ResetPassword } from './iam/presentation/views/reset-password/reset-password';
 
 // import { Profile } from './iam/presentation/views/profile/profile';
 // import { Support } from './patients/presentation/views/support/support';
@@ -13,8 +16,20 @@ const pageNotFound = () =>
 
 export const routes: Routes = [
   {
+    path: 'login',
+    component: Login,
+    canActivate: [guestGuard],
+    title: `${baseTitle} - Login`,
+  },
+  {
+    path: 'reset-password',
+    component: ResetPassword,
+    title: `${baseTitle} - Reset Password`,
+  },
+  {
     path: 'home',
     component: Home,
+    canActivate: [authGuard],
     title: `${baseTitle} - Home`,
     children: [
       { path: 'patients', component: Patients, title: `${baseTitle} - Patients` },

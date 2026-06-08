@@ -15,6 +15,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatDivider } from '@angular/material/divider';
 import { LanguageSwitcher } from '../../components/language-switcher/language-switcher';
 import { environment } from '../../../../../environments/environment';
+import { AuthService } from '../../../../iam/application/services/auth.service';
 
 // ==================== DOMAIN ====================
 
@@ -248,6 +249,7 @@ export class Home implements OnInit {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly authService = inject(AuthService);
 
   readonly navOptions = signal<NavOption[]>([
     { link: '/home', label: 'nav.home', icon: 'home' },
@@ -261,6 +263,7 @@ export class Home implements OnInit {
   readonly isLoading = signal(true);
   readonly hasError = signal(false);
   readonly stats = signal<DashboardStats | null>(null);
+  readonly currentUser = this.authService.currentUser;
 
   ngOnInit(): void {
     this.router.events.pipe(
@@ -276,6 +279,10 @@ export class Home implements OnInit {
 
   retry(): void {
     this.loadDashboard();
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 
   // ==================== INFRASTRUCTURE ====================

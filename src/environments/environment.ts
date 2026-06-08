@@ -6,6 +6,7 @@ export const environment = {
   platformProviderVitalCarePatcVs: 'https://6a0523f9aa826ca75c09838a.mockapi.io/api/v1',
   platformProviderVitalCareAlSt: 'https://6a052865aa826ca75c0987a9.mockapi.io/api/v1',
   platformProviderVitalCareL: 'https://6a052c66aa826ca75c098af2.mockapi.io/api/v1',
+  platformProviderUsersEndpointPath: 'users',
   platformProviderPatientsEndpointPath: 'patients',
   platformProviderPlansEndpointPath: 'subscriptions',
   platformProviderSupportEndpointPath: 'support',

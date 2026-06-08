@@ -27,6 +27,38 @@
     "close": "Close",
     "error": "Error"
   },
+  "login": {
+    "title": "Sign in",
+    "welcome": "Welcome to Vital Care",
+    "subtitle": "Monitor patients, alerts, and patches from a secure dashboard.",
+    "description": "Enter your information to continue",
+    "email": "Email",
+    "password": "Password",
+    "emailRequired": "Enter your email.",
+    "emailInvalid": "Enter a valid email.",
+    "passwordRequired": "Enter your password.",
+    "invalidCredentials": "Incorrect email or password.",
+    "remember": "Remember me",
+    "forgotPassword": "Forgot your password?",
+    "noAccount": "No account?",
+    "register": "Register",
+    "submit": "Sign in"
+  },
+  "resetPassword": {
+    "title": "Reset password",
+    "description": "Enter your information to continue",
+    "email": "Email",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "emailRequired": "Enter your email.",
+    "emailInvalid": "Enter a valid email.",
+    "newPasswordRequired": "Enter the new password.",
+    "confirmPasswordRequired": "Confirm the new password.",
+    "passwordMismatch": "Passwords do not match.",
+    "resetError": "The password could not be reset.",
+    "submit": "Confirm",
+    "back": "← Back"
+  },
   "vital_signs": {
     "glucose_level": "Glucose Level",
     "sodium_potassium": "Sodium and Potassium",
@@ -81,6 +113,7 @@
   "home": {
     "logoAlt": "Vital Care Logo",
     "profileTooltip": "Profile",
+    "logoutTooltip": "Log out",
     "loadingStats": "Loading statistics...",
     "errorConnection": "Could not load data. Check your connection.",
     "retry": "Retry",

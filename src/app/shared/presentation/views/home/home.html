@@ -17,11 +17,15 @@
 
     <div class="toolbar-actions">
       <app-language-switcher />
+      @if (currentUser()) {
+        <span class="user-name">{{ currentUser()!.name }}</span>
+      }
       <button mat-icon-button
-              [routerLink]="'/profile'"
-              [matTooltip]="'home.profileTooltip' | translate"
+              type="button"
+              (click)="logout()"
+              [matTooltip]="'home.logoutTooltip' | translate"
               class="profile-btn">
-        <mat-icon>account_circle</mat-icon>
+        <mat-icon>logout</mat-icon>
       </button>
     </div>
   </mat-toolbar-row>
