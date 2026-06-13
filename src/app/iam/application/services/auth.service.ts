@@ -77,7 +77,6 @@ export class AuthService {
 
         return this.http.post<UserResource>(this.usersEndpointUrl, newUser).pipe(
           map(resource => this.assembler.toEntityFromResource(resource)),
-          tap(user => this.persistUser(user)),
         );
       }),
     );
