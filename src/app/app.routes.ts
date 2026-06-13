@@ -3,8 +3,9 @@ import { Home } from './shared/presentation/views/home/home';
 import { Patients } from './patients/presentation/views/patients/patients';
 import { Plans } from './suscription/presentation/views/plans/plans';
 import { Notifications } from './notifications/presentation/views/notifications/notifications';
-import { authGuard, guestGuard } from './iam/application/guards/auth.guard';
+import { authGuard } from './iam/application/guards/auth.guard';
 import { Login } from './iam/presentation/views/login/login';
+import { Register } from './iam/presentation/views/register/register';
 import { ResetPassword } from './iam/presentation/views/reset-password/reset-password';
 
 // import { Profile } from './iam/presentation/views/profile/profile';
@@ -18,8 +19,12 @@ export const routes: Routes = [
   {
     path: 'login',
     component: Login,
-    canActivate: [guestGuard],
     title: `${baseTitle} - Login`,
+  },
+  {
+    path: 'register',
+    component: Register,
+    title: `${baseTitle} - Register`,
   },
   {
     path: 'reset-password',
@@ -39,7 +44,7 @@ export const routes: Routes = [
       // { path: 'profile', component: Profile },
     ]
   },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'patients', redirectTo: 'home/patients', pathMatch: 'full' },
   { path: 'plans', redirectTo: 'home/plans', pathMatch: 'full' },
   { path: 'notification', redirectTo: 'home/notification', pathMatch: 'full' },

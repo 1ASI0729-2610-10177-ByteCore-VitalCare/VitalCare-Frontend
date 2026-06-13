@@ -58,6 +58,31 @@ export class AuthService {
     );
   }
 
+  register(name: string, email: string, password: string): Observable<User | null> {
+    const normalizedEmail = email.trim();
+    const params = new HttpParams().set('email', normalizedEmail);
+
+    return this.http.get<UserResource[]>(this.usersEndpointUrl, { params }).pipe(
+      switchMap(users => {
+        if (users.length > 0) {
+          return of(null);
+        }
+
+        const newUser: Omit<UserResource, 'id'> = {
+          name: name.trim(),
+          email: normalizedEmail,
+          password,
+          created_at: new Date().toISOString(),
+        };
+
+        return this.http.post<UserResource>(this.usersEndpointUrl, newUser).pipe(
+          map(resource => this.assembler.toEntityFromResource(resource)),
+          tap(user => this.persistUser(user)),
+        );
+      }),
+    );
+  }
+
   private get usersEndpointUrl(): string {
     const baseUrl = environment.platformProviderApiBaseUrl.replace(/\/$/, '');
     const usersPath = environment.platformProviderUsersEndpointPath.replace(/^\//, '');

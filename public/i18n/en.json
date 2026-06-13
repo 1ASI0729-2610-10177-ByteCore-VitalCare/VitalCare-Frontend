@@ -59,6 +59,25 @@
     "submit": "Confirm",
     "back": "← Back"
   },
+  "register": {
+    "title": "Create account",
+    "description": "Enter your information to register",
+    "name": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "nameRequired": "Enter your name.",
+    "emailRequired": "Enter your email.",
+    "emailInvalid": "Enter a valid email.",
+    "passwordRequired": "Enter your password.",
+    "confirmPasswordRequired": "Confirm your password.",
+    "passwordMismatch": "Passwords do not match.",
+    "emailAlreadyExists": "This email is already registered.",
+    "registerError": "The account could not be created.",
+    "submit": "Register",
+    "hasAccount": "Already have an account?",
+    "login": "Sign in"
+  },
   "vital_signs": {
     "glucose_level": "Glucose Level",
     "sodium_potassium": "Sodium and Potassium",
