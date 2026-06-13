@@ -15,4 +15,4 @@ export class NotificationService {
   getAll(): Observable<Notification[]> {
     return this.http.get<Notification[]>(this.apiUrl);
   }
-}
+} 
