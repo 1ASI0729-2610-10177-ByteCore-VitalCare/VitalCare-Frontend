@@ -1,5 +1,5 @@
-<div class="plan-card" [class.popular-card]="plan.isPopular">
-  @if (plan.isPopular) {
+<div class="plan-card" [class.popular-card]="isRecommended">
+  @if (isRecommended) {
     <span class="popular-tag">Recomendado</span>
   }
 
@@ -21,7 +21,11 @@
     </ul>
   </div>
 
-  <button class="plan-button" [class.btn-filled]="plan.isPopular">
-    {{ plan.buttonText }}
+  <button
+    class="plan-button"
+    [class.btn-filled]="isRecommended"
+    [class.plan-button--active]="isActive"
+  >
+    <span class="plan-button-label">{{ isActive ? 'Suscripción actual' : plan.buttonText }}</span>
   </button>
 </div>

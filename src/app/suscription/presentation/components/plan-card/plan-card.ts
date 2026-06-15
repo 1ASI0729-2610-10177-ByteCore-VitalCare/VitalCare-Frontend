@@ -13,4 +13,6 @@ export class PlanCard {
   @Input({ required: true }) plan!: Plan;
 
   @Input() isActive: boolean = false;
+
+  @Input() isRecommended: boolean = false;
 }

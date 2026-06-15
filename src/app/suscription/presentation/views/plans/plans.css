@@ -1,30 +1,223 @@
-.pricing-container { padding: 60px 20px; max-width: 1200px; margin: 0 auto; background-color: #f8fafc; min-height: 100vh; }
-.pricing-header { text-align: center; margin-bottom: 40px; }
-.pricing-header h1 { font-size: 2.5rem; color: #0C7AB5; margin-bottom: 10px; }
-.pricing-header p { color: #64748b; font-size: 1.1rem; }
+.pricing-container {
+  padding: 24px 16px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f8fafc;
+  min-height: auto;
+}
 
-.tabs-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; background: #e2e8f0; padding: 5px; border-radius: 12px; max-width: 400px; margin-left: auto; margin-right: auto; }
-.tab-btn { flex: 1; padding: 10px 20px; border: none; background: transparent; color: #64748b; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.3s; }
-.tab-btn.active { background: white; color: #3b82f6; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.pricing-header {
+  text-align: center;
+  margin-bottom: 18px;
+}
 
-.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; align-items: start; }
+.pricing-header h1 {
+  font-size: 2rem;
+  color: #0C7AB5;
+  margin-bottom: 6px;
+}
 
-.current-plan-view { display: flex; justify-content: center; }
-.active-card { background: white; border-radius: 16px; padding: 30px; width: 100%; max-width: 600px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border: 1px solid #e2e8f0; }
-.active-card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 20px; }
-.active-card-header h2 { margin: 0 0 10px 0; color: #1e293b; }
-.status-badge.active-badge { background: #d1fae5; color: #065f46; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
-.current-price { font-size: 2rem; font-weight: bold; color: #0f172a; margin: 0; }
-.current-price span { font-size: 1rem; color: #64748b; font-weight: normal; }
-.active-card-body { margin-bottom: 30px; }
-.info-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #e2e8f0; }
-.info-row .label { color: #64748b; font-weight: 500; }
-.info-row .value { color: #1e293b; font-weight: 600; }
-.active-card-actions { display: flex; gap: 15px; justify-content: flex-end; }
-.btn-primary { background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; }
-.btn-outline-danger { background: transparent; color: #ef4444; border: 1px solid #ef4444; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; }
-.btn-outline-danger:hover { background: #fef2f2; }
-.no-plan-card { text-align: center; background: white; padding: 40px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+.pricing-header p {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+.tabs-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  background: #e2e8f0;
+  padding: 5px;
+  border-radius: 12px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.tab-btn.active {
+  background: white;
+  color: #3b82f6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  align-items: start;
+  justify-items: center;
+}
+
+.pricing-grid--center {
+  justify-items: center;
+  grid-template-columns: 1fr;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.pricing-grid--center .plan-card { min-height: 390px; }
+
+.current-plan-view-compact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.current-info {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: auto;
+  padding-top: 0;
+  text-align: center;
+}
+
+.current-info h2 { margin: 0 0 6px 0; color: #0f172a; font-size: 1.55rem; }
+.current-info p { margin: 0; color: #475569; }
+.eyebrow {
+  margin: 0 0 6px 0;
+  color: #0C7AB5;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+.muted-copy { margin: 0; color: #64748b; line-height: 1.35; font-size: 0.95rem; }
+
+/* Ajustes responsivos: en pantallas pequeñas apilar */
+@media (max-width: 800px) {
+  .pricing-grid--center { max-width: 100%; }
+}
+
+/* Ajustar el contenedor para no reservar altura extra innecesaria */
+.pricing-container { min-height: auto; }
+
+.current-plan-view {
+  display: flex;
+  justify-content: center;
+}
+
+.active-card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.active-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.active-card-header h2 {
+  margin: 0 0 10px 0;
+  color: #1e293b;
+}
+
+.status-badge.active-badge {
+  background: #d1fae5;
+  color: #065f46;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.current-price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #0f172a;
+  margin: 0;
+}
+
+.current-price span {
+  font-size: 1rem;
+  color: #64748b;
+  font-weight: normal;
+}
+
+.active-card-body {
+  margin-bottom: 30px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.info-row .label {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.info-row .value {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.active-card-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+}
+
+.btn-primary {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-outline-danger {
+  background: transparent;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-outline-danger:hover {
+  background: #fef2f2;
+}
+
+.no-plan-card {
+  text-align: center;
+  background: white;
+  padding: 28px;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
 
 
 
