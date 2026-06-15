@@ -1,36 +1,6 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <img src="/public/assets/vital-care-logo.png" alt="Vital Care Logo" class="logo">
-    <div class="spacer"></div>
-
-    @for (option of navOptions; track option.label) {
-      <a mat-button [routerLink]="option.link">
-        <mat-icon *ngIf="option.label === 'Home'" class="nav-icon">home</mat-icon>
-        <mat-icon *ngIf="option.label === 'Pacientes'" class="nav-icon">people</mat-icon>
-        <mat-icon *ngIf="option.label === 'Ver Plan'" class="nav-icon">assignment</mat-icon>
-        <mat-icon *ngIf="option.label === 'Soporte'" class="nav-icon">help</mat-icon>
-        {{ option.label }}
-      </a>
-    }
-
-    <div class="spacer"></div>
-
-    <button mat-icon-button [routerLink]="'/profile'" matTooltip="Perfil" class="profile-btn">
-      <mat-icon>account_circle</mat-icon>
-    </button>
-  </mat-toolbar-row>
-</mat-toolbar>
-
 <main class="main-content">
   <div class="title-container">
     <h1 class="page-title">Notificaciones</h1>
-  </div>
-
-  <div class="search-section">
-    <mat-icon class="search-icon">search</mat-icon>
-    <button mat-raised-button color="primary" class="view-desc-btn">
-      Ver descripción
-    </button>
   </div>
 
   <div class="table-container">

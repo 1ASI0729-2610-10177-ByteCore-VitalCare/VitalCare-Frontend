@@ -52,7 +52,9 @@
   @if (showVitalSignsModal() && selectedPatient()) {
     <app-vital-signs-modal
       [patient]="selectedPatient()!"
-      (close)="closeVitalSignsModal()">
+      [generatedVitals]="getGeneratedVitals(selectedPatient()!)"
+      (close)="closeVitalSignsModal()"
+      (openHistory)="openHistoryFromVitals()">
     </app-vital-signs-modal>
   }
 
@@ -70,6 +72,14 @@
       (close)="closeAddPatientModal()"
       (patientAdded)="onPatientAdded($event)">
     </app-add-patient-modal>
+  }
+
+  <!-- Alert Banner: Vital Signs -->
+  @if (showAlertBanner()) {
+    <app-vital-alert-banner
+      [alerts]="activeAlerts()"
+      (dismiss)="dismissAlerts()">
+    </app-vital-alert-banner>
   }
 
   <!-- Modal: Patient History -->
