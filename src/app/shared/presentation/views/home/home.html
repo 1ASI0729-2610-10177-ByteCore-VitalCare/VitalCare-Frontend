@@ -21,6 +21,12 @@
         <span class="user-name">{{ currentUser()!.name }}</span>
       }
       <button mat-icon-button
+              [routerLink]="'/home/profile'"
+              [matTooltip]="'home.profileTooltip' | translate"
+              class="profile-btn">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <button mat-icon-button
               type="button"
               (click)="logout()"
               [matTooltip]="'home.logoutTooltip' | translate"
@@ -37,9 +43,10 @@
 
     @if (isLoading()) {
       <div class="dash-state">
-        <mat-spinner diameter="56"></mat-spinner>
+        <mat-spinner diameter="48"></mat-spinner>
         <p class="dash-state-text">{{ 'home.loadingStats' | translate }}</p>
       </div>
+
     } @else if (hasError()) {
       <div class="dash-state">
         <mat-icon class="dash-error-icon">error_outline</mat-icon>
@@ -49,65 +56,78 @@
           {{ 'home.retry' | translate }}
         </button>
       </div>
-    } @else if (stats()) {
-      <div class="dash-header">
-        <div class="dash-title">
-          <mat-icon class="dash-title-icon">dashboard</mat-icon>
-          <span>{{ 'home.dashboardTitle' | translate }}</span>
+
+    } @else if (data(); as vm) {
+
+      <!-- Bienvenida -->
+      <div class="welcome-banner">
+        <div class="welcome-text">
+          <h1 class="welcome-title">{{ 'home.welcome' | translate }}, {{ currentUser()?.name }} 👋</h1>
+          <p class="welcome-sub">{{ 'home.dashboardSubtitle' | translate }}</p>
         </div>
-        <p class="dash-subtitle">{{ 'home.dashboardSubtitle' | translate }}</p>
-        <mat-divider></mat-divider>
       </div>
 
+      <!-- Plan activo -->
+      <div class="plan-card">
+        <div class="plan-icon-wrap">
+          <mat-icon class="plan-icon">workspace_premium</mat-icon>
+        </div>
+        <div class="plan-info">
+          <span class="plan-label">{{ 'home.kpi_plan' | translate }}</span>
+          <span class="plan-name">{{ vm.plan }}</span>
+        </div>
+        <div class="plan-expiry">
+          <span class="plan-label">{{ 'home.kpi_plan_expiry' | translate }}</span>
+          <span class="plan-date">{{ vm.planExpiry }}</span>
+        </div>
+        <a mat-stroked-button [routerLink]="'/home/plans'" class="plan-action-btn">
+          {{ 'home.manage_plan' | translate }}
+        </a>
+      </div>
+
+      <!-- KPIs numéricos -->
       <div class="kpi-grid">
-        @for (kpi of stats()!.kpis; track kpi.title) {
-          <mat-card class="kpi-card" appearance="outlined">
-            <mat-card-content>
-              <div class="kpi-content">
-                <div class="kpi-icon-wrap" [style.background]="kpi.color + '22'">
-                  <mat-icon [style.color]="kpi.color">{{ kpi.icon }}</mat-icon>
-                </div>
-                <div class="kpi-text">
-                  <span class="kpi-value" [style.color]="kpi.color">{{ kpi.value }}</span>
-                  <span class="kpi-label">{{ kpi.title | translate }}</span>
-                </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        }
-      </div>
 
-      <div class="charts-grid">
-        @for (chart of stats()!.charts; track chart.title) {
-          <mat-card class="chart-card" appearance="outlined">
-            <mat-card-header>
-              <mat-card-title>
-                <div class="chart-title-row">
-                  <mat-icon class="chart-icon">{{ chart.icon }}</mat-icon>
-                  {{ chart.title | translate }}
-                </div>
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <div class="bars-list">
-                @for (bar of chart.bars; track bar.label) {
-                  <div class="bar-item">
-                    <div class="bar-meta">
-                      <span class="bar-label">{{ bar.label | translate }}</span>
-                      <span class="bar-count">{{ bar.count }} &middot; {{ bar.percentage }}%</span>
-                    </div>
-                    <div class="bar-track">
-                      <div class="bar-fill"
-                           [style.width.%]="bar.percentage"
-                           [style.background]="bar.color">
-                      </div>
-                    </div>
-                  </div>
-                }
-              </div>
-            </mat-card-content>
-          </mat-card>
-        }
+        <div class="kpi-card" [routerLink]="'/home/patients'">
+          <div class="kpi-icon-wrap" style="background: #388e3c22">
+            <mat-icon style="color: #388e3c">personal_injury</mat-icon>
+          </div>
+          <div class="kpi-text">
+            <span class="kpi-value" style="color: #388e3c">{{ vm.patients }}</span>
+            <span class="kpi-label">{{ 'home.kpi_patients' | translate }}</span>
+          </div>
+        </div>
+
+        <div class="kpi-card" [routerLink]="'/home/patients'">
+          <div class="kpi-icon-wrap" style="background: #7b1fa222">
+            <mat-icon style="color: #7b1fa2">sensors</mat-icon>
+          </div>
+          <div class="kpi-text">
+            <span class="kpi-value" style="color: #7b1fa2">{{ vm.activePatches }}</span>
+            <span class="kpi-label">{{ 'home.kpi_active_patches' | translate }}</span>
+          </div>
+        </div>
+
+        <div class="kpi-card" [routerLink]="'/home/notification'">
+          <div class="kpi-icon-wrap" style="background: #d32f2f22">
+            <mat-icon style="color: #d32f2f">notifications_active</mat-icon>
+          </div>
+          <div class="kpi-text">
+            <span class="kpi-value" style="color: #d32f2f">{{ vm.unreadAlerts }}</span>
+            <span class="kpi-label">{{ 'home.kpi_unread_alerts' | translate }}</span>
+          </div>
+        </div>
+
+        <div class="kpi-card" [routerLink]="'/home/support'">
+          <div class="kpi-icon-wrap" style="background: #1976d222">
+            <mat-icon style="color: #1976d2">support_agent</mat-icon>
+          </div>
+          <div class="kpi-text">
+            <span class="kpi-value" style="color: #1976d2">{{ vm.openTickets }}</span>
+            <span class="kpi-label">{{ 'home.kpi_open_tickets' | translate }}</span>
+          </div>
+        </div>
+
       </div>
     }
 

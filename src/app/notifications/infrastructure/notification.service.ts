@@ -12,11 +12,16 @@ export class NotificationService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Notification[]> {
-    return this.http.get<Notification[]>(this.apiUrl);
+  getAll(userId?: number): Observable<Notification[]> {
+    const url = userId ? `${this.apiUrl}?users_id=${userId}` : this.apiUrl;
+    return this.http.get<Notification[]>(url);
   }
 
   create(notification: Omit<Notification, 'id'>): Observable<Notification> {
     return this.http.post<Notification>(this.apiUrl, notification);
+  }
+
+  deleteById(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

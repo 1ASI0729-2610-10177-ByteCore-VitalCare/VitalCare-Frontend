@@ -5,6 +5,7 @@ import { SubscriptionFacadeService } from '../../../application/services/subscri
 import { Plan, Subscription } from '../../../domain/model/plan.entity';
 import { PlanCard } from '../../components/plan-card/plan-card';
 import { CurrentUserService } from '../../../infrastructure/services/current-user.service';
+import { AuthService } from '../../../../iam/application/services/auth.service';
 import { BehaviorSubject, Observable, combineLatest, map, shareReplay, switchMap } from 'rxjs';
 
 type PlansViewModel = {
@@ -25,6 +26,7 @@ type PlansViewModel = {
 export class Plans {
   private facade = inject(SubscriptionFacadeService);
   private currentUserService = inject(CurrentUserService);
+  private authService = inject(AuthService);
 
   public activeTab: 'current' | 'explore' = 'current';
   public readonly changing = signal(false);
@@ -126,12 +128,16 @@ export class Plans {
   ];
 
   onSelectPlan(plan: Plan, activeSubscription: Subscription | null): void {
-    if (!activeSubscription) return;
     this.changing.set(true);
     this.changeSuccess.set(false);
     this.changeError.set(false);
 
-    this.facade.changePlan(activeSubscription.id, plan.name, parseFloat(plan.price)).subscribe({
+    const price = parseFloat(plan.price);
+    const action$ = activeSubscription
+      ? this.facade.changePlan(activeSubscription.id, plan.name, price)
+      : this.facade.createPlan(this.authService.currentUser()?.id ?? 1, plan.name, price);
+
+    action$.subscribe({
       next: () => {
         this.changing.set(false);
         this.changeSuccess.set(true);

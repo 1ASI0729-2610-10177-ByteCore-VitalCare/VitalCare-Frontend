@@ -4,4 +4,5 @@ export interface Notification {
   fecha: string;
   descripcion: string;
   patientId?: number;
+  users_id?: number;
 }

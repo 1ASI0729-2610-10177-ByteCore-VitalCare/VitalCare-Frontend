@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { Patient } from '../../../domain/model/patient.entity';
 import { PatientService } from '../../../infrastructure/services/patient.service';
+import { AuthService } from '../../../../iam/application/services/auth.service';
 
 @Component({
   selector: 'app-add-patient-modal',
@@ -18,6 +19,7 @@ export class AddPatientModal {
   @Output() patientAdded = new EventEmitter<Patient>();
 
   private patientService = inject(PatientService);
+  private authService = inject(AuthService);
 
   // Form state
   name = signal('');
@@ -64,7 +66,7 @@ export class AddPatientModal {
       photo: this.photoFile()?.name || 'default.jpg',
       birthDate: this.birthDate(),
       gender: this.gender(),
-      userId: 1,
+      userId: this.authService.currentUser()?.id ?? 1,
     };
 
     this.patientService.create(newPatient).subscribe({

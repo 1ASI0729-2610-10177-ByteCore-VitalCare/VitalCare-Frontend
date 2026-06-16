@@ -130,20 +130,22 @@
     "and": "and"
   },
   "home": {
+    "welcome": "Welcome",
+    "manage_plan": "Manage plan",
     "logoAlt": "Vital Care Logo",
     "profileTooltip": "Profile",
     "logoutTooltip": "Log out",
     "loadingStats": "Loading statistics...",
     "errorConnection": "Could not load data. Check your connection.",
     "retry": "Retry",
-    "dashboardTitle": "Statistics Dashboard",
-    "dashboardSubtitle": "General summary of the Vital Care platform",
-    "kpi_users": "Users",
-    "kpi_patients": "Patients",
-    "kpi_active_subscriptions": "Subscriptions",
-    "kpi_active_patches": "Patches",
-    "kpi_unread_alerts": "Alerts",
-    "kpi_open_tickets": "Tickets",
+    "dashboardTitle": "My summary",
+    "dashboardSubtitle": "Your account information in Vital Care.",
+    "kpi_plan": "Active plan",
+    "kpi_plan_expiry": "Expires on",
+    "kpi_patients": "My patients",
+    "kpi_active_patches": "Active patches",
+    "kpi_unread_alerts": "Unread alerts",
+    "kpi_open_tickets": "Open tickets",
     "chart_subscriptions_by_plan": "Subscriptions by plan",
     "chart_subscription_status": "Subscription status",
     "chart_patients_by_gender": "Patients by gender",
@@ -195,7 +197,9 @@
     "font_large": "Large",
     "theme_dark": "Dark",
     "theme_light": "Light",
-    "theme_blue": "Blue"
+    "theme_blue": "Blue",
+    "no_subscription": "You don't have an active subscription. Explore our plans.",
+    "no_preferences": "You haven't configured preferences yet."
   },
   "support": {
     "title": "Help & Support",
@@ -298,7 +302,8 @@
     "view_desc": "VIEW DESCRIPTION",
     "description_title": "Description",
     "close": "CLOSE",
-    "back": "GO BACK"
+    "back": "GO BACK",
+    "clear_all": "CLEAR ALL"
   },
   "page-not-found": {
     "title": "Page not found",

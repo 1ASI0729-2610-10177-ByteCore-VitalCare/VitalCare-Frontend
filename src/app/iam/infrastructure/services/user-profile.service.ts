@@ -46,4 +46,12 @@ export class UserProfileService {
   getSubscription(userId: number): Observable<UserSubscription[]> {
     return this.http.get<UserSubscription[]>(`${this.base}subscriptions?users_id=${userId}`);
   }
+
+  createSubscription(data: Omit<UserSubscription, 'id'>): Observable<UserSubscription> {
+    return this.http.post<UserSubscription>(`${this.base}subscriptions`, { id: Date.now(), ...data });
+  }
+
+  createPreferences(data: Omit<UserPreferences, 'id'>): Observable<UserPreferences> {
+    return this.http.post<UserPreferences>(`${this.base}user_preferences`, { id: Date.now(), ...data });
+  }
 }

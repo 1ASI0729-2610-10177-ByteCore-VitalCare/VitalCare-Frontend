@@ -22,6 +22,10 @@ export class NotificationStoreService {
     this.notificationsSignal.update(list => [notification, ...list]);
   }
 
+  clear(): void {
+    this.notificationsSignal.set([]);
+  }
+
   private pad(n: number): string {
     return n < 10 ? `0${n}` : `${n}`;
   }

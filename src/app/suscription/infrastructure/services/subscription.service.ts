@@ -17,6 +17,22 @@ export class SubscriptionService {
     return this.http.patch<Subscription>(`${this.baseUrl}/${id}`, { plan, price });
   }
 
+  createSubscription(userId: number, plan: string, price: number): Observable<Subscription> {
+    const today = new Date();
+    const end = new Date(today);
+    end.setFullYear(end.getFullYear() + 1);
+    const fmt = (d: Date) => d.toISOString().split('T')[0];
+    return this.http.post<Subscription>(this.baseUrl, {
+      id: Date.now(),
+      plan,
+      price,
+      start_date: fmt(today),
+      end_date: fmt(end),
+      status: 'ACTIVE',
+      users_id: userId,
+    });
+  }
+
   getSubscriptions(): Observable<Subscription[]> {
     return this.http.get<any[]>(this.baseUrl).pipe(
       map((responses) =>

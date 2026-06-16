@@ -15,6 +15,8 @@ import { VitalAlertBanner } from '../../components/vital-alert-banner/vital-aler
 import { VitalSignGeneratorService, VitalAlert, GeneratedVitalSign } from '../../../infrastructure/services/vital-sign-generator.service';
 import { NotificationStoreService } from '../../../../notifications/infrastructure/notification-store.service';
 import { NotificationService } from '../../../../notifications/infrastructure/notification.service';
+import { AlertService } from '../../../infrastructure/services/alert.service';
+import { AuthService } from '../../../../iam/application/services/auth.service';
 
 @Component({
   selector: 'app-patients',
@@ -37,6 +39,8 @@ export class Patients implements OnInit, OnDestroy {
   private vitalGenerator = inject(VitalSignGeneratorService);
   private notificationStore = inject(NotificationStoreService);
   private notificationService = inject(NotificationService);
+  private alertService = inject(AlertService);
+  private authService = inject(AuthService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
@@ -100,14 +104,29 @@ export class Patients implements OnInit, OnDestroy {
     if (allAlerts.length > 0) {
       this.activeAlerts.set(allAlerts);
       this.showAlertBanner.set(true);
-      this.registerNotifications(allAlerts);
+      if (this.shouldRegisterNotifications()) {
+        this.registerNotifications(allAlerts);
+      }
     }
+  }
+
+  private shouldRegisterNotifications(): boolean {
+    const key = 'vital-alerts-last-registered';
+    const last = sessionStorage.getItem(key);
+    const now = Date.now();
+    if (last && now - parseInt(last) < 5 * 60 * 1000) {
+      return false;
+    }
+    sessionStorage.setItem(key, String(now));
+    return true;
   }
 
   private registerNotifications(alerts: VitalAlert[]): void {
     try {
       const now = new Date();
       const fecha = `${this.pad(now.getDate())}/${this.pad(now.getMonth() + 1)}/${now.getFullYear()} ${this.pad(now.getHours())}:${this.pad(now.getMinutes())}`;
+      const created_at = now.toISOString().replace('T', ' ').substring(0, 19);
+      const userId = this.authService.currentUser()?.id ?? 1;
 
       for (const alert of alerts) {
         const statusText = alert.status === 'CRITICAL' ? 'CRÍTICO' : 'ALERTA';
@@ -120,9 +139,17 @@ export class Patients implements OnInit, OnDestroy {
           fecha,
           descripcion,
           patientId: alert.patientId,
-        }).subscribe({
-          error: (err) => console.error('Error persisting notification:', err),
-        });
+          users_id: userId,
+        }).subscribe({ error: (err) => console.error('Error persisting notification:', err) });
+
+        this.alertService.create({
+          type: alert.status,
+          description: descripcion,
+          created_at,
+          is_read: 0,
+          users_id: userId,
+          patients_id: alert.patientId,
+        }).subscribe({ error: (err) => console.error('Error persisting alert:', err) });
       }
     } catch (e) {
       console.error('Error registering notification:', e);

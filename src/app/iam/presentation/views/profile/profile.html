@@ -35,13 +35,13 @@
       </div>
 
       <!-- SUSCRIPCIÓN -->
-      @if (data.subscription) {
-        <div class="profile-card">
-          <div class="card-section-title">
-            <span class="section-icon">&#11088;</span>
-            {{ 'profile.section_subscription' | translate }}
-          </div>
+      <div class="profile-card">
+        <div class="card-section-title">
+          <span class="section-icon">&#11088;</span>
+          {{ 'profile.section_subscription' | translate }}
+        </div>
 
+        @if (data.subscription) {
           <div class="plan-badge-row">
             <span class="plan-badge" [style.background]="planColor(data.subscription.plan)">
               {{ data.subscription.plan }}
@@ -67,17 +67,19 @@
               <span class="value">{{ data.subscription.end_date }}</span>
             </div>
           </div>
-        </div>
-      }
+        } @else {
+          <p class="no-data-text">{{ 'profile.no_subscription' | translate }}</p>
+        }
+      </div>
 
       <!-- PREFERENCIAS -->
-      @if (data.preferences) {
-        <div class="profile-card">
-          <div class="card-section-title">
-            <span class="section-icon">&#9881;&#65039;</span>
-            {{ 'profile.section_preferences' | translate }}
-          </div>
+      <div class="profile-card">
+        <div class="card-section-title">
+          <span class="section-icon">&#9881;&#65039;</span>
+          {{ 'profile.section_preferences' | translate }}
+        </div>
 
+        @if (data.preferences) {
           <div class="info-rows">
             <div class="info-row">
               <span class="label">{{ 'profile.pref_language' | translate }}</span>
@@ -104,8 +106,10 @@
               </span>
             </div>
           </div>
-        </div>
-      }
+        } @else {
+          <p class="no-data-text">{{ 'profile.no_preferences' | translate }}</p>
+        }
+      </div>
 
     </div>
   }

@@ -90,6 +90,20 @@
       "password": "luis3",
       "created_at": "2026-06-13T17:36:55.306Z",
       "id": 13
+    },
+    {
+      "name": "wa",
+      "email": "wa@hotmail.com",
+      "password": "12345",
+      "created_at": "2026-06-16T22:00:55.896Z",
+      "id": 14
+    },
+    {
+      "name": "we",
+      "email": "we@gmail.com",
+      "password": "12345",
+      "created_at": "2026-06-16T22:09:27.416Z",
+      "id": 15
     }
   ],
   "user_preferences": [
@@ -182,13 +196,22 @@
       "email_notifications": 1,
       "push_notifications": 1,
       "users_id": 10
+    },
+    {
+      "id": 1781647767447,
+      "language": "es",
+      "font_size": "MEDIUM",
+      "background_color": "LIGHT",
+      "email_notifications": 1,
+      "push_notifications": 1,
+      "users_id": 15
     }
   ],
   "subscriptions": [
     {
       "id": 1,
-      "plan": "BASIC",
-      "price": 0,
+      "plan": "GOLD",
+      "price": 29.99,
       "start_date": "2024-01-01",
       "end_date": "2024-12-31",
       "status": "ACTIVE",
@@ -274,6 +297,24 @@
       "end_date": "2025-03-15",
       "status": "ACTIVE",
       "users_id": 10
+    },
+    {
+      "id": 1781647767447,
+      "plan": "BASIC",
+      "price": 0,
+      "start_date": "2026-06-16",
+      "end_date": "2027-06-16",
+      "status": "ACTIVE",
+      "users_id": 15
+    },
+    {
+      "id": 1781651801714,
+      "plan": "SILVER",
+      "price": 15.5,
+      "start_date": "2026-06-16",
+      "end_date": "2027-06-16",
+      "status": "ACTIVE",
+      "users_id": 14
     }
   ],
   "patients": [
@@ -308,6 +349,30 @@
       "birth_date": "2026-06-11",
       "gender": "MALE",
       "users_id": 1
+    },
+    {
+      "id": 15,
+      "name": "ea",
+      "photo": "default.jpg",
+      "birth_date": "2200-02-02",
+      "gender": "FEMALE",
+      "users_id": 1
+    },
+    {
+      "id": 16,
+      "name": "hola",
+      "photo": "default.jpg",
+      "birth_date": "2000-01-01",
+      "gender": "MALE",
+      "users_id": 14
+    },
+    {
+      "id": 17,
+      "name": "sd",
+      "photo": "Sin título.png",
+      "birth_date": "2200-12-15",
+      "gender": "MALE",
+      "users_id": 14
     }
   ],
   "patches": [
@@ -473,6 +538,231 @@
       "is_read": 0,
       "users_id": 1,
       "patients_id": 1
+    },
+    {
+      "id": 1781651237721,
+      "type": "WARNING",
+      "description": "Signo anormal: Temperatura 38°C (ALERTA)",
+      "created_at": "2026-06-16 23:07:17",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 1
+    },
+    {
+      "id": 1781651237722,
+      "type": "WARNING",
+      "description": "Signo anormal: Glucosa 69 mg/dL (ALERTA)",
+      "created_at": "2026-06-16 23:07:17",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 1
+    },
+    {
+      "id": 1781651237723,
+      "type": "CRITICAL",
+      "description": "Signo anormal: Glucosa 199 mg/dL (CRÍTICO)",
+      "created_at": "2026-06-16 23:07:17",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 15
+    },
+    {
+      "id": 1781651424546,
+      "type": "CRITICAL",
+      "description": "Signo anormal: Temperatura 40.6°C (CRÍTICO)",
+      "created_at": "2026-06-16 23:10:24",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 1
+    },
+    {
+      "id": 1781651424547,
+      "type": "WARNING",
+      "description": "Signo anormal: Presión arterial 72.6 mmHg (ALERTA)",
+      "created_at": "2026-06-16 23:10:24",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 1
+    },
+    {
+      "id": 1781651491001,
+      "type": "WARNING",
+      "description": "Signo anormal: Temperatura 38.8°C (ALERTA)",
+      "created_at": "2026-06-16 23:11:31",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 14
+    },
+    {
+      "id": 1781651537506,
+      "type": "WARNING",
+      "description": "Signo anormal: Temperatura 35°C (ALERTA)",
+      "created_at": "2026-06-16 23:12:17",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 1
+    },
+    {
+      "id": 1781651537507,
+      "type": "WARNING",
+      "description": "Signo anormal: Glucosa 155.7 mg/dL (ALERTA)",
+      "created_at": "2026-06-16 23:12:17",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 1
+    },
+    {
+      "id": 1781651555446,
+      "type": "WARNING",
+      "description": "Signo anormal: Frecuencia cardíaca 121.3 bpm (ALERTA)",
+      "created_at": "2026-06-16 23:12:35",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 1
+    },
+    {
+      "id": 1781651555448,
+      "type": "CRITICAL",
+      "description": "Signo anormal: Presión arterial 65.9 mmHg (CRÍTICO)",
+      "created_at": "2026-06-16 23:12:35",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 15
+    },
+    {
+      "id": 1781651555449,
+      "type": "WARNING",
+      "description": "Signo anormal: Glucosa 172.1 mg/dL (ALERTA)",
+      "created_at": "2026-06-16 23:12:35",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 15
+    },
+    {
+      "id": 1781651555447,
+      "type": "WARNING",
+      "description": "Signo anormal: Presión arterial 158.6 mmHg (ALERTA)",
+      "created_at": "2026-06-16 23:12:35",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 1
+    },
+    {
+      "id": 1781651565437,
+      "type": "WARNING",
+      "description": "Signo anormal: Temperatura 39°C (ALERTA)",
+      "created_at": "2026-06-16 23:12:45",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 14
+    },
+    {
+      "id": 1781651565438,
+      "type": "WARNING",
+      "description": "Signo anormal: Presión arterial 147.6 mmHg (ALERTA)",
+      "created_at": "2026-06-16 23:12:45",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 14
+    },
+    {
+      "id": 1781651565439,
+      "type": "CRITICAL",
+      "description": "Signo anormal: Saturación O₂ 81.3% (CRÍTICO)",
+      "created_at": "2026-06-16 23:12:45",
+      "is_read": 0,
+      "users_id": 1,
+      "patients_id": 15
+    },
+    {
+      "id": 1781651889318,
+      "type": "CRITICAL",
+      "description": "Signo anormal: Presión arterial 64.1 mmHg (CRÍTICO)",
+      "created_at": "2026-06-16 23:18:09",
+      "is_read": 0,
+      "users_id": 14,
+      "patients_id": 16
+    },
+    {
+      "id": 1781651889319,
+      "type": "CRITICAL",
+      "description": "Signo anormal: Frecuencia cardíaca 38.6 bpm (CRÍTICO)",
+      "created_at": "2026-06-16 23:18:09",
+      "is_read": 0,
+      "users_id": 14,
+      "patients_id": 17
+    },
+    {
+      "id": 1781652190814,
+      "type": "CRITICAL",
+      "description": "Signo anormal: Saturación O₂ 87% (CRÍTICO)",
+      "created_at": "2026-06-16 23:23:10",
+      "is_read": 0,
+      "users_id": 14,
+      "patients_id": 16
+    },
+    {
+      "id": 1781652215580,
+      "type": "CRITICAL",
+      "description": "Signo anormal: Saturación O₂ 86.7% (CRÍTICO)",
+      "created_at": "2026-06-16 23:23:35",
+      "is_read": 0,
+      "users_id": 14,
+      "patients_id": 16
+    },
+    {
+      "id": 1781652231241,
+      "type": "CRITICAL",
+      "description": "Signo anormal: Frecuencia cardíaca 37.8 bpm (CRÍTICO)",
+      "created_at": "2026-06-16 23:23:51",
+      "is_read": 0,
+      "users_id": 14,
+      "patients_id": 16
+    },
+    {
+      "id": 1781652231242,
+      "type": "WARNING",
+      "description": "Signo anormal: Presión arterial 73.2 mmHg (ALERTA)",
+      "created_at": "2026-06-16 23:23:51",
+      "is_read": 0,
+      "users_id": 14,
+      "patients_id": 17
+    },
+    {
+      "id": 1781652236589,
+      "type": "CRITICAL",
+      "description": "Signo anormal: Saturación O₂ 86% (CRÍTICO)",
+      "created_at": "2026-06-16 23:23:56",
+      "is_read": 0,
+      "users_id": 14,
+      "patients_id": 16
+    },
+    {
+      "id": 1781652236590,
+      "type": "WARNING",
+      "description": "Signo anormal: Frecuencia cardíaca 53.9 bpm (ALERTA)",
+      "created_at": "2026-06-16 23:23:56",
+      "is_read": 0,
+      "users_id": 14,
+      "patients_id": 17
+    },
+    {
+      "id": 1781652240374,
+      "type": "WARNING",
+      "description": "Signo anormal: Frecuencia cardíaca 59.4 bpm (ALERTA)",
+      "created_at": "2026-06-16 23:24:00",
+      "is_read": 0,
+      "users_id": 14,
+      "patients_id": 16
+    },
+    {
+      "id": 1781652245764,
+      "type": "WARNING",
+      "description": "Signo anormal: Frecuencia cardíaca 56 bpm (ALERTA)",
+      "created_at": "2026-06-16 23:24:05",
+      "is_read": 0,
+      "users_id": 14,
+      "patients_id": 17
     }
   ],
   "support_tickets": [
@@ -596,328 +886,6 @@
   ],
   "notifications": [
     {
-      "id": 1,
-      "nombre": "Mario Bros",
-      "fecha": "13/06/2026 10:30",
-      "descripcion": "Signos anormales detectados: Temperatura: 38.5°C; Frecuencia cardíaca: 110 bpm",
-      "patientId": 1
-    },
-    {
-      "id": 2,
-      "nombre": "Princess Peach",
-      "fecha": "13/06/2026 09:15",
-      "descripcion": "Signos anormales detectados: Glucosa: 45 mg/dL",
-      "patientId": 3
-    },
-    {
-      "nombre": "Bruno",
-      "fecha": "16/06/2026 14:42",
-      "descripcion": "Signo anormal: Temperatura 34.2°C (CRÍTICO)",
-      "patientId": 14,
-      "id": 3
-    },
-    {
-      "nombre": "Bruno",
-      "fecha": "16/06/2026 14:42",
-      "descripcion": "Signo anormal: Glucosa 44.6 mg/dL (CRÍTICO)",
-      "patientId": 14,
-      "id": 4
-    },
-    {
-      "nombre": "Mario Bros",
-      "fecha": "16/06/2026 15:14",
-      "descripcion": "Signo anormal: Presión arterial 157.7 mmHg (ALERTA)",
-      "patientId": 1,
-      "id": 5
-    },
-    {
-      "nombre": "Princess Peach",
-      "fecha": "16/06/2026 15:14",
-      "descripcion": "Signo anormal: Frecuencia cardíaca 106.7 bpm (ALERTA)",
-      "patientId": 3,
-      "id": 6
-    },
-    {
-      "nombre": "Link Knight",
-      "fecha": "16/06/2026 15:14",
-      "descripcion": "Signo anormal: Temperatura 34.3°C (CRÍTICO)",
-      "patientId": 5,
-      "id": 7
-    },
-    {
-      "nombre": "Bruno",
-      "fecha": "16/06/2026 15:14",
-      "descripcion": "Signo anormal: Glucosa 66.9 mg/dL (ALERTA)",
-      "patientId": 14,
-      "id": 8
-    },
-    {
-      "nombre": "Bruno",
-      "fecha": "16/06/2026 15:14",
-      "descripcion": "Signo anormal: Saturación O₂ 84.3% (CRÍTICO)",
-      "patientId": 14,
-      "id": 9
-    },
-    {
-      "nombre": "Mario Bros",
-      "fecha": "16/06/2026 15:14",
-      "descripcion": "Signo anormal: Presión arterial 131 mmHg (ALERTA)",
-      "patientId": 1,
-      "id": 10
-    },
-    {
-      "nombre": "Princess Peach",
-      "fecha": "16/06/2026 15:14",
-      "descripcion": "Signo anormal: Frecuencia cardíaca 125 bpm (ALERTA)",
-      "patientId": 3,
-      "id": 11
-    },
-    {
-      "nombre": "Link Knight",
-      "fecha": "16/06/2026 15:14",
-      "descripcion": "Signo anormal: Temperatura 40.7°C (CRÍTICO)",
-      "patientId": 5,
-      "id": 12
-    },
-    {
-      "nombre": "Mario Bros",
-      "fecha": "16/06/2026 15:17",
-      "descripcion": "Signo anormal: Frecuencia cardíaca 115.8 bpm (ALERTA)",
-      "patientId": 1,
-      "id": 13
-    },
-    {
-      "nombre": "Princess Peach",
-      "fecha": "16/06/2026 15:17",
-      "descripcion": "Signo anormal: Temperatura 35.2°C (ALERTA)",
-      "patientId": 3,
-      "id": 14
-    },
-    {
-      "nombre": "Bruno",
-      "fecha": "16/06/2026 15:17",
-      "descripcion": "Signo anormal: Temperatura 34.3°C (CRÍTICO)",
-      "patientId": 14,
-      "id": 15
-    },
-    {
-      "nombre": "Bruno",
-      "fecha": "16/06/2026 15:17",
-      "descripcion": "Signo anormal: Frecuencia cardíaca 43.8 bpm (ALERTA)",
-      "patientId": 14,
-      "id": 16
-    },
-    {
-      "nombre": "Princess Peach",
-      "fecha": "16/06/2026 15:56",
-      "descripcion": "Signo anormal: Temperatura 34.5°C (CRÍTICO)",
-      "patientId": 3,
-      "id": 17
-    },
-    {
-      "nombre": "Link Knight",
-      "fecha": "16/06/2026 15:56",
-      "descripcion": "Signo anormal: Frecuencia cardíaca 104.9 bpm (ALERTA)",
-      "patientId": 5,
-      "id": 18
-    },
-    {
-      "nombre": "Bruno",
-      "fecha": "16/06/2026 15:56",
-      "descripcion": "Signo anormal: Saturación O₂ 93.2% (ALERTA)",
-      "patientId": 14,
-      "id": 19
-    },
-    {
-      "nombre": "Mario Bros",
-      "fecha": "16/06/2026 15:58",
-      "descripcion": "Signo anormal: Presión arterial 134.5 mmHg (ALERTA)",
-      "patientId": 1,
-      "id": 20
-    },
-    {
-      "nombre": "Princess Peach",
-      "fecha": "16/06/2026 15:58",
-      "descripcion": "Signo anormal: Presión arterial 74.4 mmHg (ALERTA)",
-      "patientId": 3,
-      "id": 21
-    },
-    {
-      "nombre": "Princess Peach",
-      "fecha": "16/06/2026 15:58",
-      "descripcion": "Signo anormal: Saturación O₂ 85.6% (CRÍTICO)",
-      "patientId": 3,
-      "id": 22
-    },
-    {
-      "nombre": "Link Knight",
-      "fecha": "16/06/2026 15:58",
-      "descripcion": "Signo anormal: Glucosa 67.2 mg/dL (ALERTA)",
-      "patientId": 5,
-      "id": 23
-    },
-    {
-      "nombre": "Bruno",
-      "fecha": "16/06/2026 15:58",
-      "descripcion": "Signo anormal: Temperatura 38.6°C (ALERTA)",
-      "patientId": 14,
-      "id": 24
-    },
-    {
-      "nombre": "Bruno",
-      "fecha": "16/06/2026 15:58",
-      "descripcion": "Signo anormal: Frecuencia cardíaca 112.7 bpm (ALERTA)",
-      "patientId": 14,
-      "id": 25
-    },
-    {
-      "nombre": "Bruno",
-      "fecha": "16/06/2026 15:58",
-      "descripcion": "Signo anormal: Glucosa 41.3 mg/dL (CRÍTICO)",
-      "patientId": 14,
-      "id": 26
-    },
-    {
-      "nombre": "Bruno",
-      "fecha": "16/06/2026 15:58",
-      "descripcion": "Signo anormal: Glucosa 41.3 mg/dL (CRÍTICO)",
-      "patientId": 14,
-      "id": 27
-    },
-    {
-      "nombre": "Mario Bros",
-      "fecha": "16/06/2026 15:59",
-      "descripcion": "Signo anormal: Temperatura 39.8°C (CRÍTICO)",
-      "patientId": 1,
-      "id": 28
-    },
-    {
-      "nombre": "Mario Bros",
-      "fecha": "16/06/2026 15:59",
-      "descripcion": "Signo anormal: Presión arterial 64.1 mmHg (CRÍTICO)",
-      "patientId": 1,
-      "id": 29
-    },
-    {
-      "nombre": "Princess Peach",
-      "fecha": "16/06/2026 15:59",
-      "descripcion": "Signo anormal: Temperatura 35.8°C (ALERTA)",
-      "patientId": 3,
-      "id": 30
-    },
-    {
-      "nombre": "Link Knight",
-      "fecha": "16/06/2026 15:59",
-      "descripcion": "Signo anormal: Presión arterial 76 mmHg (ALERTA)",
-      "patientId": 5,
-      "id": 31
-    },
-    {
-      "nombre": "Princess Peach",
-      "fecha": "16/06/2026 15:59",
-      "descripcion": "Signo anormal: Temperatura 39°C (ALERTA)",
-      "patientId": 3,
-      "id": 32
-    },
-    {
-      "nombre": "Princess Peach",
-      "fecha": "16/06/2026 15:59",
-      "descripcion": "Signo anormal: Frecuencia cardíaca 55.8 bpm (ALERTA)",
-      "patientId": 3,
-      "id": 33
-    },
-    {
-      "nombre": "Link Knight",
-      "fecha": "16/06/2026 15:59",
-      "descripcion": "Signo anormal: Temperatura 39°C (ALERTA)",
-      "patientId": 5,
-      "id": 34
-    },
-    {
-      "nombre": "Link Knight",
-      "fecha": "16/06/2026 15:59",
-      "descripcion": "Signo anormal: Presión arterial 77.8 mmHg (ALERTA)",
-      "patientId": 5,
-      "id": 35
-    },
-    {
-      "nombre": "Bruno",
-      "fecha": "16/06/2026 15:59",
-      "descripcion": "Signo anormal: Temperatura 35.2°C (ALERTA)",
-      "patientId": 14,
-      "id": 36
-    },
-    {
-      "nombre": "Bruno",
-      "fecha": "16/06/2026 15:59",
-      "descripcion": "Signo anormal: Frecuencia cardíaca 139.7 bpm (CRÍTICO)",
-      "patientId": 14,
-      "id": 37
-    },
-    {
-      "nombre": "Bruno",
-      "fecha": "16/06/2026 15:59",
-      "descripcion": "Signo anormal: Glucosa 157.3 mg/dL (ALERTA)",
-      "patientId": 14,
-      "id": 38
-    },
-    {
-      "nombre": "Mario Bros",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Temperatura 38.5°C (ALERTA)",
-      "patientId": 1,
-      "id": 39
-    },
-    {
-      "nombre": "Mario Bros",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Presión arterial 137.9 mmHg (ALERTA)",
-      "patientId": 1,
-      "id": 40
-    },
-    {
-      "nombre": "Mario Bros",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Glucosa 183.4 mg/dL (CRÍTICO)",
-      "patientId": 1,
-      "id": 41
-    },
-    {
-      "nombre": "Princess Peach",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Presión arterial 65.8 mmHg (CRÍTICO)",
-      "patientId": 3,
-      "id": 42
-    },
-    {
-      "nombre": "Link Knight",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Presión arterial 66.4 mmHg (CRÍTICO)",
-      "patientId": 5,
-      "id": 43
-    },
-    {
-      "nombre": "Bruno",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Frecuencia cardíaca 52.7 bpm (ALERTA)",
-      "patientId": 14,
-      "id": 44
-    },
-    {
-      "nombre": "Link Knight",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Glucosa 52.7 mg/dL (ALERTA)",
-      "patientId": 5,
-      "id": 45
-    },
-    {
-      "nombre": "Bruno",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Frecuencia cardíaca 52.7 bpm (ALERTA)",
-      "patientId": 14,
-      "id": 46
-    },
-    {
       "nombre": "Princess Peach",
       "fecha": "16/06/2026 16:04",
       "descripcion": "Signo anormal: Temperatura 34.4°C (CRÍTICO)",
@@ -933,80 +901,141 @@
     },
     {
       "nombre": "Link Knight",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Presión arterial 83.3 mmHg (ALERTA)",
+      "fecha": "16/06/2026 17:21",
+      "descripcion": "Signo anormal: Presión arterial 133.8 mmHg (ALERTA)",
       "patientId": 5,
-      "id": 49
+      "id": 98
+    },
+    {
+      "nombre": "Link Knight",
+      "fecha": "16/06/2026 18:04",
+      "descripcion": "Signo anormal: Temperatura 34.3°C (CRÍTICO)",
+      "patientId": 5,
+      "id": 122
+    },
+    {
+      "nombre": "ea",
+      "fecha": "16/06/2026 18:05",
+      "descripcion": "Signo anormal: Presión arterial 156.1 mmHg (ALERTA)",
+      "patientId": 15,
+      "id": 135
+    },
+    {
+      "nombre": "ea",
+      "fecha": "16/06/2026 18:10",
+      "descripcion": "Signo anormal: Temperatura 40.8°C (CRÍTICO)",
+      "patientId": 15,
+      "id": 144
+    },
+    {
+      "nombre": "ea",
+      "fecha": "16/06/2026 18:10",
+      "descripcion": "Signo anormal: Glucosa 59 mg/dL (ALERTA)",
+      "patientId": 15,
+      "id": 145
+    },
+    {
+      "nombre": "Bruno",
+      "fecha": "16/06/2026 18:11",
+      "descripcion": "Signo anormal: Temperatura 38.8°C (ALERTA)",
+      "patientId": 14,
+      "id": 146
     },
     {
       "nombre": "Mario Bros",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Temperatura 40.3°C (CRÍTICO)",
+      "fecha": "16/06/2026 18:12",
+      "descripcion": "Signo anormal: Temperatura 35°C (ALERTA)",
       "patientId": 1,
-      "id": 50
+      "users_id": 1,
+      "id": 147
     },
     {
       "nombre": "Mario Bros",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Presión arterial 63.6 mmHg (CRÍTICO)",
+      "fecha": "16/06/2026 18:12",
+      "descripcion": "Signo anormal: Glucosa 155.7 mg/dL (ALERTA)",
       "patientId": 1,
-      "id": 51
-    },
-    {
-      "nombre": "Princess Peach",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Presión arterial 150 mmHg (ALERTA)",
-      "patientId": 3,
-      "id": 52
-    },
-    {
-      "nombre": "Link Knight",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Temperatura 38°C (ALERTA)",
-      "patientId": 5,
-      "id": 53
-    },
-    {
-      "nombre": "Link Knight",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Frecuencia cardíaca 51.6 bpm (ALERTA)",
-      "patientId": 5,
-      "id": 54
-    },
-    {
-      "nombre": "Link Knight",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Saturación O₂ 91.9% (ALERTA)",
-      "patientId": 5,
-      "id": 55
+      "users_id": 1,
+      "id": 148
     },
     {
       "nombre": "Bruno",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Glucosa 194.9 mg/dL (CRÍTICO)",
+      "fecha": "16/06/2026 18:12",
+      "descripcion": "Signo anormal: Temperatura 34.7°C (CRÍTICO)",
       "patientId": 14,
-      "id": 56
+      "users_id": 1,
+      "id": 149
+    },
+    {
+      "nombre": "Mario Bros",
+      "fecha": "16/06/2026 18:12",
+      "descripcion": "Signo anormal: Frecuencia cardíaca 121.3 bpm (ALERTA)",
+      "patientId": 1,
+      "users_id": 1,
+      "id": 150
+    },
+    {
+      "nombre": "ea",
+      "fecha": "16/06/2026 18:12",
+      "descripcion": "Signo anormal: Presión arterial 65.9 mmHg (CRÍTICO)",
+      "patientId": 15,
+      "users_id": 1,
+      "id": 151
+    },
+    {
+      "nombre": "ea",
+      "fecha": "16/06/2026 18:12",
+      "descripcion": "Signo anormal: Glucosa 172.1 mg/dL (ALERTA)",
+      "patientId": 15,
+      "users_id": 1,
+      "id": 152
+    },
+    {
+      "nombre": "Mario Bros",
+      "fecha": "16/06/2026 18:12",
+      "descripcion": "Signo anormal: Presión arterial 158.6 mmHg (ALERTA)",
+      "patientId": 1,
+      "users_id": 1,
+      "id": 153
     },
     {
       "nombre": "Bruno",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Saturación O₂ 92.9% (ALERTA)",
+      "fecha": "16/06/2026 18:12",
+      "descripcion": "Signo anormal: Temperatura 39°C (ALERTA)",
       "patientId": 14,
-      "id": 57
+      "users_id": 1,
+      "id": 154
     },
     {
       "nombre": "Bruno",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Saturación O₂ 92.9% (ALERTA)",
+      "fecha": "16/06/2026 18:12",
+      "descripcion": "Signo anormal: Presión arterial 147.6 mmHg (ALERTA)",
       "patientId": 14,
-      "id": 58
+      "users_id": 1,
+      "id": 155
     },
     {
       "nombre": "Bruno",
-      "fecha": "16/06/2026 16:04",
-      "descripcion": "Signo anormal: Glucosa 194.9 mg/dL (CRÍTICO)",
+      "fecha": "16/06/2026 18:12",
+      "descripcion": "Signo anormal: Glucosa 126.8 mg/dL (ALERTA)",
       "patientId": 14,
-      "id": 59
+      "users_id": 1,
+      "id": 156
+    },
+    {
+      "nombre": "ea",
+      "fecha": "16/06/2026 18:12",
+      "descripcion": "Signo anormal: Saturación O₂ 81.3% (CRÍTICO)",
+      "patientId": 15,
+      "users_id": 1,
+      "id": 157
+    },
+    {
+      "nombre": "sd",
+      "fecha": "16/06/2026 18:24",
+      "descripcion": "Signo anormal: Frecuencia cardíaca 56 bpm (ALERTA)",
+      "patientId": 17,
+      "users_id": 14,
+      "id": 158
     }
   ]
 }

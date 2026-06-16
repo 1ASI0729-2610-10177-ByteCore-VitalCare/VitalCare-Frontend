@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,6 +8,7 @@ import { Patient } from '../../domain/model/patient.entity';
 import { PatientResource } from '../model/patient.resource';
 import { PatientAssembler } from '../model/patient.assembler';
 import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../iam/application/services/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,8 @@ export class PatientService extends BaseApiEndpoint<
   BaseResponse,
   PatientAssembler
 > {
+  private authService = inject(AuthService);
+
   constructor(http: HttpClient) {
     super(
       http,
@@ -26,11 +29,13 @@ export class PatientService extends BaseApiEndpoint<
     );
   }
 
-  /**
-   * Crea un nuevo paciente
-   * @param patient - Datos del nuevo paciente
-   * @returns Observable con el paciente creado
-   */
+  override getAll(): Observable<Patient[]> {
+    const userId = this.authService.currentUser()?.id ?? 1;
+    return this.http.get<PatientResource[]>(`${this.endpointUrl}?users_id=${userId}`).pipe(
+      map(resources => resources.map(r => this.assembler.toEntityFromResource(r))),
+    );
+  }
+
   override create(patient: Patient): Observable<Patient> {
     const resource = this.assembler.toResourceFromEntity(patient);
     return this.http.post<PatientResource>(this.endpointUrl, resource).pipe(

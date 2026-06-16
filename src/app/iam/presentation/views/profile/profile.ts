@@ -9,6 +9,7 @@ import {
   UserPreferences,
   UserSubscription,
 } from '../../../infrastructure/services/user-profile.service';
+import { AuthService } from '../../../application/services/auth.service';
 
 interface ProfileViewModel {
   user: UserProfile;
@@ -16,7 +17,6 @@ interface ProfileViewModel {
   subscription: UserSubscription | null;
 }
 
-const CURRENT_USER_ID = 1;
 
 const LANGUAGE_KEY: Record<string, string> = {
   es: 'profile.lang_es',
@@ -60,16 +60,19 @@ const STATUS_COLORS: Record<string, string> = {
 })
 export class Profile implements OnInit {
   private profileService = inject(UserProfileService);
+  private authService = inject(AuthService);
 
   readonly vm = signal<ProfileViewModel | null>(null);
   readonly isLoading = signal(true);
   readonly hasError = signal(false);
 
   ngOnInit(): void {
+    const userId = this.authService.currentUser()?.id ?? 1;
+
     combineLatest([
-      this.profileService.getUser(CURRENT_USER_ID),
-      this.profileService.getPreferences(CURRENT_USER_ID),
-      this.profileService.getSubscription(CURRENT_USER_ID),
+      this.profileService.getUser(userId),
+      this.profileService.getPreferences(userId),
+      this.profileService.getSubscription(userId),
     ])
       .pipe(
         map(([user, prefs, subs]) => ({

@@ -10,237 +10,58 @@ import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { MatDivider } from '@angular/material/divider';
 import { LanguageSwitcher } from '../../components/language-switcher/language-switcher';
 import { environment } from '../../../../../environments/environment';
 import { AuthService } from '../../../../iam/application/services/auth.service';
 
-// ==================== DOMAIN ====================
+interface NavOption { link: string; label: string; icon?: string; }
+interface Subscription { plan: string; status: string; price: number; end_date: string; users_id: number; }
+interface Patient { id: number; users_id: number; }
+interface Patch { status: string; patients_id: number; }
+interface Alert { is_read: number; users_id: number; }
+interface SupportTicket { status: string; users_id: number; }
 
-interface NavOption {
-  link: string;
-  label: string;
-  icon?: string;
-}
-
-interface User {
-  id: number;
-  name: string;
-  created_at: string;
-}
-
-interface Subscription {
-  id: number;
+export interface DashboardData {
   plan: string;
-  status: string;
-  price: number;
+  planExpiry: string;
+  patients: number;
+  activePatches: number;
+  unreadAlerts: number;
+  openTickets: number;
 }
 
-interface Patient {
-  id: number;
-  name: string;
-  gender: string;
-}
-
-interface Patch {
-  id: number;
-  patch_code: string;
-  status: string;
-}
-
-interface Alert {
-  id: number;
-  type: string;
-  is_read: number;
-}
-
-interface SupportTicket {
-  idsupport_tickets: number;
-  status: string;
-}
-
-interface KpiCard {
-  title: string;
-  value: number;
-  icon: string;
-  color: string;
-}
-
-interface StatBar {
-  label: string;
-  count: number;
-  percentage: number;
-  color: string;
-}
-
-interface ChartSection {
-  title: string;
-  icon: string;
-  bars: StatBar[];
-}
-
-interface DashboardStats {
-  kpis: KpiCard[];
-  charts: ChartSection[];
-}
-
-// ==================== APPLICATION ====================
-
-function toStatBars<T extends object>(
-  items: T[],
-  key: keyof T,
-  colorMap: Record<string, string>,
-  labelMap?: Record<string, string>
-): StatBar[] {
-  const counts: Record<string, number> = {};
-  for (const item of items) {
-    const val = String(item[key] ?? 'UNKNOWN');
-    counts[val] = (counts[val] ?? 0) + 1;
-  }
-  const total = items.length || 1;
-  return Object.entries(counts).map(([label, count]) => ({
-    label: labelMap?.[label] ?? label,
-    count,
-    percentage: Math.round((count / total) * 100),
-    color: colorMap[label] ?? '#607d8b',
-  }));
-}
-
-
-function buildDashboardStats(data: {
-  users: User[];
+function buildDashboard(userId: number, d: {
   subscriptions: Subscription[];
   patients: Patient[];
   patches: Patch[];
   alerts: Alert[];
   tickets: SupportTicket[];
-}): DashboardStats {
-  const { users, subscriptions, patients, patches, alerts, tickets } = data;
-
+}): DashboardData {
+  const sub = d.subscriptions.find(s => s.users_id === userId && s.status === 'ACTIVE') ?? null;
+  const myPatients = d.patients.filter(p => p.users_id === userId);
+  const myPatientIds = new Set(myPatients.map(p => p.id));
   return {
-    kpis: [
-      { title: 'home.kpi_users', value: users.length, icon: 'people', color: '#1976d2' },
-      { title: 'home.kpi_patients', value: patients.length, icon: 'personal_injury', color: '#388e3c' },
-      {
-        title: 'home.kpi_active_subscriptions',
-        value: subscriptions.filter(s => s.status === 'ACTIVE').length,
-        icon: 'verified',
-        color: '#f57c00',
-      },
-      {
-        title: 'home.kpi_active_patches',
-        value: patches.filter(p => p.status === 'ACTIVE').length,
-        icon: 'sensors',
-        color: '#7b1fa2',
-      },
-      {
-        title: 'home.kpi_unread_alerts',
-        value: alerts.filter(a => a.is_read === 0).length,
-        icon: 'notifications_active',
-        color: '#d32f2f',
-      },
-      {
-        title: 'home.kpi_open_tickets',
-        value: tickets.filter(t => t.status === 'OPEN').length,
-        icon: 'support_agent',
-        color: '#0288d1',
-      },
-    ],
-    charts: [
-      {
-        title: 'home.chart_subscriptions_by_plan',
-        icon: 'workspace_premium',
-        bars: toStatBars(subscriptions, 'plan', {
-          GOLD: '#f9a825', SILVER: '#78909c', FREE: '#4caf50',
-        }),
-      },
-      {
-        title: 'home.chart_subscription_status',
-        icon: 'receipt_long',
-        bars: toStatBars(subscriptions, 'status', {
-          ACTIVE: '#4caf50', EXPIRED: '#f44336', CANCELED: '#9e9e9e', PENDING: '#ff9800',
-        }, {
-          ACTIVE: 'home.status_active',
-          EXPIRED: 'home.status_expired',
-          CANCELED: 'home.status_canceled',
-          PENDING: 'home.status_pending'
-        }),
-      },
-      {
-        title: 'home.chart_patients_by_gender',
-        icon: 'wc',
-        bars: toStatBars(patients, 'gender', {
-          MALE: '#1976d2', FEMALE: '#e91e63', OTHER: '#9c27b0',
-        }, {
-          MALE: 'home.gender_male',
-          FEMALE: 'home.gender_female',
-          OTHER: 'home.gender_other'
-        }),
-      },
-      {
-        title: 'home.chart_patch_status',
-        icon: 'sensors',
-        bars: toStatBars(patches, 'status', {
-          ACTIVE: '#4caf50', INACTIVE: '#9e9e9e', LOW_BATTERY: '#ff9800', ERROR: '#f44336',
-        }, {
-          ACTIVE: 'home.status_active',
-          INACTIVE: 'home.status_inactive',
-          LOW_BATTERY: 'home.status_low_battery',
-          ERROR: 'home.status_error'
-        }),
-      },
-      {
-        title: 'home.chart_alert_types',
-        icon: 'warning_amber',
-        bars: toStatBars(alerts, 'type', {
-          CRITICAL: '#f44336', WARNING: '#ff9800', INFO: '#2196f3',
-        }, {
-          CRITICAL: 'home.alert_critical',
-          WARNING: 'home.alert_warning',
-          INFO: 'home.alert_info'
-        }),
-      },
-      {
-        title: 'home.chart_ticket_status',
-        icon: 'support',
-        bars: toStatBars(tickets, 'status', {
-          OPEN: '#f44336', IN_PROGRESS: '#ff9800', CLOSED: '#4caf50',
-        }, {
-          OPEN: 'home.status_open',
-          IN_PROGRESS: 'home.status_in_progress',
-          CLOSED: 'home.status_closed'
-        }),
-      },
-    ],
+    plan: sub?.plan ?? '—',
+    planExpiry: sub?.end_date ?? '—',
+    patients: myPatients.length,
+    activePatches: d.patches.filter(p => myPatientIds.has(p.patients_id) && p.status === 'ACTIVE').length,
+    unreadAlerts: d.alerts.filter(a => a.users_id === userId && a.is_read === 0).length,
+    openTickets: d.tickets.filter(t => t.users_id === userId && t.status === 'OPEN').length,
   };
 }
-
-// ==================== PRESENTATION ====================
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     CommonModule,
-    MatToolbar,
-    MatToolbarRow,
-    MatButton,
-    MatIconButton,
-    MatIcon,
-    MatTooltip,
-    MatCard,
-    MatCardContent,
-    MatCardHeader,
-    MatCardTitle,
+    MatToolbar, MatToolbarRow,
+    MatButton, MatIconButton,
+    MatIcon, MatTooltip,
     MatProgressSpinner,
-    MatDivider,
-    RouterLink,
-    RouterLinkActive,
-    RouterOutlet,
-    TranslatePipe,
-    LanguageSwitcher,
+    RouterLink, RouterLinkActive, RouterOutlet,
+    TranslatePipe, LanguageSwitcher,
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
@@ -262,7 +83,7 @@ export class Home implements OnInit {
   readonly isHomeDashboard = signal(false);
   readonly isLoading = signal(true);
   readonly hasError = signal(false);
-  readonly stats = signal<DashboardStats | null>(null);
+  readonly data = signal<DashboardData | null>(null);
   readonly currentUser = this.authService.currentUser;
 
   ngOnInit(): void {
@@ -272,35 +93,27 @@ export class Home implements OnInit {
     ).subscribe(e => {
       this.isHomeDashboard.set(e.urlAfterRedirects.split('?')[0] === '/home');
     });
-
     this.isHomeDashboard.set(this.router.url.split('?')[0] === '/home');
     this.loadDashboard();
   }
 
-  retry(): void {
-    this.loadDashboard();
-  }
-
-  logout(): void {
-    this.authService.logout();
-  }
-
-  // ==================== INFRASTRUCTURE ====================
+  retry(): void { this.loadDashboard(); }
+  logout(): void { this.authService.logout(); }
 
   private loadDashboard(): void {
     this.isLoading.set(true);
     this.hasError.set(false);
-
+    const base = environment.platformProviderApiBaseUrl;
     forkJoin({
-      users: this.http.get<User[]>(`${environment.platformProviderVitalCareUsUsp}/users`),
-      subscriptions: this.http.get<Subscription[]>(`${environment.platformProviderVitalCareSubPat}/subscriptions`),
-      patients: this.http.get<Patient[]>(`${environment.platformProviderVitalCareSubPat}/patients`),
-      patches: this.http.get<Patch[]>(`${environment.platformProviderVitalCarePatcVs}/patches`),
-      alerts: this.http.get<Alert[]>(`${environment.platformProviderVitalCareAlSt}/alerts`),
-      tickets: this.http.get<SupportTicket[]>(`${environment.platformProviderVitalCareAlSt}/support_tickets`),
+      subscriptions: this.http.get<Subscription[]>(`${base}subscriptions`),
+      patients: this.http.get<Patient[]>(`${base}patients`),
+      patches: this.http.get<Patch[]>(`${base}patches`),
+      alerts: this.http.get<Alert[]>(`${base}alerts`),
+      tickets: this.http.get<SupportTicket[]>(`${base}support_tickets`),
     }).subscribe({
-      next: data => {
-        this.stats.set(buildDashboardStats(data));
+      next: d => {
+        const userId = this.authService.currentUser()?.id ?? 1;
+        this.data.set(buildDashboard(userId, d));
         this.isLoading.set(false);
       },
       error: () => {

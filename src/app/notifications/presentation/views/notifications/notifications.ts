@@ -9,17 +9,12 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { NotificationService } from '../../../infrastructure/notification.service';
 import { NotificationStoreService } from '../../../infrastructure/notification-store.service';
 import { Notification } from '../../../domain/notification';
+import { AuthService } from '../../../../iam/application/services/auth.service';
 
 @Component({
   selector: 'app-notifications',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatButton,
-    MatIcon,
-    MatTooltip,
-    TranslatePipe,
-  ],
+  imports: [CommonModule, MatButton, MatIcon, MatTooltip, TranslatePipe],
   templateUrl: './notifications.html',
   styleUrl: './notifications.css',
 })
@@ -28,11 +23,12 @@ export class Notifications implements OnInit {
   selectedDescription = signal<string | null>(null);
 
   private router = inject(Router);
+  private authService = inject(AuthService);
 
   constructor(
     private notificationService: NotificationService,
     private notificationStore: NotificationStoreService,
-    private location: Location
+    private location: Location,
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +36,8 @@ export class Notifications implements OnInit {
   }
 
   loadNotifications(): void {
-    this.notificationService.getAll().subscribe({
+    const userId = this.authService.currentUser()?.id ?? 1;
+    this.notificationService.getAll(userId).subscribe({
       next: (data) => this.mergeNotifications(data),
       error: () => this.mergeNotifications([]),
     });
@@ -48,8 +45,9 @@ export class Notifications implements OnInit {
 
   private mergeNotifications(remote: Notification[]): void {
     const local = this.notificationStore.notifications$();
-    const combined = [...local, ...remote];
-    this.notifications.set(combined);
+    const remoteIds = new Set(remote.map(n => n.id));
+    const localOnly = local.filter(n => !remoteIds.has(n.id));
+    this.notifications.set([...localOnly, ...remote]);
   }
 
   showDescription(descripcion: string): void {
@@ -59,6 +57,18 @@ export class Notifications implements OnInit {
   goToPatient(patientId?: number): void {
     if (patientId != null) {
       this.router.navigate(['/home/patients'], { queryParams: { patientId } });
+    }
+  }
+
+  clearAll(): void {
+    const current = this.notifications();
+    this.notificationStore.clear();
+    this.notifications.set([]);
+    sessionStorage.removeItem('vital-alerts-last-registered');
+    for (const n of current) {
+      if (n.id) {
+        this.notificationService.deleteById(n.id).subscribe();
+      }
     }
   }
 

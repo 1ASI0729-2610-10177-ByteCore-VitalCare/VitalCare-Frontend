@@ -39,6 +39,12 @@
   }
 
   <div class="actions-container">
+    @if (notifications().length > 0) {
+      <button mat-stroked-button color="warn" class="clear-button" (click)="clearAll()">
+        <mat-icon>delete_sweep</mat-icon>
+        {{ 'notifications.clear_all' | translate }}
+      </button>
+    }
     <button mat-raised-button color="primary" class="back-button" (click)="goBack()">
       {{ 'notifications.back' | translate }}
     </button>
