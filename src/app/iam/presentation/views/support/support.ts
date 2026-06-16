@@ -1,36 +1,36 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { SupportService, SupportTicket } from '../../../infrastructure/services/support.service';
 
 const CURRENT_USER_ID = 1;
 
 interface FaqItem {
-  question: string;
-  answer: string;
+  questionKey: string;
+  answerKey: string;
   open: boolean;
 }
-
-const SUBJECT_OPTIONS = [
-  'Error en la aplicación',
-  'Problema con el parche',
-  'Facturación y pagos',
-  'Cambio de plan',
-  'Datos incorrectos',
-  'Otro',
-];
 
 @Component({
   selector: 'app-support',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   templateUrl: './support.html',
   styleUrl: './support.css',
 })
 export class Support implements OnInit {
   private supportService = inject(SupportService);
+  readonly translate = inject(TranslateService);
 
-  readonly subjectOptions = SUBJECT_OPTIONS;
+  readonly topicKeys = [
+    'support.topic_app_error',
+    'support.topic_patch',
+    'support.topic_billing',
+    'support.topic_plan',
+    'support.topic_data',
+    'support.topic_other',
+  ];
 
   subject = '';
   reportName = '';
@@ -45,31 +45,11 @@ export class Support implements OnInit {
   readonly loadingHistory = signal(false);
 
   readonly faqs: FaqItem[] = [
-    {
-      question: '¿Cómo puedo hacer un reporte?',
-      answer: 'Completa el formulario de la derecha con el tema, nombre y descripción del reporte y presiona "Enviar".',
-      open: false,
-    },
-    {
-      question: '¿Cómo puedo ver mi reporte?',
-      answer: 'Presiona el botón "Ver Historial" para consultar todos los tickets que has enviado.',
-      open: false,
-    },
-    {
-      question: '¿Cómo puedo ver el estado de mi parche?',
-      answer: 'Dirígete a la sección de Pacientes y selecciona el paciente cuyo parche deseas revisar.',
-      open: false,
-    },
-    {
-      question: '¿Cada cuánto tiempo tengo que reemplazar el parche?',
-      answer: 'Se recomienda reemplazar el parche cada 7 días o antes si el sistema indica batería baja.',
-      open: false,
-    },
-    {
-      question: '¿Cómo registrar otro paciente?',
-      answer: 'Ve a la sección de Pacientes y utiliza el botón "Agregar Paciente" para registrar uno nuevo.',
-      open: false,
-    },
+    { questionKey: 'support.faq_q1', answerKey: 'support.faq_a1', open: false },
+    { questionKey: 'support.faq_q2', answerKey: 'support.faq_a2', open: false },
+    { questionKey: 'support.faq_q3', answerKey: 'support.faq_a3', open: false },
+    { questionKey: 'support.faq_q4', answerKey: 'support.faq_a4', open: false },
+    { questionKey: 'support.faq_q5', answerKey: 'support.faq_a5', open: false },
   ];
 
   ngOnInit(): void {}

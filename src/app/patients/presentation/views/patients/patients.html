@@ -6,7 +6,7 @@
       <div class="col">{{ 'patients.header_patient' | translate }}</div>
       <div class="col">{{ 'patients.header_status' | translate }}</div>
       <div class="col">{{ 'patients.header_location' | translate }}</div>
-      <div class="col">Historial</div>
+      <div class="col">{{ 'patients_extra.history_col' | translate }}</div>
     </header>
 
     <div class="card-body">
@@ -37,7 +37,7 @@
           </div>
 
           <div class="col">
-            <button class="btn" (click)="openHistoryModal(patient)">Ver Historial</button>
+            <button class="btn" (click)="openHistoryModal(patient)">{{ 'patients_extra.view_history_btn' | translate }}</button>
           </div>
         </div>
       }

@@ -1,27 +1,34 @@
 <div class="pricing-container">
 
   <div class="pricing-header">
-    <h1>Suscripción y Planes</h1>
-    <p>Gestione su plan actual o mejore su experiencia con Vital Care.</p>
+    <h1>{{ 'plans.title' | translate }}</h1>
+    <p>{{ 'plans.subtitle' | translate }}</p>
   </div>
 
   <div class="tabs-container">
     <button class="tab-btn" [class.active]="activeTab === 'current'" (click)="switchTab('current')">
-      Mi Plan Actual
+      {{ 'plans.tab_current' | translate }}
     </button>
     <button class="tab-btn" [class.active]="activeTab === 'explore'" (click)="switchTab('explore')">
-      Explorar Planes
+      {{ 'plans.tab_explore' | translate }}
     </button>
   </div>
+
+  @if (changeSuccess()) {
+    <div class="alert-banner alert-success">{{ 'plans.change_success' | translate }}</div>
+  }
+  @if (changeError()) {
+    <div class="alert-banner alert-error">{{ 'plans.change_error' | translate }}</div>
+  }
 
   @if (pageData$ | async; as vm) {
     @if (activeTab === 'current') {
       <div class="current-plan-view-compact">
         @if (vm.activeSubscription && vm.currentPlan) {
           <div class="current-info current-info--center">
-            <p class="eyebrow">Plan activo</p>
+            <p class="eyebrow">{{ 'plans.active_plan_label' | translate }}</p>
             <h2>{{ vm.currentPlan.name }}</h2>
-            <p class="muted-copy">Hasta {{ vm.activeSubscription.endDate }}</p>
+            <p class="muted-copy">{{ 'plans.valid_until' | translate }} {{ vm.activeSubscription.endDate }}</p>
           </div>
 
           <div class="pricing-grid pricing-grid--center">
@@ -33,9 +40,9 @@
           </div>
         } @else {
           <div class="no-plan-card">
-            <h3>No tienes un plan activo</h3>
-            <p>Explora nuestras opciones y comienza a monitorear la salud de los tuyos.</p>
-            <button class="btn-primary" (click)="switchTab('explore')">Ver Planes</button>
+            <h3>{{ 'plans.no_plan_title' | translate }}</h3>
+            <p>{{ 'plans.no_plan_desc' | translate }}</p>
+            <button class="btn-primary" (click)="switchTab('explore')">{{ 'plans.no_plan_btn' | translate }}</button>
           </div>
         }
       </div>
@@ -46,15 +53,17 @@
         @for (item of vm.explorePlans; track item.name) {
           <app-plan-card
             [plan]="item"
-            [isRecommended]="isRecommendedPlan(item, vm.recommendedPlanName)">
+            [isActive]="vm.currentPlan?.name?.toLowerCase() === item.name.toLowerCase()"
+            [isRecommended]="isRecommendedPlan(item, vm.recommendedPlanName)"
+            (selectPlan)="onSelectPlan($event, vm.activeSubscription)">
           </app-plan-card>
         }
       </div>
     }
   } @else {
     <div class="no-plan-card">
-      <h3>Cargando suscripciones...</h3>
-      <p>Por favor espera mientras verificamos tu plan.</p>
+      <h3>{{ 'plans.loading_title' | translate }}</h3>
+      <p>{{ 'plans.loading_desc' | translate }}</p>
     </div>
   }
 

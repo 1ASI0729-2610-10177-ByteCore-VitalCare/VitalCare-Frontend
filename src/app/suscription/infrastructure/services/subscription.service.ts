@@ -13,6 +13,10 @@ export class SubscriptionService {
 
   private baseUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderPlansEndpointPath}`;
 
+  updateSubscriptionPlan(id: number, plan: string, price: number): Observable<Subscription> {
+    return this.http.patch<Subscription>(`${this.baseUrl}/${id}`, { plan, price });
+  }
+
   getSubscriptions(): Observable<Subscription[]> {
     return this.http.get<any[]>(this.baseUrl).pipe(
       map((responses) =>

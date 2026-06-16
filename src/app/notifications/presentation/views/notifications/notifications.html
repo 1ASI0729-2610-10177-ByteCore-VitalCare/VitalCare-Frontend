@@ -1,14 +1,14 @@
 <main class="main-content">
   <div class="title-container">
-    <h1 class="page-title">Notificaciones</h1>
+    <h1 class="page-title">{{ 'notifications.title' | translate }}</h1>
   </div>
 
   <div class="table-container">
     <table class="notifications-table">
       <thead>
         <tr>
-          <th>Nombre</th>
-          <th>Fecha</th>
+          <th>{{ 'notifications.col_name' | translate }}</th>
+          <th>{{ 'notifications.col_date' | translate }}</th>
           <th></th>
         </tr>
       </thead>
@@ -19,7 +19,7 @@
             <td>{{ notification.fecha }}</td>
             <td>
               <button mat-raised-button color="primary" (click)="$event.stopPropagation(); showDescription(notification.descripcion)">
-                VER DESCRIPCIÓN
+                {{ 'notifications.view_desc' | translate }}
               </button>
             </td>
           </tr>
@@ -31,16 +31,16 @@
   @if (selectedDescription()) {
     <div class="description-overlay">
       <div class="description-card">
-        <h3>Descripción</h3>
+        <h3>{{ 'notifications.description_title' | translate }}</h3>
         <p>{{ selectedDescription() }}</p>
-        <button mat-button (click)="selectedDescription.set(null)">CERRAR</button>
+        <button mat-button (click)="selectedDescription.set(null)">{{ 'notifications.close' | translate }}</button>
       </div>
     </div>
   }
 
   <div class="actions-container">
     <button mat-raised-button color="primary" class="back-button" (click)="goBack()">
-      REGRESAR
+      {{ 'notifications.back' | translate }}
     </button>
   </div>
 </main>

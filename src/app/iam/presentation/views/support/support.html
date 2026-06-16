@@ -1,23 +1,23 @@
 <div class="support-container">
 
   <div class="support-header">
-    <h1>Ayuda y Soporte</h1>
+    <h1>{{ 'support.title' | translate }}</h1>
   </div>
 
   <div class="support-grid">
 
     <!-- FAQ -->
     <section class="support-card">
-      <h2 class="section-title">Preguntas Frecuentes</h2>
+      <h2 class="section-title">{{ 'support.faq_title' | translate }}</h2>
       <div class="faq-list">
-        @for (item of faqs; track item.question) {
+        @for (item of faqs; track item.questionKey) {
           <div class="faq-item" [class.faq-open]="item.open" (click)="toggleFaq(item)">
             <div class="faq-question">
-              <span>{{ item.question }}</span>
+              <span>{{ item.questionKey | translate }}</span>
               <span class="faq-chevron">{{ item.open ? '&#8743;' : '&#8744;' }}</span>
             </div>
             @if (item.open) {
-              <div class="faq-answer">{{ item.answer }}</div>
+              <div class="faq-answer">{{ item.answerKey | translate }}</div>
             }
           </div>
         }
@@ -26,46 +26,47 @@
 
     <!-- FORMULARIO -->
     <section class="support-card">
-      <h2 class="section-title">Contactar Soporte</h2>
-      <p class="contact-description">
-        Si aún no encontraste una respuesta a tu pregunta o si tienes algún error con
-        la aplicación, no dudes en mandar un reporte llenando este formulario.
-        Nuestro equipo responderá lo más rápido posible.
-      </p>
+      <h2 class="section-title">{{ 'support.contact_title' | translate }}</h2>
+      <p class="contact-description">{{ 'support.contact_description' | translate }}</p>
 
       @if (sendSuccess()) {
-        <div class="alert alert-success">Tu reporte fue enviado correctamente.</div>
+        <div class="alert alert-success">{{ 'support.success' | translate }}</div>
       }
       @if (sendError()) {
-        <div class="alert alert-error">Ocurrió un error. Intenta de nuevo.</div>
+        <div class="alert alert-error">{{ 'support.error' | translate }}</div>
       }
 
       <div class="form-group">
-        <label class="form-label">Tema</label>
+        <label class="form-label">{{ 'support.field_topic' | translate }}</label>
         <select class="form-input" [(ngModel)]="subject">
-          <option value="" disabled>Selecciona un tema</option>
-          @for (opt of subjectOptions; track opt) {
-            <option [value]="opt">{{ opt }}</option>
+          <option value="" disabled>{{ 'support.placeholder_topic' | translate }}</option>
+          @for (key of topicKeys; track key) {
+            <option [value]="key | translate">{{ key | translate }}</option>
           }
         </select>
       </div>
 
       <div class="form-group">
-        <label class="form-label">Nombre del reporte</label>
-        <input class="form-input" type="text" placeholder="Ej: Error al vincular parche" [(ngModel)]="reportName" />
+        <label class="form-label">{{ 'support.field_name' | translate }}</label>
+        <input class="form-input" type="text"
+               [placeholder]="'support.placeholder_name' | translate"
+               [(ngModel)]="reportName" />
       </div>
 
       <div class="form-group">
-        <label class="form-label">Descripción del reporte</label>
-        <textarea class="form-input form-textarea" placeholder="Describe el problema con detalle..." [(ngModel)]="description"></textarea>
+        <label class="form-label">{{ 'support.field_description' | translate }}</label>
+        <textarea class="form-input form-textarea"
+                  [placeholder]="'support.placeholder_description' | translate"
+                  [(ngModel)]="description"></textarea>
       </div>
 
       <div class="form-actions">
         <button class="btn btn-outline" (click)="viewHistory()" [disabled]="sending()">
-          VER HISTORIAL
+          {{ 'support.btn_history' | translate }}
         </button>
-        <button class="btn btn-primary" (click)="submit()" [disabled]="sending() || !subject || !reportName || !description">
-          {{ sending() ? 'ENVIANDO...' : 'ENVIAR' }}
+        <button class="btn btn-primary" (click)="submit()"
+                [disabled]="sending() || !subject || !reportName || !description">
+          {{ (sending() ? 'support.btn_sending' : 'support.btn_send') | translate }}
         </button>
       </div>
     </section>
@@ -77,14 +78,14 @@
     <div class="modal-backdrop" (click)="closeHistory()">
       <div class="modal" (click)="$event.stopPropagation()">
         <div class="modal-header">
-          <h3>Historial de Tickets</h3>
+          <h3>{{ 'support.history_title' | translate }}</h3>
           <button class="modal-close" (click)="closeHistory()">&#10005;</button>
         </div>
         <div class="modal-body">
           @if (loadingHistory()) {
-            <p class="modal-loading">Cargando historial...</p>
+            <p class="modal-loading">{{ 'support.history_loading' | translate }}</p>
           } @else if (tickets().length === 0) {
-            <p class="modal-empty">No tienes tickets registrados.</p>
+            <p class="modal-empty">{{ 'support.history_empty' | translate }}</p>
           } @else {
             @for (ticket of tickets(); track ticket.idsupport_tickets) {
               <div class="ticket-row">

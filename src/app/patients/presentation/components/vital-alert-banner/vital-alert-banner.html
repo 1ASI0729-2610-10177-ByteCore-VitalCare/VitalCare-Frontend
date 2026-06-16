@@ -2,7 +2,7 @@
   <div class="banner" (click)="$event.stopPropagation()">
     <div class="banner-header">
       <span class="icon">⚠️</span>
-      <h2>Alertas de Signos Vitales</h2>
+      <h2>{{ 'vital_alerts.title' | translate }}</h2>
       <button class="close-btn" (click)="dismiss.emit()">✕</button>
     </div>
 
@@ -10,7 +10,7 @@
       @for (alert of alerts; track $index) {
         <li class="alert-item" [class.critical]="alert.status === 'CRITICAL'" [class.warning]="alert.status === 'WARNING'">
           <span class="badge" [class.badge-critical]="alert.status === 'CRITICAL'" [class.badge-warning]="alert.status === 'WARNING'">
-            {{ alert.status === 'CRITICAL' ? 'CRÍTICO' : 'ALERTA' }}
+            {{ (alert.status === 'CRITICAL' ? 'vital_alerts.badge_critical' : 'vital_alerts.badge_warning') | translate }}
           </span>
           <span class="patient-name">{{ alert.patientName }}</span>
           <span class="separator">—</span>
@@ -20,6 +20,6 @@
       }
     </ul>
 
-    <button class="dismiss-btn" (click)="dismiss.emit()">Entendido</button>
+    <button class="dismiss-btn" (click)="dismiss.emit()">{{ 'vital_alerts.dismiss' | translate }}</button>
   </div>
 </div>

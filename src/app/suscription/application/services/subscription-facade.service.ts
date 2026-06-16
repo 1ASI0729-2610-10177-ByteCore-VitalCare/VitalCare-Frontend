@@ -12,4 +12,8 @@ export class SubscriptionFacadeService {
   getActiveSubscriptions(): Observable<Subscription[]> {
     return this.subscriptionApi.getSubscriptions();
   }
+
+  changePlan(subscriptionId: number, planName: string, price: number): Observable<Subscription> {
+    return this.subscriptionApi.updateSubscriptionPlan(subscriptionId, planName.toUpperCase(), price);
+  }
 }

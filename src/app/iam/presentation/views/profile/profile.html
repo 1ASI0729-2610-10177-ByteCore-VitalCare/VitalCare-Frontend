@@ -1,19 +1,18 @@
 <div class="profile-container">
 
   <div class="profile-header">
-    <h1>Mi Perfil</h1>
-    <p>Información de tu cuenta y preferencias en Vital Care.</p>
+    <h1>{{ 'profile.title' | translate }}</h1>
+    <p>{{ 'profile.subtitle' | translate }}</p>
   </div>
 
   @if (isLoading()) {
     <div class="state-center">
       <div class="spinner"></div>
-      <p class="state-text">Cargando perfil...</p>
+      <p class="state-text">{{ 'profile.loading' | translate }}</p>
     </div>
   } @else if (hasError()) {
     <div class="state-center">
-      <span class="error-icon">error_outline</span>
-      <p class="state-text">No se pudo cargar el perfil. Intenta de nuevo.</p>
+      <p class="state-text">{{ 'profile.error' | translate }}</p>
     </div>
   } @else if (vm(); as data) {
 
@@ -30,7 +29,7 @@
           </p>
           <p class="user-since">
             <span class="info-icon">&#128197;</span>
-            Miembro desde {{ memberSince(data.user.created_at) }}
+            {{ 'profile.member_since' | translate }} {{ memberSince(data.user.created_at) }}
           </p>
         </div>
       </div>
@@ -40,14 +39,15 @@
         <div class="profile-card">
           <div class="card-section-title">
             <span class="section-icon">&#11088;</span>
-            Suscripción
+            {{ 'profile.section_subscription' | translate }}
           </div>
 
           <div class="plan-badge-row">
             <span class="plan-badge" [style.background]="planColor(data.subscription.plan)">
               {{ data.subscription.plan }}
             </span>
-            <span class="status-pill" [style.background]="statusColor(data.subscription.status) + '22'"
+            <span class="status-pill"
+                  [style.background]="statusColor(data.subscription.status) + '22'"
                   [style.color]="statusColor(data.subscription.status)">
               {{ data.subscription.status }}
             </span>
@@ -55,15 +55,15 @@
 
           <div class="info-rows">
             <div class="info-row">
-              <span class="label">Precio</span>
-              <span class="value">${{ data.subscription.price | number:'1.2-2' }} / mes</span>
+              <span class="label">{{ 'profile.price' | translate }}</span>
+              <span class="value">${{ data.subscription.price | number:'1.2-2' }} {{ 'profile.per_month' | translate }}</span>
             </div>
             <div class="info-row">
-              <span class="label">Inicio</span>
+              <span class="label">{{ 'profile.start_date' | translate }}</span>
               <span class="value">{{ data.subscription.start_date }}</span>
             </div>
             <div class="info-row">
-              <span class="label">Vencimiento</span>
+              <span class="label">{{ 'profile.end_date' | translate }}</span>
               <span class="value">{{ data.subscription.end_date }}</span>
             </div>
           </div>
@@ -75,32 +75,32 @@
         <div class="profile-card">
           <div class="card-section-title">
             <span class="section-icon">&#9881;&#65039;</span>
-            Preferencias
+            {{ 'profile.section_preferences' | translate }}
           </div>
 
           <div class="info-rows">
             <div class="info-row">
-              <span class="label">Idioma</span>
-              <span class="value">{{ languageLabel(data.preferences.language) }}</span>
+              <span class="label">{{ 'profile.pref_language' | translate }}</span>
+              <span class="value">{{ languageKey(data.preferences.language) | translate }}</span>
             </div>
             <div class="info-row">
-              <span class="label">Tamaño de fuente</span>
-              <span class="value">{{ fontSizeLabel(data.preferences.font_size) }}</span>
+              <span class="label">{{ 'profile.pref_font_size' | translate }}</span>
+              <span class="value">{{ fontSizeKey(data.preferences.font_size) | translate }}</span>
             </div>
             <div class="info-row">
-              <span class="label">Tema</span>
-              <span class="value">{{ themeLabel(data.preferences.background_color) }}</span>
+              <span class="label">{{ 'profile.pref_theme' | translate }}</span>
+              <span class="value">{{ themeKey(data.preferences.background_color) | translate }}</span>
             </div>
             <div class="info-row">
-              <span class="label">Notif. por email</span>
+              <span class="label">{{ 'profile.pref_email_notif' | translate }}</span>
               <span class="value notif-badge" [class.notif-on]="data.preferences.email_notifications">
-                {{ data.preferences.email_notifications ? 'Activadas' : 'Desactivadas' }}
+                {{ (data.preferences.email_notifications ? 'profile.notif_on' : 'profile.notif_off') | translate }}
               </span>
             </div>
             <div class="info-row">
-              <span class="label">Notif. push</span>
+              <span class="label">{{ 'profile.pref_push_notif' | translate }}</span>
               <span class="value notif-badge" [class.notif-on]="data.preferences.push_notifications">
-                {{ data.preferences.push_notifications ? 'Activadas' : 'Desactivadas' }}
+                {{ (data.preferences.push_notifications ? 'profile.notif_on' : 'profile.notif_off') | translate }}
               </span>
             </div>
           </div>

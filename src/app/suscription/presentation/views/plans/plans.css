@@ -221,3 +221,26 @@
 
 
 
+
+
+.alert-banner {
+  text-align: center;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.alert-success {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.alert-error {
+  background: #fee2e2;
+  color: #b91c1c;
+}

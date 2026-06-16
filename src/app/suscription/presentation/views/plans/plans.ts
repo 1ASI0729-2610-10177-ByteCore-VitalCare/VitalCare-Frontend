@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { SubscriptionFacadeService } from '../../../application/services/subscription-facade.service';
 import { Plan, Subscription } from '../../../domain/model/plan.entity';
 import { PlanCard } from '../../components/plan-card/plan-card';
 import { CurrentUserService } from '../../../infrastructure/services/current-user.service';
-import { Observable, combineLatest, map, shareReplay } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, map, shareReplay, switchMap } from 'rxjs';
 
 type PlansViewModel = {
   activeSubscription: Subscription | null;
@@ -17,7 +18,7 @@ type PlansViewModel = {
 @Component({
   selector: 'app-plans',
   standalone: true,
-  imports: [CommonModule, PlanCard],
+  imports: [CommonModule, TranslatePipe, PlanCard],
   templateUrl: './plans.html',
   styleUrls: ['./plans.css'],
 })
@@ -26,6 +27,9 @@ export class Plans {
   private currentUserService = inject(CurrentUserService);
 
   public activeTab: 'current' | 'explore' = 'current';
+  public readonly changing = signal(false);
+  public readonly changeSuccess = signal(false);
+  public readonly changeError = signal(false);
 
   private readonly planPriority: Record<string, number> = {
     basic: 1,
@@ -33,8 +37,13 @@ export class Plans {
     gold: 3,
   };
 
+  private readonly refresh$ = new BehaviorSubject<void>(undefined);
+
   private readonly currentUser$ = this.currentUserService.getCurrentUser().pipe(shareReplay(1));
-  private readonly subscriptions$ = this.facade.getActiveSubscriptions().pipe(shareReplay(1));
+  private readonly subscriptions$ = this.refresh$.pipe(
+    switchMap(() => this.facade.getActiveSubscriptions()),
+    shareReplay(1),
+  );
 
   public readonly pageData$: Observable<PlansViewModel> = combineLatest([
     this.currentUser$,
@@ -75,46 +84,67 @@ export class Plans {
     {
       name: 'Basic',
       price: '0.00',
-      description: 'Ideal para empezar el monitoreo básico de salud.',
+      description: 'plans.desc_basic',
       features: [
-        '1 Paciente',
-        'Métricas en tiempo real',
-        'Historial de 24 horas',
-        'Alertas básicas',
+        'plans.feat_1_patient',
+        'plans.feat_realtime',
+        'plans.feat_history_24h',
+        'plans.feat_basic_alerts',
       ],
-      buttonText: 'Comenzar',
+      buttonText: 'plans.btn_basic',
       isPopular: false,
     },
     {
       name: 'Silver',
       price: '15.50',
-      description: 'Perfecto para familias pequeñas que necesitan control.',
+      description: 'plans.desc_silver',
       features: [
-        'Hasta 3 pacientes',
-        'Métricas en tiempo real',
-        'Historial de 7 días',
-        'Alertas personalizadas',
-        'Soporte prioritario',
+        'plans.feat_3_patients',
+        'plans.feat_realtime',
+        'plans.feat_history_7d',
+        'plans.feat_custom_alerts',
+        'plans.feat_priority_support',
       ],
-      buttonText: 'Cambiar a Silver',
+      buttonText: 'plans.btn_silver',
       isPopular: true,
     },
     {
       name: 'Gold',
       price: '29.99',
-      description: 'Monitoreo total y avanzado sin restricciones.',
+      description: 'plans.desc_gold',
       features: [
-        'Pacientes ilimitados',
-        'Métricas en tiempo real',
-        'Historial completo',
-        'Alertas avanzadas',
-        'Soporte 24/7',
-        'Reportes PDF mensuales',
+        'plans.feat_unlimited_patients',
+        'plans.feat_realtime',
+        'plans.feat_history_full',
+        'plans.feat_advanced_alerts',
+        'plans.feat_support_247',
+        'plans.feat_pdf',
       ],
-      buttonText: 'Cambiar a Gold',
+      buttonText: 'plans.btn_gold',
       isPopular: false,
     },
   ];
+
+  onSelectPlan(plan: Plan, activeSubscription: Subscription | null): void {
+    if (!activeSubscription) return;
+    this.changing.set(true);
+    this.changeSuccess.set(false);
+    this.changeError.set(false);
+
+    this.facade.changePlan(activeSubscription.id, plan.name, parseFloat(plan.price)).subscribe({
+      next: () => {
+        this.changing.set(false);
+        this.changeSuccess.set(true);
+        this.refresh$.next();
+        setTimeout(() => this.changeSuccess.set(false), 3000);
+      },
+      error: () => {
+        this.changing.set(false);
+        this.changeError.set(true);
+        setTimeout(() => this.changeError.set(false), 3000);
+      },
+    });
+  }
 
   private getRecommendedPlanName(currentPlanName: string | null): string | null {
     if (!currentPlanName) return null;
@@ -130,5 +160,4 @@ export class Plans {
   switchTab(tab: 'current' | 'explore'): void {
     this.activeTab = tab;
   }
-
 }

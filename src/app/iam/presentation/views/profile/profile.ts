@@ -1,5 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
@@ -17,23 +18,23 @@ interface ProfileViewModel {
 
 const CURRENT_USER_ID = 1;
 
-const LANGUAGE_LABELS: Record<string, string> = {
-  es: 'Español',
-  en: 'English',
-  fr: 'Français',
-  pt: 'Português',
+const LANGUAGE_KEY: Record<string, string> = {
+  es: 'profile.lang_es',
+  en: 'profile.lang_en',
+  fr: 'profile.lang_fr',
+  pt: 'profile.lang_pt',
 };
 
-const FONT_SIZE_LABELS: Record<string, string> = {
-  SMALL: 'Pequeño',
-  MEDIUM: 'Mediano',
-  LARGE: 'Grande',
+const FONT_SIZE_KEY: Record<string, string> = {
+  SMALL: 'profile.font_small',
+  MEDIUM: 'profile.font_medium',
+  LARGE: 'profile.font_large',
 };
 
-const THEME_LABELS: Record<string, string> = {
-  DARK: 'Oscuro',
-  LIGHT: 'Claro',
-  BLUE: 'Azul',
+const THEME_KEY: Record<string, string> = {
+  DARK: 'profile.theme_dark',
+  LIGHT: 'profile.theme_light',
+  BLUE: 'profile.theme_blue',
 };
 
 const PLAN_COLORS: Record<string, string> = {
@@ -53,7 +54,7 @@ const STATUS_COLORS: Record<string, string> = {
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
@@ -89,16 +90,16 @@ export class Profile implements OnInit {
       });
   }
 
-  languageLabel(code: string): string {
-    return LANGUAGE_LABELS[code] ?? code.toUpperCase();
+  languageKey(code: string): string {
+    return LANGUAGE_KEY[code] ?? 'profile.lang_en';
   }
 
-  fontSizeLabel(size: string): string {
-    return FONT_SIZE_LABELS[size] ?? size;
+  fontSizeKey(size: string): string {
+    return FONT_SIZE_KEY[size] ?? 'profile.font_medium';
   }
 
-  themeLabel(theme: string): string {
-    return THEME_LABELS[theme] ?? theme;
+  themeKey(theme: string): string {
+    return THEME_KEY[theme] ?? 'profile.theme_light';
   }
 
   planColor(plan: string): string {

@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { NotificationService } from '../../../infrastructure/notification.service';
 import { NotificationStoreService } from '../../../infrastructure/notification-store.service';
 import { Notification } from '../../../domain/notification';
@@ -17,6 +18,7 @@ import { Notification } from '../../../domain/notification';
     MatButton,
     MatIcon,
     MatTooltip,
+    TranslatePipe,
   ],
   templateUrl: './notifications.html',
   styleUrl: './notifications.css',
