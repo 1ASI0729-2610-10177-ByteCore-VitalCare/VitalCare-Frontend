@@ -21,6 +21,7 @@ export interface GeneratedVitalSign {
 }
 
 export interface VitalAlert {
+  patientId: number;
   patientName: string;
   parameter: string;
   value: string;
@@ -71,6 +72,7 @@ export class VitalSignGeneratorService {
 
     if (temperature < 36.0 || temperature > 37.5) {
       alerts.push({
+        patientId: patient.id,
         patientName: patient.name,
         parameter: 'Temperatura',
         value: `${temperature}°C`,
@@ -79,6 +81,7 @@ export class VitalSignGeneratorService {
     }
     if (heartRate < 60 || heartRate > 100) {
       alerts.push({
+        patientId: patient.id,
         patientName: patient.name,
         parameter: 'Frecuencia cardíaca',
         value: `${heartRate} bpm`,
@@ -87,6 +90,7 @@ export class VitalSignGeneratorService {
     }
     if (bloodPressure < 90 || bloodPressure > 130) {
       alerts.push({
+        patientId: patient.id,
         patientName: patient.name,
         parameter: 'Presión arterial',
         value: `${bloodPressure} mmHg`,
@@ -95,6 +99,7 @@ export class VitalSignGeneratorService {
     }
     if (glucoseLevel < 70 || glucoseLevel > 110) {
       alerts.push({
+        patientId: patient.id,
         patientName: patient.name,
         parameter: 'Glucosa',
         value: `${glucoseLevel} mg/dL`,
@@ -103,6 +108,7 @@ export class VitalSignGeneratorService {
     }
     if (oxygenSaturation < 95) {
       alerts.push({
+        patientId: patient.id,
         patientName: patient.name,
         parameter: 'Saturación O₂',
         value: `${oxygenSaturation}%`,
