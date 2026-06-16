@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Subscription } from '../../domain/model/plan.entity';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 
 
 @Injectable({
@@ -12,6 +12,10 @@ export class SubscriptionService {
   private http = inject(HttpClient);
 
   private baseUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderPlansEndpointPath}`;
+
+  updateSubscriptionPlan(id: number, plan: string, price: number): Observable<Subscription> {
+    return this.http.patch<Subscription>(`${this.baseUrl}/${id}`, { plan, price });
+  }
 
   getSubscriptions(): Observable<Subscription[]> {
     return this.http.get<any[]>(this.baseUrl).pipe(

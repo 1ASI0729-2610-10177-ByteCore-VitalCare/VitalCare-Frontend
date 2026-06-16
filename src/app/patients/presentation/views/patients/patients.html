@@ -6,7 +6,7 @@
       <div class="col">{{ 'patients.header_patient' | translate }}</div>
       <div class="col">{{ 'patients.header_status' | translate }}</div>
       <div class="col">{{ 'patients.header_location' | translate }}</div>
-      <div class="col">Historial</div>
+      <div class="col">{{ 'patients_extra.history_col' | translate }}</div>
     </header>
 
     <div class="card-body">
@@ -37,7 +37,7 @@
           </div>
 
           <div class="col">
-            <button class="btn" (click)="openHistoryModal(patient)">Ver Historial</button>
+            <button class="btn" (click)="openHistoryModal(patient)">{{ 'patients_extra.view_history_btn' | translate }}</button>
           </div>
         </div>
       }
@@ -52,7 +52,9 @@
   @if (showVitalSignsModal() && selectedPatient()) {
     <app-vital-signs-modal
       [patient]="selectedPatient()!"
-      (close)="closeVitalSignsModal()">
+      [generatedVitals]="getGeneratedVitals(selectedPatient()!)"
+      (close)="closeVitalSignsModal()"
+      (openHistory)="openHistoryFromVitals()">
     </app-vital-signs-modal>
   }
 
@@ -70,6 +72,14 @@
       (close)="closeAddPatientModal()"
       (patientAdded)="onPatientAdded($event)">
     </app-add-patient-modal>
+  }
+
+  <!-- Alert Banner: Vital Signs -->
+  @if (showAlertBanner()) {
+    <app-vital-alert-banner
+      [alerts]="activeAlerts()"
+      (dismiss)="dismissAlerts()">
+    </app-vital-alert-banner>
   }
 
   <!-- Modal: Patient History -->

@@ -1,0 +1,110 @@
+<div class="support-container">
+
+  <div class="support-header">
+    <h1>{{ 'support.title' | translate }}</h1>
+  </div>
+
+  <div class="support-grid">
+
+    <!-- FAQ -->
+    <section class="support-card">
+      <h2 class="section-title">{{ 'support.faq_title' | translate }}</h2>
+      <div class="faq-list">
+        @for (item of faqs; track item.questionKey) {
+          <div class="faq-item" [class.faq-open]="item.open" (click)="toggleFaq(item)">
+            <div class="faq-question">
+              <span>{{ item.questionKey | translate }}</span>
+              <span class="faq-chevron">{{ item.open ? '&#8743;' : '&#8744;' }}</span>
+            </div>
+            @if (item.open) {
+              <div class="faq-answer">{{ item.answerKey | translate }}</div>
+            }
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- FORMULARIO -->
+    <section class="support-card">
+      <h2 class="section-title">{{ 'support.contact_title' | translate }}</h2>
+      <p class="contact-description">{{ 'support.contact_description' | translate }}</p>
+
+      @if (sendSuccess()) {
+        <div class="alert alert-success">{{ 'support.success' | translate }}</div>
+      }
+      @if (sendError()) {
+        <div class="alert alert-error">{{ 'support.error' | translate }}</div>
+      }
+
+      <div class="form-group">
+        <label class="form-label">{{ 'support.field_topic' | translate }}</label>
+        <select class="form-input" [(ngModel)]="subject">
+          <option value="" disabled>{{ 'support.placeholder_topic' | translate }}</option>
+          @for (key of topicKeys; track key) {
+            <option [value]="key | translate">{{ key | translate }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ 'support.field_name' | translate }}</label>
+        <input class="form-input" type="text"
+               [placeholder]="'support.placeholder_name' | translate"
+               [(ngModel)]="reportName" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ 'support.field_description' | translate }}</label>
+        <textarea class="form-input form-textarea"
+                  [placeholder]="'support.placeholder_description' | translate"
+                  [(ngModel)]="description"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-outline" (click)="viewHistory()" [disabled]="sending()">
+          {{ 'support.btn_history' | translate }}
+        </button>
+        <button class="btn btn-primary" (click)="submit()"
+                [disabled]="sending() || !subject || !reportName || !description">
+          {{ (sending() ? 'support.btn_sending' : 'support.btn_send') | translate }}
+        </button>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- MODAL HISTORIAL -->
+  @if (showHistory()) {
+    <div class="modal-backdrop" (click)="closeHistory()">
+      <div class="modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>{{ 'support.history_title' | translate }}</h3>
+          <button class="modal-close" (click)="closeHistory()">&#10005;</button>
+        </div>
+        <div class="modal-body">
+          @if (loadingHistory()) {
+            <p class="modal-loading">{{ 'support.history_loading' | translate }}</p>
+          } @else if (tickets().length === 0) {
+            <p class="modal-empty">{{ 'support.history_empty' | translate }}</p>
+          } @else {
+            @for (ticket of tickets(); track ticket.idsupport_tickets) {
+              <div class="ticket-row">
+                <div class="ticket-info">
+                  <span class="ticket-subject">{{ ticket.subject }}</span>
+                  <span class="ticket-message">{{ ticket.message }}</span>
+                  <span class="ticket-date">{{ ticket.created_at }}</span>
+                </div>
+                <span class="ticket-status"
+                      [style.background]="statusColor(ticket.status!) + '22'"
+                      [style.color]="statusColor(ticket.status!)">
+                  {{ ticket.status }}
+                </span>
+              </div>
+            }
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+</div>

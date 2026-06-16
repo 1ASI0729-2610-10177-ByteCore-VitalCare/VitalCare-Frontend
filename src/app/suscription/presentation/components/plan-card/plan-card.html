@@ -1,27 +1,30 @@
-<div class="plan-card" [class.popular-card]="plan.isPopular">
-  @if (plan.isPopular) {
-    <span class="popular-tag">Recomendado</span>
+<div class="plan-card" [class.popular-card]="isRecommended">
+  @if (isRecommended) {
+    <span class="popular-tag">{{ 'plans.recommended' | translate }}</span>
   }
-
 
   <div class="card-content">
     <h2 class="plan-name">{{ plan.name }}</h2>
-    <p class="plan-price">S/. {{ plan.price }}<span>/mes</span></p>
-    <p class="plan-description">{{ plan.description }}</p>
+    <p class="plan-price">S/. {{ plan.price }}<span> /mes</span></p>
 
     <ul class="features-list">
       @for (feature of plan.features; track feature) {
         <li>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-icon">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
-          {{ feature }}
+          {{ feature | translate }}
         </li>
       }
     </ul>
   </div>
 
-  <button class="plan-button" [class.btn-filled]="plan.isPopular">
-    {{ plan.buttonText }}
+  <button
+    class="plan-button"
+    [class.plan-button--active]="isActive"
+    [disabled]="isActive"
+    (click)="onSelect()"
+  >
+    <span class="plan-button-label">{{ (isActive ? 'plans.current_badge' : plan.buttonText) | translate }}</span>
   </button>
 </div>

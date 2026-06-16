@@ -3,4 +3,5 @@ export interface Notification {
   nombre: string;
   fecha: string;
   descripcion: string;
+  patientId?: number;
 }

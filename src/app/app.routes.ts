@@ -7,9 +7,8 @@ import { authGuard } from './iam/application/guards/auth.guard';
 import { Login } from './iam/presentation/views/login/login';
 import { Register } from './iam/presentation/views/register/register';
 import { ResetPassword } from './iam/presentation/views/reset-password/reset-password';
-
-// import { Profile } from './iam/presentation/views/profile/profile';
-// import { Support } from './patients/presentation/views/support/support';
+import { Profile } from './iam/presentation/views/profile/profile';
+import { Support } from './iam/presentation/views/support/support';
 
 const baseTitle = 'Vital Care';
 const pageNotFound = () =>
@@ -40,15 +39,15 @@ export const routes: Routes = [
       { path: 'patients', component: Patients, title: `${baseTitle} - Patients` },
       { path: 'plans', component: Plans, title: `${baseTitle} - Plans` },
       { path: 'notification', component: Notifications, title: `${baseTitle} - Notifications` },
-      // { path: 'support', component: Support },
-      // { path: 'profile', component: Profile },
+      { path: 'profile', component: Profile, title: `${baseTitle} - Profile` },
+      { path: 'support', component: Support, title: `${baseTitle} - Support` },
     ]
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'patients', redirectTo: 'home/patients', pathMatch: 'full' },
   { path: 'plans', redirectTo: 'home/plans', pathMatch: 'full' },
   { path: 'notification', redirectTo: 'home/notification', pathMatch: 'full' },
-  // { path: 'support', redirectTo: 'home/support', pathMatch: 'full' },
-  // { path: 'profile', redirectTo: 'home/profile', pathMatch: 'full' },
+  { path: 'profile', redirectTo: 'home/profile', pathMatch: 'full' },
+  { path: 'support', redirectTo: 'home/support', pathMatch: 'full' },
   { path: '**', loadComponent: pageNotFound, title: `${baseTitle} - Page Not Found` },
 ];
