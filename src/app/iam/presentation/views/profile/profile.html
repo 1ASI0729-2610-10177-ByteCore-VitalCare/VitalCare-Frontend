@@ -1,0 +1,113 @@
+<div class="profile-container">
+
+  <div class="profile-header">
+    <h1>Mi Perfil</h1>
+    <p>Información de tu cuenta y preferencias en Vital Care.</p>
+  </div>
+
+  @if (isLoading()) {
+    <div class="state-center">
+      <div class="spinner"></div>
+      <p class="state-text">Cargando perfil...</p>
+    </div>
+  } @else if (hasError()) {
+    <div class="state-center">
+      <span class="error-icon">error_outline</span>
+      <p class="state-text">No se pudo cargar el perfil. Intenta de nuevo.</p>
+    </div>
+  } @else if (vm(); as data) {
+
+    <div class="profile-grid">
+
+      <!-- USUARIO -->
+      <div class="profile-card user-card">
+        <div class="avatar">{{ initials(data.user.name) }}</div>
+        <div class="user-info">
+          <h2 class="user-name">{{ data.user.name }}</h2>
+          <p class="user-email">
+            <span class="info-icon">&#9993;</span>
+            {{ data.user.email }}
+          </p>
+          <p class="user-since">
+            <span class="info-icon">&#128197;</span>
+            Miembro desde {{ memberSince(data.user.created_at) }}
+          </p>
+        </div>
+      </div>
+
+      <!-- SUSCRIPCIÓN -->
+      @if (data.subscription) {
+        <div class="profile-card">
+          <div class="card-section-title">
+            <span class="section-icon">&#11088;</span>
+            Suscripción
+          </div>
+
+          <div class="plan-badge-row">
+            <span class="plan-badge" [style.background]="planColor(data.subscription.plan)">
+              {{ data.subscription.plan }}
+            </span>
+            <span class="status-pill" [style.background]="statusColor(data.subscription.status) + '22'"
+                  [style.color]="statusColor(data.subscription.status)">
+              {{ data.subscription.status }}
+            </span>
+          </div>
+
+          <div class="info-rows">
+            <div class="info-row">
+              <span class="label">Precio</span>
+              <span class="value">${{ data.subscription.price | number:'1.2-2' }} / mes</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Inicio</span>
+              <span class="value">{{ data.subscription.start_date }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Vencimiento</span>
+              <span class="value">{{ data.subscription.end_date }}</span>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- PREFERENCIAS -->
+      @if (data.preferences) {
+        <div class="profile-card">
+          <div class="card-section-title">
+            <span class="section-icon">&#9881;&#65039;</span>
+            Preferencias
+          </div>
+
+          <div class="info-rows">
+            <div class="info-row">
+              <span class="label">Idioma</span>
+              <span class="value">{{ languageLabel(data.preferences.language) }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Tamaño de fuente</span>
+              <span class="value">{{ fontSizeLabel(data.preferences.font_size) }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Tema</span>
+              <span class="value">{{ themeLabel(data.preferences.background_color) }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Notif. por email</span>
+              <span class="value notif-badge" [class.notif-on]="data.preferences.email_notifications">
+                {{ data.preferences.email_notifications ? 'Activadas' : 'Desactivadas' }}
+              </span>
+            </div>
+            <div class="info-row">
+              <span class="label">Notif. push</span>
+              <span class="value notif-badge" [class.notif-on]="data.preferences.push_notifications">
+                {{ data.preferences.push_notifications ? 'Activadas' : 'Desactivadas' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      }
+
+    </div>
+  }
+
+</div>
