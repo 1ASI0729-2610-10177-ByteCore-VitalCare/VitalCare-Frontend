@@ -176,7 +176,7 @@
     {
       "id": 2,
       "plan": "FREE",
-      "price": 0.0,
+      "price": 0,
       "start_date": "2024-01-05",
       "end_date": "2024-02-05",
       "status": "EXPIRED",
@@ -203,7 +203,7 @@
     {
       "id": 5,
       "plan": "FREE",
-      "price": 0.0,
+      "price": 0,
       "start_date": "2024-03-01",
       "end_date": "2024-04-01",
       "status": "PENDING",
@@ -230,7 +230,7 @@
     {
       "id": 8,
       "plan": "FREE",
-      "price": 0.0,
+      "price": 0,
       "start_date": "2024-01-20",
       "end_date": "2024-02-20",
       "status": "CANCELED",
@@ -417,90 +417,90 @@
       "lactate_concentration": 1.2,
       "blood_pressure": 120.8,
       "temperature": 36.6,
-      "oxygen_saturation": 98.0,
-      "heart_rate": 72.0,
+      "oxygen_saturation": 98,
+      "heart_rate": 72,
       "humidity": 45.5,
       "patches_id": 1
     },
     {
       "id": 2,
       "recorded_at": "2024-05-11 12:10:00",
-      "glucose_level": 110.0,
-      "blood_pressure": 130.0,
+      "glucose_level": 110,
+      "blood_pressure": 130,
       "temperature": 37.2,
-      "heart_rate": 85.0,
+      "heart_rate": 85,
       "patches_id": 1
     },
     {
       "id": 3,
       "recorded_at": "2024-05-11 12:05:00",
-      "glucose_level": 90.0,
-      "blood_pressure": 115.0,
+      "glucose_level": 90,
+      "blood_pressure": 115,
       "temperature": 36.5,
-      "heart_rate": 70.0,
+      "heart_rate": 70,
       "patches_id": 3
     },
     {
       "id": 4,
       "recorded_at": "2024-05-11 12:15:00",
-      "glucose_level": 105.0,
-      "blood_pressure": 125.0,
+      "glucose_level": 105,
+      "blood_pressure": 125,
       "temperature": 36.8,
-      "heart_rate": 78.0,
+      "heart_rate": 78,
       "patches_id": 4
     },
     {
       "id": 5,
       "recorded_at": "2024-05-11 12:20:00",
-      "glucose_level": 98.0,
-      "blood_pressure": 118.0,
+      "glucose_level": 98,
+      "blood_pressure": 118,
       "temperature": 36.4,
-      "heart_rate": 74.0,
+      "heart_rate": 74,
       "patches_id": 6
     },
     {
       "id": 6,
       "recorded_at": "2024-05-11 12:30:00",
-      "glucose_level": 102.0,
-      "blood_pressure": 122.0,
+      "glucose_level": 102,
+      "blood_pressure": 122,
       "temperature": 36.7,
-      "heart_rate": 80.0,
+      "heart_rate": 80,
       "patches_id": 7
     },
     {
       "id": 7,
       "recorded_at": "2024-05-11 12:40:00",
-      "glucose_level": 94.0,
-      "blood_pressure": 110.0,
+      "glucose_level": 94,
+      "blood_pressure": 110,
       "temperature": 36.2,
-      "heart_rate": 68.0,
+      "heart_rate": 68,
       "patches_id": 9
     },
     {
       "id": 8,
       "recorded_at": "2024-05-11 12:50:00",
-      "glucose_level": 115.0,
-      "blood_pressure": 140.0,
-      "temperature": 38.0,
-      "heart_rate": 95.0,
+      "glucose_level": 115,
+      "blood_pressure": 140,
+      "temperature": 38,
+      "heart_rate": 95,
       "patches_id": 10
     },
     {
       "id": 9,
       "recorded_at": "2024-05-11 13:00:00",
-      "glucose_level": 97.0,
-      "blood_pressure": 119.0,
+      "glucose_level": 97,
+      "blood_pressure": 119,
       "temperature": 36.5,
-      "heart_rate": 73.0,
+      "heart_rate": 73,
       "patches_id": 1
     },
     {
       "id": 10,
       "recorded_at": "2024-05-11 13:10:00",
-      "glucose_level": 99.0,
-      "blood_pressure": 121.0,
+      "glucose_level": 99,
+      "blood_pressure": 121,
       "temperature": 36.6,
-      "heart_rate": 75.0,
+      "heart_rate": 75,
       "patches_id": 3
     }
   ],
@@ -676,6 +676,13 @@
       "created_at": "2024-05-10 19:00:00",
       "status": "CLOSED",
       "users_id": 10
+    },
+    {
+      "subject": "sese",
+      "message": "fe",
+      "users_id": 1,
+      "status": "OPEN",
+      "id": 1781637057053
     }
   ],
   "locations": [
@@ -749,5 +756,5 @@
       "recorded_at": "2024-05-11 12:00:00",
       "patches_id": 4
     }
-   ]
+  ]
 }

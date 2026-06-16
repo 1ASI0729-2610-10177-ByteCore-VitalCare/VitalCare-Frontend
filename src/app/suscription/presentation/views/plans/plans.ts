@@ -39,13 +39,13 @@ export class Plans {
   public readonly pageData$: Observable<PlansViewModel> = combineLatest([
     this.currentUser$,
     this.subscriptions$,
-  ]).pipe(
+  ] as const).pipe(
     map(([user, subscriptions]) => {
       const currentUserId = (user as any)?.id ?? 1;
 
       const activeSubscription =
-        subscriptions.find(
-          (sub) => sub.userId === currentUserId && sub.status === 'ACTIVE',
+        (subscriptions as Subscription[]).find(
+          (sub: Subscription) => sub.userId === currentUserId && sub.status === 'ACTIVE',
         ) ?? null;
 
       const currentPlan = activeSubscription
