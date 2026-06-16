@@ -15,4 +15,8 @@ export class NotificationService {
   getAll(): Observable<Notification[]> {
     return this.http.get<Notification[]>(this.apiUrl);
   }
+
+  create(notification: Omit<Notification, 'id'>): Observable<Notification> {
+    return this.http.post<Notification>(this.apiUrl, notification);
+  }
 }

@@ -14,11 +14,11 @@
       </thead>
       <tbody>
         @for (notification of notifications(); track notification.id) {
-          <tr>
+          <tr [class.clickable-row]="notification.patientId != null" (click)="goToPatient(notification.patientId)">
             <td>{{ notification.nombre }}</td>
             <td>{{ notification.fecha }}</td>
             <td>
-              <button mat-raised-button color="primary" (click)="showDescription(notification.descripcion)">
+              <button mat-raised-button color="primary" (click)="$event.stopPropagation(); showDescription(notification.descripcion)">
                 VER DESCRIPCIÓN
               </button>
             </td>
@@ -26,21 +26,6 @@
         }
       </tbody>
     </table>
-  </div>
-
-  <div class="examples-section">
-    <div class="example-card">
-      <div class="example-name">Reporte de Datos</div>
-      <div class="example-date">12/05/2026 10:30</div>
-    </div>
-    <div class="example-card">
-      <div class="example-name">Métricas Irregulares</div>
-      <div class="example-date">11/05/2026 22:15</div>
-    </div>
-    <div class="example-card">
-      <div class="example-name">Reporte Mensual de Datos</div>
-      <div class="example-date">10/04/2026 09:00</div>
-    </div>
   </div>
 
   @if (selectedDescription()) {

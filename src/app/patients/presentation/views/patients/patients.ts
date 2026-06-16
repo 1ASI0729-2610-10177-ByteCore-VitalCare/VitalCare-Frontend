@@ -1,7 +1,9 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { PatientService } from '../../../infrastructure/services/patient.service';
 import { Patient } from '../../../domain/model/patient.entity';
@@ -11,6 +13,8 @@ import { AddPatientModal } from '../../components/add-patient-modal/add-patient-
 import { PatientHistoryModal } from '../patient-history-modal/patient-history-modal';
 import { VitalAlertBanner } from '../../components/vital-alert-banner/vital-alert-banner';
 import { VitalSignGeneratorService, VitalAlert, GeneratedVitalSign } from '../../../infrastructure/services/vital-sign-generator.service';
+import { NotificationStoreService } from '../../../../notifications/infrastructure/notification-store.service';
+import { NotificationService } from '../../../../notifications/infrastructure/notification.service';
 
 @Component({
   selector: 'app-patients',
@@ -28,9 +32,13 @@ import { VitalSignGeneratorService, VitalAlert, GeneratedVitalSign } from '../..
   templateUrl: './patients.html',
   styleUrl: './patients.css',
 })
-export class Patients implements OnInit {
+export class Patients implements OnInit, OnDestroy {
   private patientService = inject(PatientService);
   private vitalGenerator = inject(VitalSignGeneratorService);
+  private notificationStore = inject(NotificationStoreService);
+  private notificationService = inject(NotificationService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   patients = signal<Patient[]>([]);
   selectedPatient = signal<Patient | null>(null);
@@ -41,9 +49,24 @@ export class Patients implements OnInit {
   activeAlerts = signal<VitalAlert[]>([]);
   showAlertBanner = signal(false);
   generatedVitals = new Map<number, GeneratedVitalSign>();
+  private pendingNavigationId: number | null = null;
+  private querySub: Subscription | null = null;
 
   ngOnInit(): void {
     this.loadPatients();
+    this.querySub = this.route.queryParams.subscribe(params => {
+      const param = params['patientId'];
+      if (param != null) {
+        this.pendingNavigationId = Number(param);
+        if (this.patients().length > 0) {
+          this.flushPendingNavigation();
+        }
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.querySub?.unsubscribe();
   }
 
   private loadPatients(): void {
@@ -51,9 +74,23 @@ export class Patients implements OnInit {
       next: (data) => {
         this.patients.set(data);
         this.checkVitalAlerts(data);
+        this.flushPendingNavigation();
       },
       error: (err) => console.error('Error fetching patients:', err),
     });
+  }
+
+  private flushPendingNavigation(): void {
+    if (this.pendingNavigationId == null) return;
+    const patient = this.patients().find(p => p.id === this.pendingNavigationId);
+    if (patient) {
+      this.openVitalSignsModal(patient);
+    }
+    this.router.navigate([], {
+      queryParams: { patientId: undefined },
+      queryParamsHandling: 'merge',
+    });
+    this.pendingNavigationId = null;
   }
 
   private checkVitalAlerts(patients: Patient[]): void {
@@ -63,7 +100,37 @@ export class Patients implements OnInit {
     if (allAlerts.length > 0) {
       this.activeAlerts.set(allAlerts);
       this.showAlertBanner.set(true);
+      this.registerNotifications(allAlerts);
     }
+  }
+
+  private registerNotifications(alerts: VitalAlert[]): void {
+    try {
+      const now = new Date();
+      const fecha = `${this.pad(now.getDate())}/${this.pad(now.getMonth() + 1)}/${now.getFullYear()} ${this.pad(now.getHours())}:${this.pad(now.getMinutes())}`;
+
+      for (const alert of alerts) {
+        const statusText = alert.status === 'CRITICAL' ? 'CRÍTICO' : 'ALERTA';
+        const descripcion = `Signo anormal: ${alert.parameter} ${alert.value} (${statusText})`;
+
+        this.notificationStore.add(alert.patientName, descripcion, alert.patientId);
+
+        this.notificationService.create({
+          nombre: alert.patientName,
+          fecha,
+          descripcion,
+          patientId: alert.patientId,
+        }).subscribe({
+          error: (err) => console.error('Error persisting notification:', err),
+        });
+      }
+    } catch (e) {
+      console.error('Error registering notification:', e);
+    }
+  }
+
+  private pad(n: number): string {
+    return n < 10 ? `0${n}` : `${n}`;
   }
 
   getGeneratedVitals(patient: Patient): GeneratedVitalSign | null {
