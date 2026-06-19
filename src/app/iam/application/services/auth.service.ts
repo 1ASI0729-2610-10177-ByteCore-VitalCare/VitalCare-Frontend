@@ -1,7 +1,7 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, map, of, switchMap, tap } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { User } from '../../domain/model/user.entity';
 import { UserAssembler } from '../../infrastructure/model/user.assembler';
@@ -22,70 +22,32 @@ export class AuthService {
   readonly isAuthenticated = computed(() => this.currentUserSignal() !== null);
 
   login(email: string, password: string): Observable<User | null> {
-    const params = new HttpParams()
-      .set('email', email.trim())
-      .set('password', password);
-
-    return this.http.get<UserResource[]>(this.usersEndpointUrl, { params }).pipe(
-      map(users => users[0] ? this.assembler.toEntityFromResource(users[0]) : null),
-      tap(user => {
-        if (user) {
-          this.persistUser(user);
-        }
-      }),
-    );
-  }
-
-  resetPassword(email: string, password: string): Observable<boolean> {
-    const params = new HttpParams().set('email', email.trim());
-
-    return this.http.get<UserResource[]>(this.usersEndpointUrl, { params }).pipe(
-      switchMap(users => {
-        const user = users[0];
-        if (!user) {
-          return of(false);
-        }
-
-        const updatedUser: UserResource = {
-          ...user,
-          password,
-        };
-
-        return this.http.put<UserResource>(`${this.usersEndpointUrl}/${user.id}`, updatedUser).pipe(
-          map(() => true),
-        );
-      }),
+    return this.http.post<UserResource>(
+      `${this.authEndpointUrl}/sign-in`,
+      { email: email.trim(), password }
+    ).pipe(
+      map(user => this.assembler.toEntityFromResource(user)),
+      tap(user => this.persistUser(user)),
     );
   }
 
   register(name: string, email: string, password: string): Observable<User | null> {
-    const normalizedEmail = email.trim();
-    const params = new HttpParams().set('email', normalizedEmail);
-
-    return this.http.get<UserResource[]>(this.usersEndpointUrl, { params }).pipe(
-      switchMap(users => {
-        if (users.length > 0) {
-          return of(null);
-        }
-
-        const newUser: Omit<UserResource, 'id'> = {
-          name: name.trim(),
-          email: normalizedEmail,
-          password,
-          created_at: new Date().toISOString(),
-        };
-
-        return this.http.post<UserResource>(this.usersEndpointUrl, newUser).pipe(
-          map(resource => this.assembler.toEntityFromResource(resource)),
-        );
-      }),
+    return this.http.post<UserResource>(
+      `${this.authEndpointUrl}/sign-up`,
+      {
+        name: name.trim(),
+        email: email.trim(),
+        password,
+      }
+    ).pipe(
+      map(user => this.assembler.toEntityFromResource(user)),
+      tap(user => this.persistUser(user)),
     );
   }
 
-  private get usersEndpointUrl(): string {
+  private get authEndpointUrl(): string {
     const baseUrl = environment.platformProviderApiBaseUrl.replace(/\/$/, '');
-    const usersPath = environment.platformProviderUsersEndpointPath.replace(/^\//, '');
-    return `${baseUrl}/${usersPath}`;
+    return `${baseUrl}/api/v1/authentication`;
   }
 
   logout(): void {
