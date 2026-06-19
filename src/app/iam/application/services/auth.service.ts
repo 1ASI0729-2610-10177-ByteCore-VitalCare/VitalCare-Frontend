@@ -45,6 +45,13 @@ export class AuthService {
     );
   }
 
+  resetPassword(email: string, password: string): Observable<boolean> {
+    return this.http.post<boolean>(
+      `${this.authEndpointUrl}/reset-password`,
+      { email: email.trim(), password }
+    );
+  }
+
   private get authEndpointUrl(): string {
     const baseUrl = environment.platformProviderApiBaseUrl.replace(/\/$/, '');
     return `${baseUrl}/api/v1/authentication`;
