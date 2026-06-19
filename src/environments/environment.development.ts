@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  platformProviderApiBaseUrl: 'http://localhost:3001/',
+  platformProviderApiBaseUrl: 'https://vitalcare-backend-7y66.onrender.com/',
   platformProviderUsersEndpointPath: 'users',
   platformProviderPatientsEndpointPath: 'patients',
   platformProviderPlansEndpointPath: 'subscriptions',
