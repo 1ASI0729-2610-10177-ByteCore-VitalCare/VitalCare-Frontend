@@ -4,4 +4,5 @@ export interface UserResource {
   email: string;
   password: string;
   created_at: string;
+  token: string;
 }

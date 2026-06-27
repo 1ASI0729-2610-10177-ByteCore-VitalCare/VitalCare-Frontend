@@ -8,6 +8,7 @@ export class UserAssembler {
       name: resource.name,
       email: resource.email,
       createdAt: resource.created_at,
+      token: resource.token,
     };
   }
 }
