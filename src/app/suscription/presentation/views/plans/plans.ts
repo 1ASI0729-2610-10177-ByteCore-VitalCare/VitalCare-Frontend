@@ -42,8 +42,12 @@ export class Plans {
   private readonly refresh$ = new BehaviorSubject<void>(undefined);
 
   private readonly currentUser$ = this.currentUserService.getCurrentUser().pipe(shareReplay(1));
-  private readonly subscriptions$ = this.refresh$.pipe(
-    switchMap(() => this.facade.getActiveSubscriptions()),
+  private readonly subscriptions$ = combineLatest([this.currentUser$, this.refresh$]).pipe(
+    switchMap(([user]) => {
+      const userId = (user as any)?.id;
+      if (!userId) return [];
+      return this.facade.getSubscriptionsByUser(userId);
+    }),
     shareReplay(1),
   );
 
@@ -52,11 +56,9 @@ export class Plans {
     this.subscriptions$,
   ] as const).pipe(
     map(([user, subscriptions]) => {
-      const currentUserId = (user as any)?.id ?? 1;
-
       const activeSubscription =
         (subscriptions as Subscription[]).find(
-          (sub: Subscription) => sub.userId === currentUserId && sub.status === 'ACTIVE',
+          (sub: Subscription) => sub.status === 'ACTIVE',
         ) ?? null;
 
       const currentPlan = activeSubscription
@@ -133,9 +135,17 @@ export class Plans {
     this.changeError.set(false);
 
     const price = parseFloat(plan.price);
+    const userId = this.authService.currentUser()?.id;
+    if (!userId && !activeSubscription) {
+      this.changing.set(false);
+      this.changeError.set(true);
+      setTimeout(() => this.changeError.set(false), 3000);
+      return;
+    }
+
     const action$ = activeSubscription
       ? this.facade.changePlan(activeSubscription.id, plan.name, price)
-      : this.facade.createPlan(this.authService.currentUser()?.id ?? 1, plan.name, price);
+      : this.facade.createPlan(userId!, plan.name, price);
 
     action$.subscribe({
       next: () => {

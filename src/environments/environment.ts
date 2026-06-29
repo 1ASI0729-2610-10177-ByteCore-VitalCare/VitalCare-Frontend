@@ -3,7 +3,7 @@ export const environment = {
   platformProviderApiBaseUrl: 'https://vitalcare-backend-7y66.onrender.com/',
   platformProviderUsersEndpointPath: 'users',
   platformProviderPatientsEndpointPath: 'patients',
-  platformProviderPlansEndpointPath: 'subscriptions',
+  platformProviderPlansEndpointPath: 'api/v1/subscriptions',
   platformProviderSupportEndpointPath: 'support',
   platformProviderProfileEndpointPath: 'profile',
 };

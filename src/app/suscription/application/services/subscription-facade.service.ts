@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
 export class SubscriptionFacadeService {
   private subscriptionApi = inject(SubscriptionService);
 
-  getActiveSubscriptions(): Observable<Subscription[]> {
-    return this.subscriptionApi.getSubscriptions();
+  getSubscriptionsByUser(userId: number): Observable<Subscription[]> {
+    return this.subscriptionApi.getSubscriptionsByUser(userId);
   }
 
   changePlan(subscriptionId: number, planName: string, price: number): Observable<Subscription> {
