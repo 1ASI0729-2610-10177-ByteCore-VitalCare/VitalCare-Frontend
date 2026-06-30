@@ -4,7 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { Patient } from '../../../domain/model/patient.entity';
+import { Patch } from '../../../domain/model/patch.entity';
 import { PatientService } from '../../../infrastructure/services/patient.service';
+import { PatchService } from '../../../infrastructure/services/patch.service';
 import { AuthService } from '../../../../iam/application/services/auth.service';
 
 @Component({
@@ -19,6 +21,7 @@ export class AddPatientModal {
   @Output() patientAdded = new EventEmitter<Patient>();
 
   private patientService = inject(PatientService);
+  private patchService = inject(PatchService);
   private authService = inject(AuthService);
 
   // Form state
@@ -71,9 +74,22 @@ export class AddPatientModal {
 
     this.patientService.create(newPatient).subscribe({
       next: (patient) => {
-        this.isLoading.set(false);
-        this.patientAdded.emit(patient);
-        this.onCancel();
+        const code = this.patchCode().trim();
+        if (code) {
+          const patch: Patch = {
+            id: 0,
+            patchCode: code,
+            linkedAt: new Date().toISOString(),
+            status: 'ACTIVE',
+            patientId: patient.id,
+          };
+          this.patchService.create(patch).subscribe({
+            next: () => this.finishAdd(patient),
+            error: () => this.finishAdd(patient),
+          });
+        } else {
+          this.finishAdd(patient);
+        }
       },
       error: (err) => {
         console.error('Error adding patient:', err);
@@ -81,6 +97,12 @@ export class AddPatientModal {
         this.isLoading.set(false);
       },
     });
+  }
+
+  private finishAdd(patient: Patient): void {
+    this.isLoading.set(false);
+    this.patientAdded.emit(patient);
+    this.onCancel();
   }
 
 
