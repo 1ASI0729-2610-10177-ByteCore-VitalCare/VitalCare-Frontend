@@ -102,11 +102,11 @@ export class Support implements OnInit {
     this.loadingHistory.set(true);
     this.supportService.getTicketsByUser(userId).subscribe({
       next: data => {
-        const withResolution = data.map(t =>
-          t.id != null && this.sessionCounter.isResolved(t.id)
-            ? { ...t, status: 'CLOSED' }
-            : t,
-        );
+        const withResolution = data.map(t => {
+          if (t.id == null) return t;
+          this.sessionCounter.ensureTracked(t.id);
+          return this.sessionCounter.isResolved(t.id) ? { ...t, status: 'CLOSED' } : t;
+        });
         this.tickets.set(withResolution);
         this.loadingHistory.set(false);
       },

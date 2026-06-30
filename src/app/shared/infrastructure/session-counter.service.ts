@@ -28,6 +28,18 @@ export class SessionCounterService {
     localStorage.setItem(this.TICKETS_KEY, JSON.stringify(map));
   }
 
+  /**
+   * Asegura que el ticket tenga una sesión base. Para tickets que ya existían
+   * antes de tener registro, toma la sesión actual como punto de partida.
+   */
+  ensureTracked(ticketId: number): void {
+    const map = this.ticketMap();
+    if (map[ticketId] == null) {
+      map[ticketId] = this.count;
+      localStorage.setItem(this.TICKETS_KEY, JSON.stringify(map));
+    }
+  }
+
   /** Indica si un ticket ya debe mostrarse como resuelto. */
   isResolved(ticketId: number): boolean {
     const createdAt = this.ticketMap()[ticketId];
