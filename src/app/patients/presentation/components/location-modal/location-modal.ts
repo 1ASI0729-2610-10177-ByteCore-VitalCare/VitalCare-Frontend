@@ -24,6 +24,8 @@ export class LocationModal implements OnInit, OnDestroy {
   patch = signal<Patch | null>(null);
   isLoading = signal(true);
   error = signal<string | null>(null);
+  displayLat = signal<number | null>(null);
+  displayLng = signal<number | null>(null);
 
   private map: L.Map | undefined;
 
@@ -99,6 +101,9 @@ export class LocationModal implements OnInit, OnDestroy {
   }
 
   private initMap(lat: number, lng: number): void {
+    this.displayLat.set(lat);
+    this.displayLng.set(lng);
+
     if (this.map) {
       this.map.remove();
     }

@@ -19,7 +19,7 @@
           <div id="map" class="map-frame"></div>
 
           <div class="coordinates">
-            {{ 'locations.latitude' | translate }}: {{ location()?.latitude }} | {{ 'locations.longitude' | translate }}: {{ location()?.longitude }}
+            {{ 'locations.latitude' | translate }}: {{ displayLat() | number:'1.6-6' }} | {{ 'locations.longitude' | translate }}: {{ displayLng() | number:'1.6-6' }}
           </div>
         </div>
 
