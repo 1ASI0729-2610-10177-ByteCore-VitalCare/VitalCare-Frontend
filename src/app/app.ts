@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { SessionCounterService } from './shared/infrastructure/session-counter.service';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,9 @@ import { RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('vital-care-frontend');
+
+  constructor() {
+    // Cuenta cada arranque/refresco de la app para simular la resolución de tickets.
+    inject(SessionCounterService).increment();
+  }
 }

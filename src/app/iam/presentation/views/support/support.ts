@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { SupportService, SupportTicket } from '../../../infrastructure/services/support.service';
 import { AuthService } from '../../../application/services/auth.service';
+import { SessionCounterService } from '../../../../shared/infrastructure/session-counter.service';
 
 interface FaqItem {
   questionKey: string;
@@ -21,6 +22,7 @@ interface FaqItem {
 export class Support implements OnInit {
   private supportService = inject(SupportService);
   private authService = inject(AuthService);
+  private sessionCounter = inject(SessionCounterService);
   readonly translate = inject(TranslateService);
 
   readonly topicKeys = [
@@ -76,7 +78,10 @@ export class Support implements OnInit {
     };
 
     this.supportService.createTicket(ticket).subscribe({
-      next: () => {
+      next: (created) => {
+        if (created?.id != null) {
+          this.sessionCounter.markTicketCreated(created.id);
+        }
         this.sending.set(false);
         this.sendSuccess.set(true);
         this.subject = '';
@@ -97,7 +102,12 @@ export class Support implements OnInit {
     this.loadingHistory.set(true);
     this.supportService.getTicketsByUser(userId).subscribe({
       next: data => {
-        this.tickets.set(data);
+        const withResolution = data.map(t =>
+          t.id != null && this.sessionCounter.isResolved(t.id)
+            ? { ...t, status: 'CLOSED' }
+            : t,
+        );
+        this.tickets.set(withResolution);
         this.loadingHistory.set(false);
       },
       error: () => this.loadingHistory.set(false),
