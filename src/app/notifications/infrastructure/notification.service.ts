@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { Notification } from '../domain/notification';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
-  private apiUrl = `${environment.platformProviderApiBaseUrl}notifications`;
+  private apiUrl = `${environment.platformProviderApiBaseUrl}api/v1/notifications`;
 
   constructor(private http: HttpClient) {}
 
