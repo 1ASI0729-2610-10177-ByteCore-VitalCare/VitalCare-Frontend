@@ -11,7 +11,7 @@ export class CurrentUserService {
   private http = inject(HttpClient);
   private authService = inject(AuthService);
 
-  private baseUrl = `${environment.platformProviderApiBaseUrl}users`;
+  private baseUrl = `${environment.platformProviderApiBaseUrl}api/v1/users`;
 
   getCurrentUser(): Observable<unknown> {
     const userId = this.authService.currentUser()?.id ?? 1;
