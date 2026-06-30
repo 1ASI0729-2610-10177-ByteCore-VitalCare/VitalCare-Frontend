@@ -21,7 +21,7 @@ export class PatchService extends BaseApiEndpoint<
   constructor(http: HttpClient) {
     super(
       http,
-      `${environment.platformProviderApiBaseUrl}patches`,
+      `${environment.platformProviderApiBaseUrl}api/v1/patches`,
       new PatchAssembler(),
     );
   }

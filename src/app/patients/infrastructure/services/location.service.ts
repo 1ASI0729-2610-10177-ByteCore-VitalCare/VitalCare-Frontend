@@ -21,7 +21,7 @@ export class LocationService extends BaseApiEndpoint<
   constructor(http: HttpClient) {
     super(
       http,
-      `${environment.platformProviderApiBaseUrl}locations`,
+      `${environment.platformProviderApiBaseUrl}api/v1/locations`,
       new LocationAssembler(),
     );
   }

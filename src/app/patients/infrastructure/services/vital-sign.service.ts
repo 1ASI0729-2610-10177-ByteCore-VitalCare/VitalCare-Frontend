@@ -21,7 +21,7 @@ export class VitalSignService extends BaseApiEndpoint<
   constructor(http: HttpClient) {
     super(
       http,
-      `${environment.platformProviderApiBaseUrl}vital_signs`,
+      `${environment.platformProviderApiBaseUrl}api/v1/vital_signs`,
       new VitalSignAssembler(),
     );
   }
