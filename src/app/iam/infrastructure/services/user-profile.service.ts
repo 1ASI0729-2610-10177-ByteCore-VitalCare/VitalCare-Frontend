@@ -30,12 +30,11 @@ export interface UserSubscription {
 }
 
 export interface CreateSubscriptionData {
+  userId: number;
   plan: string;
   price: number;
-  start_date: string;
-  end_date: string;
-  status: string;
-  users_id: number;
+  startDate: string;
+  endDate: string;
 }
 
 @Injectable({ providedIn: 'root' })

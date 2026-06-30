@@ -75,12 +75,11 @@ export class Register {
 
         forkJoin([
           this.profileService.createSubscription({
+            userId: user.id,
             plan: 'BASIC',
             price: 0,
-            start_date: fmt(today),
-            end_date: fmt(endDate),
-            status: 'ACTIVE',
-            users_id: user.id,
+            startDate: fmt(today),
+            endDate: fmt(endDate),
           }),
           this.profileService.createPreferences({
             language: 'es',
