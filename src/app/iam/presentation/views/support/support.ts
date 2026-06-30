@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { SupportService, SupportTicket } from '../../../infrastructure/services/support.service';
-
-const CURRENT_USER_ID = 1;
+import { AuthService } from '../../../application/services/auth.service';
 
 interface FaqItem {
   questionKey: string;
@@ -21,6 +20,7 @@ interface FaqItem {
 })
 export class Support implements OnInit {
   private supportService = inject(SupportService);
+  private authService = inject(AuthService);
   readonly translate = inject(TranslateService);
 
   readonly topicKeys = [
@@ -61,6 +61,9 @@ export class Support implements OnInit {
   submit(): void {
     if (!this.subject || !this.reportName || !this.description) return;
 
+    const userId = this.authService.currentUser()?.id;
+    if (!userId) { this.sendError.set(true); return; }
+
     this.sending.set(true);
     this.sendSuccess.set(false);
     this.sendError.set(false);
@@ -68,7 +71,7 @@ export class Support implements OnInit {
     const ticket: SupportTicket = {
       subject: this.reportName,
       message: this.description,
-      users_id: CURRENT_USER_ID,
+      users_id: userId,
       status: 'OPEN',
     };
 
@@ -88,9 +91,11 @@ export class Support implements OnInit {
   }
 
   viewHistory(): void {
+    const userId = this.authService.currentUser()?.id;
+    if (!userId) return;
     this.showHistory.set(true);
     this.loadingHistory.set(true);
-    this.supportService.getTicketsByUser(CURRENT_USER_ID).subscribe({
+    this.supportService.getTicketsByUser(userId).subscribe({
       next: data => {
         this.tickets.set(data);
         this.loadingHistory.set(false);
