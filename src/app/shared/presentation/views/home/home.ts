@@ -15,12 +15,12 @@ import { LanguageSwitcher } from '../../components/language-switcher/language-sw
 import { environment } from '../../../../../environments/environment';
 import { AuthService } from '../../../../iam/application/services/auth.service';
 import { SessionCounterService } from '../../../infrastructure/session-counter.service';
+import { AlertSessionService } from '../../../infrastructure/alert-session.service';
 
 interface NavOption { link: string; label: string; icon?: string; }
 interface Subscription { plan: string; status: string; price: number; endDate: string; userId: number; }
 interface Patient { id: number; users_id: number; }
 interface Patch { status: string; patients_id: number; }
-interface Alert { isRead: boolean; userId: number; }
 interface SupportTicket { id: number; status: string; users_id: number; }
 
 export interface DashboardData {
@@ -36,9 +36,8 @@ function buildDashboard(userId: number, d: {
   subscriptions: Subscription[];
   patients: Patient[];
   patches: Patch[];
-  alerts: Alert[];
   tickets: SupportTicket[];
-}, isTicketResolved: (id: number) => boolean): DashboardData {
+}, sessionAlerts: number, isTicketResolved: (id: number) => boolean): DashboardData {
   const sub = d.subscriptions.find(s => s.userId === userId && s.status === 'ACTIVE') ?? null;
   const myPatients = d.patients.filter(p => p.users_id === userId);
   const myPatientIds = new Set(myPatients.map(p => p.id));
@@ -47,7 +46,7 @@ function buildDashboard(userId: number, d: {
     planExpiry: sub?.endDate ?? '—',
     patients: myPatients.length,
     activePatches: d.patches.filter(p => myPatientIds.has(p.patients_id) && p.status === 'ACTIVE').length,
-    unreadAlerts: d.alerts.filter(a => a.userId === userId && !a.isRead).length,
+    unreadAlerts: sessionAlerts,
     openTickets: d.tickets.filter(
       t => t.users_id === userId && t.status === 'OPEN' && !isTicketResolved(t.id),
     ).length,
@@ -75,6 +74,7 @@ export class Home implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly authService = inject(AuthService);
   private readonly sessionCounter = inject(SessionCounterService);
+  private readonly alertSession = inject(AlertSessionService);
 
   readonly navOptions = signal<NavOption[]>([
     { link: '/home', label: 'nav.home', icon: 'home' },
@@ -120,14 +120,13 @@ export class Home implements OnInit {
           subscriptions: this.http.get<Subscription[]>(`${base}api/v1/subscriptions?users_id=${userId}`),
           patients: of(patients),
           patches: patches$,
-          alerts: this.http.get<Alert[]>(`${base}api/v1/alerts?userId=${userId}`),
           tickets: this.http.get<SupportTicket[]>(`${base}api/v1/support_tickets?users_id=${userId}`),
         });
       }),
     ).subscribe({
       next: d => {
         d.tickets.forEach(t => { if (t.id != null) this.sessionCounter.ensureTracked(t.id); });
-        this.data.set(buildDashboard(userId, d, id => this.sessionCounter.isResolved(id)));
+        this.data.set(buildDashboard(userId, d, this.alertSession.count, id => this.sessionCounter.isResolved(id)));
         this.isLoading.set(false);
       },
       error: () => {

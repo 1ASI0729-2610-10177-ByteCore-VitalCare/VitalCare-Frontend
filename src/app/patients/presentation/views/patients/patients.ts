@@ -17,6 +17,7 @@ import { NotificationStoreService } from '../../../../notifications/infrastructu
 import { NotificationService } from '../../../../notifications/infrastructure/notification.service';
 import { AlertService } from '../../../infrastructure/services/alert.service';
 import { AuthService } from '../../../../iam/application/services/auth.service';
+import { AlertSessionService } from '../../../../shared/infrastructure/alert-session.service';
 
 @Component({
   selector: 'app-patients',
@@ -41,6 +42,7 @@ export class Patients implements OnInit, OnDestroy {
   private notificationService = inject(NotificationService);
   private alertService = inject(AlertService);
   private authService = inject(AuthService);
+  private alertSession = inject(AlertSessionService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
@@ -101,6 +103,7 @@ export class Patients implements OnInit, OnDestroy {
     const results = this.vitalGenerator.generateForPatients(patients);
     results.forEach(r => this.generatedVitals.set(r.patient.id, r));
     const allAlerts = results.flatMap(r => r.alerts);
+    this.alertSession.set(allAlerts.length);
     if (allAlerts.length > 0) {
       this.activeAlerts.set(allAlerts);
       this.showAlertBanner.set(true);

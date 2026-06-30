@@ -59,6 +59,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem(SESSION_STORAGE_KEY);
+    sessionStorage.removeItem('vital-session-alerts');
     this.currentUserSignal.set(null);
     this.router.navigate(['/login']);
   }
