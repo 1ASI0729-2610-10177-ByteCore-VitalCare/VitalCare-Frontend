@@ -29,6 +29,15 @@ export interface UserSubscription {
   userId: number;
 }
 
+export interface CreateSubscriptionData {
+  plan: string;
+  price: number;
+  start_date: string;
+  end_date: string;
+  status: string;
+  users_id: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class UserProfileService {
   private http = inject(HttpClient);
@@ -48,5 +57,9 @@ export class UserProfileService {
 
   createPreferences(data: Omit<UserPreferences, 'id'>): Observable<UserPreferences> {
     return this.http.post<UserPreferences>(`${this.base}api/v1/user_preferences`, data);
+  }
+
+  createSubscription(data: CreateSubscriptionData): Observable<UserSubscription> {
+    return this.http.post<UserSubscription>(`${this.base}api/v1/subscriptions`, data);
   }
 }

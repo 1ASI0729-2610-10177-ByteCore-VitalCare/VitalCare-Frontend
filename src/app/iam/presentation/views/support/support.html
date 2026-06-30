@@ -87,12 +87,11 @@
           } @else if (tickets().length === 0) {
             <p class="modal-empty">{{ 'support.history_empty' | translate }}</p>
           } @else {
-            @for (ticket of tickets(); track ticket.idsupport_tickets) {
+            @for (ticket of tickets(); track ticket.id) {
               <div class="ticket-row">
                 <div class="ticket-info">
                   <span class="ticket-subject">{{ ticket.subject }}</span>
                   <span class="ticket-message">{{ ticket.message }}</span>
-                  <span class="ticket-date">{{ ticket.created_at }}</span>
                 </div>
                 <span class="ticket-status"
                       [style.background]="statusColor(ticket.status!) + '22'"

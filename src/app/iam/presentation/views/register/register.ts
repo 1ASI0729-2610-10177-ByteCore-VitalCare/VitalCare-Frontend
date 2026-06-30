@@ -84,10 +84,10 @@ export class Register {
           }),
           this.profileService.createPreferences({
             language: 'es',
-            font_size: 'MEDIUM',
-            background_color: 'LIGHT',
-            email_notifications: 1,
-            push_notifications: 1,
+            fontSize: 'MEDIUM',
+            backgroundColor: 'LIGHT',
+            emailNotifications: false,
+            pushNotifications: false,
             users_id: user.id,
           }),
         ]).subscribe({

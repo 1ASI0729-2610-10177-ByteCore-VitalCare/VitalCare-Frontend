@@ -60,11 +60,11 @@
             </div>
             <div class="info-row">
               <span class="label">{{ 'profile.start_date' | translate }}</span>
-              <span class="value">{{ data.subscription.start_date }}</span>
+              <span class="value">{{ data.subscription.startDate }}</span>
             </div>
             <div class="info-row">
               <span class="label">{{ 'profile.end_date' | translate }}</span>
-              <span class="value">{{ data.subscription.end_date }}</span>
+              <span class="value">{{ data.subscription.endDate }}</span>
             </div>
           </div>
         } @else {
@@ -87,22 +87,22 @@
             </div>
             <div class="info-row">
               <span class="label">{{ 'profile.pref_font_size' | translate }}</span>
-              <span class="value">{{ fontSizeKey(data.preferences.font_size) | translate }}</span>
+              <span class="value">{{ fontSizeKey(data.preferences.fontSize) | translate }}</span>
             </div>
             <div class="info-row">
               <span class="label">{{ 'profile.pref_theme' | translate }}</span>
-              <span class="value">{{ themeKey(data.preferences.background_color) | translate }}</span>
+              <span class="value">{{ themeKey(data.preferences.backgroundColor) | translate }}</span>
             </div>
             <div class="info-row">
               <span class="label">{{ 'profile.pref_email_notif' | translate }}</span>
-              <span class="value notif-badge" [class.notif-on]="data.preferences.email_notifications">
-                {{ (data.preferences.email_notifications ? 'profile.notif_on' : 'profile.notif_off') | translate }}
+              <span class="value notif-badge" [class.notif-on]="data.preferences.emailNotifications">
+                {{ (data.preferences.emailNotifications ? 'profile.notif_on' : 'profile.notif_off') | translate }}
               </span>
             </div>
             <div class="info-row">
               <span class="label">{{ 'profile.pref_push_notif' | translate }}</span>
-              <span class="value notif-badge" [class.notif-on]="data.preferences.push_notifications">
-                {{ (data.preferences.push_notifications ? 'profile.notif_on' : 'profile.notif_off') | translate }}
+              <span class="value notif-badge" [class.notif-on]="data.preferences.pushNotifications">
+                {{ (data.preferences.pushNotifications ? 'profile.notif_on' : 'profile.notif_off') | translate }}
               </span>
             </div>
           </div>
