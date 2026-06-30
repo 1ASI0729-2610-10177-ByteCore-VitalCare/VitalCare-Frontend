@@ -125,7 +125,6 @@ export class Patients implements OnInit, OnDestroy {
     try {
       const now = new Date();
       const fecha = `${this.pad(now.getDate())}/${this.pad(now.getMonth() + 1)}/${now.getFullYear()} ${this.pad(now.getHours())}:${this.pad(now.getMinutes())}`;
-      const created_at = now.toISOString().replace('T', ' ').substring(0, 19);
       const userId = this.authService.currentUser()?.id ?? 1;
 
       for (const alert of alerts) {
@@ -145,10 +144,9 @@ export class Patients implements OnInit, OnDestroy {
         this.alertService.create({
           type: alert.status,
           description: descripcion,
-          created_at,
-          is_read: 0,
-          users_id: userId,
-          patients_id: alert.patientId,
+          isRead: false,
+          userId,
+          patientId: alert.patientId,
         }).subscribe({ error: (err) => console.error('Error persisting alert:', err) });
       }
     } catch (e) {

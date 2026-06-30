@@ -7,18 +7,17 @@ export interface AlertResource {
   id: number;
   type: string;
   description: string;
-  created_at: string;
-  is_read: number;
-  users_id: number;
-  patients_id: number;
+  isRead: boolean;
+  userId: number;
+  patientId: number;
 }
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
   private http = inject(HttpClient);
-  private url = `${environment.platformProviderApiBaseUrl}alerts`;
+  private url = `${environment.platformProviderApiBaseUrl}api/v1/alerts`;
 
   create(alert: Omit<AlertResource, 'id'>): Observable<AlertResource> {
-    return this.http.post<AlertResource>(this.url, { id: Date.now(), ...alert });
+    return this.http.post<AlertResource>(this.url, alert);
   }
 }
