@@ -14,13 +14,14 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { LanguageSwitcher } from '../../components/language-switcher/language-switcher';
 import { environment } from '../../../../../environments/environment';
 import { AuthService } from '../../../../iam/application/services/auth.service';
+import { SessionCounterService } from '../../../infrastructure/session-counter.service';
 
 interface NavOption { link: string; label: string; icon?: string; }
 interface Subscription { plan: string; status: string; price: number; endDate: string; userId: number; }
 interface Patient { id: number; users_id: number; }
 interface Patch { status: string; patients_id: number; }
-interface Alert { isRead: number; userId: number; }
-interface SupportTicket { status: string; users_id: number; }
+interface Alert { isRead: boolean; userId: number; }
+interface SupportTicket { id: number; status: string; users_id: number; }
 
 export interface DashboardData {
   plan: string;
@@ -37,7 +38,7 @@ function buildDashboard(userId: number, d: {
   patches: Patch[];
   alerts: Alert[];
   tickets: SupportTicket[];
-}): DashboardData {
+}, isTicketResolved: (id: number) => boolean): DashboardData {
   const sub = d.subscriptions.find(s => s.userId === userId && s.status === 'ACTIVE') ?? null;
   const myPatients = d.patients.filter(p => p.users_id === userId);
   const myPatientIds = new Set(myPatients.map(p => p.id));
@@ -46,8 +47,10 @@ function buildDashboard(userId: number, d: {
     planExpiry: sub?.endDate ?? '—',
     patients: myPatients.length,
     activePatches: d.patches.filter(p => myPatientIds.has(p.patients_id) && p.status === 'ACTIVE').length,
-    unreadAlerts: d.alerts.filter(a => a.userId === userId && a.isRead === 0).length,
-    openTickets: d.tickets.filter(t => t.users_id === userId && t.status === 'OPEN').length,
+    unreadAlerts: d.alerts.filter(a => a.userId === userId && !a.isRead).length,
+    openTickets: d.tickets.filter(
+      t => t.users_id === userId && t.status === 'OPEN' && !isTicketResolved(t.id),
+    ).length,
   };
 }
 
@@ -71,6 +74,7 @@ export class Home implements OnInit {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
   private readonly authService = inject(AuthService);
+  private readonly sessionCounter = inject(SessionCounterService);
 
   readonly navOptions = signal<NavOption[]>([
     { link: '/home', label: 'nav.home', icon: 'home' },
@@ -122,7 +126,8 @@ export class Home implements OnInit {
       }),
     ).subscribe({
       next: d => {
-        this.data.set(buildDashboard(userId, d));
+        d.tickets.forEach(t => { if (t.id != null) this.sessionCounter.ensureTracked(t.id); });
+        this.data.set(buildDashboard(userId, d, id => this.sessionCounter.isResolved(id)));
         this.isLoading.set(false);
       },
       error: () => {
