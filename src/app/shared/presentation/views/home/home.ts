@@ -16,11 +16,11 @@ import { environment } from '../../../../../environments/environment';
 import { AuthService } from '../../../../iam/application/services/auth.service';
 
 interface NavOption { link: string; label: string; icon?: string; }
-interface Subscription { plan: string; status: string; price: number; end_date: string; users_id: number; }
-interface Patient { id: number; users_id: number; }
-interface Patch { status: string; patients_id: number; }
-interface Alert { is_read: number; users_id: number; }
-interface SupportTicket { status: string; users_id: number; }
+interface Subscription { plan: string; status: string; price: number; endDate: string; userId: number; }
+interface Patient { id: number; usersId: number; }
+interface Patch { status: string; patientsId: number; }
+interface Alert { isRead: number; userId: number; }
+interface SupportTicket { status: string; userId: number; }
 
 export interface DashboardData {
   plan: string;
@@ -38,16 +38,16 @@ function buildDashboard(userId: number, d: {
   alerts: Alert[];
   tickets: SupportTicket[];
 }): DashboardData {
-  const sub = d.subscriptions.find(s => s.users_id === userId && s.status === 'ACTIVE') ?? null;
-  const myPatients = d.patients.filter(p => p.users_id === userId);
+  const sub = d.subscriptions.find(s => s.userId === userId && s.status === 'ACTIVE') ?? null;
+  const myPatients = d.patients.filter(p => p.usersId === userId);
   const myPatientIds = new Set(myPatients.map(p => p.id));
   return {
     plan: sub?.plan ?? '—',
-    planExpiry: sub?.end_date ?? '—',
+    planExpiry: sub?.endDate ?? '—',
     patients: myPatients.length,
-    activePatches: d.patches.filter(p => myPatientIds.has(p.patients_id) && p.status === 'ACTIVE').length,
-    unreadAlerts: d.alerts.filter(a => a.users_id === userId && a.is_read === 0).length,
-    openTickets: d.tickets.filter(t => t.users_id === userId && t.status === 'OPEN').length,
+    activePatches: d.patches.filter(p => myPatientIds.has(p.patientsId) && p.status === 'ACTIVE').length,
+    unreadAlerts: d.alerts.filter(a => a.userId === userId && a.isRead === 0).length,
+    openTickets: d.tickets.filter(t => t.userId === userId && t.status === 'OPEN').length,
   };
 }
 
@@ -104,15 +104,16 @@ export class Home implements OnInit {
     this.isLoading.set(true);
     this.hasError.set(false);
     const base = environment.platformProviderApiBaseUrl;
+    const userId = this.authService.currentUser()?.id;
+    if (!userId) { this.hasError.set(true); this.isLoading.set(false); return; }
     forkJoin({
-      subscriptions: this.http.get<Subscription[]>(`${base}subscriptions`),
-      patients: this.http.get<Patient[]>(`${base}patients`),
-      patches: this.http.get<Patch[]>(`${base}patches`),
-      alerts: this.http.get<Alert[]>(`${base}alerts`),
-      tickets: this.http.get<SupportTicket[]>(`${base}support_tickets`),
+      subscriptions: this.http.get<Subscription[]>(`${base}api/v1/subscriptions?users_id=${userId}`),
+      patients: this.http.get<Patient[]>(`${base}api/v1/patients?users_id=${userId}`),
+      patches: this.http.get<Patch[]>(`${base}api/v1/patches`),
+      alerts: this.http.get<Alert[]>(`${base}api/v1/alerts?users_id=${userId}`),
+      tickets: this.http.get<SupportTicket[]>(`${base}api/v1/support_tickets?users_id=${userId}`),
     }).subscribe({
       next: d => {
-        const userId = this.authService.currentUser()?.id ?? 1;
         this.data.set(buildDashboard(userId, d));
         this.isLoading.set(false);
       },
