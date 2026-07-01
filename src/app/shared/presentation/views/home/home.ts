@@ -20,6 +20,7 @@ import { AlertSessionService } from '../../../infrastructure/alert-session.servi
 import { PreferencesService } from '../../../infrastructure/preferences.service';
 import { VitalAlertBanner } from '../../../../patients/presentation/components/vital-alert-banner/vital-alert-banner';
 import { VitalSignGeneratorService, VitalAlert } from '../../../../patients/infrastructure/services/vital-sign-generator.service';
+import { isGoldPlan, getTicketResolutionThreshold } from '../../../infrastructure/plan-limits';
 
 interface NavOption { link: string; label: string; icon?: string; }
 interface Subscription { plan: string; status: string; price: number; endDate: string; userId: number; }
@@ -84,6 +85,7 @@ export class Home implements OnInit {
 
   readonly showHomeAlerts = this.preferences.showHomeAlerts;
   readonly homeAlerts = signal<VitalAlert[]>([]);
+  readonly isGold = signal(false);
 
   readonly navOptions = signal<NavOption[]>([
     { link: '/home', label: 'nav.home', icon: 'home' },
@@ -140,8 +142,11 @@ export class Home implements OnInit {
       }),
     ).subscribe({
       next: d => {
+        const activePlan = (d.subscriptions.find(s => s.status === 'ACTIVE') ?? d.subscriptions[0])?.plan;
+        this.isGold.set(isGoldPlan(activePlan));
+        const threshold = getTicketResolutionThreshold(activePlan);
         d.tickets.forEach(t => { if (t.id != null) this.sessionCounter.ensureTracked(t.id); });
-        this.data.set(buildDashboard(userId, d, this.alertSession.count, id => this.sessionCounter.isResolved(id)));
+        this.data.set(buildDashboard(userId, d, this.alertSession.count, id => this.sessionCounter.isResolved(id, threshold)));
         this.buildHomeAlerts(d.patients);
         this.isLoading.set(false);
       },
@@ -153,7 +158,7 @@ export class Home implements OnInit {
   }
 
   private buildHomeAlerts(patients: Patient[]): void {
-    if (!this.showHomeAlerts() || patients.length === 0) {
+    if (!this.isGold() || !this.showHomeAlerts() || patients.length === 0) {
       this.homeAlerts.set([]);
       return;
     }

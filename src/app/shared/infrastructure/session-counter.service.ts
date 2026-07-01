@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 export class SessionCounterService {
   private readonly COUNT_KEY = 'vital-session-count';
   private readonly TICKETS_KEY = 'vital-ticket-resolution';
-  private readonly RESOLUTION_THRESHOLD = 3;
+  private readonly RESOLUTION_THRESHOLD = 6;
 
   /** Contador actual de sesiones/arranques. */
   get count(): number {
@@ -40,11 +40,11 @@ export class SessionCounterService {
     }
   }
 
-  /** Indica si un ticket ya debe mostrarse como resuelto. */
-  isResolved(ticketId: number): boolean {
+  /** Indica si un ticket ya debe mostrarse como resuelto, según el umbral del plan. */
+  isResolved(ticketId: number, threshold: number = this.RESOLUTION_THRESHOLD): boolean {
     const createdAt = this.ticketMap()[ticketId];
     if (createdAt == null) return false;
-    return this.count - createdAt >= this.RESOLUTION_THRESHOLD;
+    return this.count - createdAt >= threshold;
   }
 
   private ticketMap(): Record<string, number> {

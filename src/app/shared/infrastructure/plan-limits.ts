@@ -8,6 +8,15 @@ export interface PlanLimits {
   warningAlerts: boolean;    // recibe alertas de advertencia además de las críticas
 }
 
+export function isGoldPlan(plan: string | null | undefined): boolean {
+  return (plan ?? '').toUpperCase() === 'GOLD';
+}
+
+/** Nº de sesiones/refrescos para que un ticket se resuelva. Gold (soporte prioritario) = 1, resto = 6. */
+export function getTicketResolutionThreshold(plan: string | null | undefined): number {
+  return isGoldPlan(plan) ? 1 : 6;
+}
+
 export function getPlanLimits(plan: string | null | undefined): PlanLimits {
   switch ((plan ?? '').toUpperCase()) {
     case 'GOLD':
