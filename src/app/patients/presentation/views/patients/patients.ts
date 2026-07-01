@@ -1,9 +1,12 @@
-import { Component, inject, OnInit, OnDestroy, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
+import { getPlanLimits, PlanLimits } from '../../../../shared/infrastructure/plan-limits';
 
 import { PatientService } from '../../../infrastructure/services/patient.service';
 import { Patient } from '../../../domain/model/patient.entity';
@@ -43,8 +46,13 @@ export class Patients implements OnInit, OnDestroy {
   private alertService = inject(AlertService);
   private authService = inject(AuthService);
   private alertSession = inject(AlertSessionService);
+  private http = inject(HttpClient);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+
+  planLimits = signal<PlanLimits>(getPlanLimits(null));
+  planName = signal<string>('BASIC');
+  readonly canAddPatient = computed(() => this.patients().length < this.planLimits().maxPatients);
 
   patients = signal<Patient[]>([]);
   selectedPatient = signal<Patient | null>(null);
@@ -59,6 +67,7 @@ export class Patients implements OnInit, OnDestroy {
   private querySub: Subscription | null = null;
 
   ngOnInit(): void {
+    this.loadPlan();
     this.loadPatients();
     this.querySub = this.route.queryParams.subscribe(params => {
       const param = params['patientId'];
@@ -102,7 +111,11 @@ export class Patients implements OnInit, OnDestroy {
   private checkVitalAlerts(patients: Patient[]): void {
     const results = this.vitalGenerator.generateForPatients(patients);
     results.forEach(r => this.generatedVitals.set(r.patient.id, r));
-    const allAlerts = results.flatMap(r => r.alerts);
+    let allAlerts = results.flatMap(r => r.alerts);
+    // En planes sin alertas de advertencia (Basic) solo se muestran las críticas.
+    if (!this.planLimits().warningAlerts) {
+      allAlerts = allAlerts.filter(a => a.status === 'CRITICAL');
+    }
     this.alertSession.set(allAlerts.length);
     if (allAlerts.length > 0) {
       this.activeAlerts.set(allAlerts);
@@ -206,7 +219,24 @@ export class Patients implements OnInit, OnDestroy {
     this.selectedPatient.set(null);
   }
 
+  private loadPlan(): void {
+    const userId = this.authService.currentUser()?.id;
+    if (!userId) return;
+    this.http.get<{ plan: string; status: string }[]>(
+      `${environment.platformProviderApiBaseUrl}api/v1/subscriptions?users_id=${userId}`,
+    ).subscribe({
+      next: subs => {
+        const active = subs.find(s => s.status === 'ACTIVE') ?? subs[0];
+        const plan = active?.plan ?? 'BASIC';
+        this.planName.set(plan.toUpperCase());
+        this.planLimits.set(getPlanLimits(plan));
+      },
+      error: () => {},
+    });
+  }
+
   openAddPatientModal(): void {
+    if (!this.canAddPatient()) return;
     this.showAddPatientModal.set(true);
   }
 

@@ -644,3 +644,20 @@
   background: #c62828;
   border-color: #c62828;
 }
+
+.locked {
+  color: #90a4ae;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.limit-msg {
+  color: #e53935;
+  font-size: 0.85rem;
+  margin-left: 12px;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

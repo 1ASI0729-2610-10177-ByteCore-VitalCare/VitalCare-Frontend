@@ -28,17 +28,25 @@
           </div>
 
           <div class="col">
-            <button class="btn" (click)="openLocationModal(patient)">
-              <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-              {{ 'patients.view_location' | translate }}
-            </button>
+            @if (planLimits().canViewLocation) {
+              <button class="btn" (click)="openLocationModal(patient)">
+                <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+                {{ 'patients.view_location' | translate }}
+              </button>
+            } @else {
+              <span class="locked">🔒 {{ 'patients.locked_feature' | translate }}</span>
+            }
           </div>
 
           <div class="col">
-            <button class="btn" (click)="openHistoryModal(patient)">{{ 'patients_extra.view_history_btn' | translate }}</button>
+            @if (planLimits().canViewHistory) {
+              <button class="btn" (click)="openHistoryModal(patient)">{{ 'patients_extra.view_history_btn' | translate }}</button>
+            } @else {
+              <span class="locked">🔒 {{ 'patients.locked_feature' | translate }}</span>
+            }
           </div>
 
           <div class="col">
@@ -49,7 +57,14 @@
     </div>
 
     <footer class="card-footer">
-      <button class="btn" (click)="openAddPatientModal()">{{ 'patients.add_patch' | translate }}</button>
+      <button class="btn" (click)="openAddPatientModal()" [disabled]="!canAddPatient()">
+        {{ 'patients.add_patch' | translate }}
+      </button>
+      @if (!canAddPatient()) {
+        <span class="limit-msg">
+          {{ 'patients.limit_reached' | translate }} ({{ planName() }})
+        </span>
+      }
     </footer>
   </section>
 
