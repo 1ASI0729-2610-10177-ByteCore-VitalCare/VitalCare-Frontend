@@ -41,6 +41,10 @@
 
   @if (isHomeDashboard()) {
 
+    @if (showHomeAlerts() && homeAlerts().length > 0) {
+      <app-vital-alert-banner [alerts]="homeAlerts()" (dismiss)="dismissHomeAlerts()" />
+    }
+
     @if (isLoading()) {
       <div class="dash-state">
         <mat-spinner diameter="48"></mat-spinner>

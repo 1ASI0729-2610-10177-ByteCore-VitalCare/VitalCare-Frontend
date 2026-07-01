@@ -18,10 +18,12 @@ import { AuthService } from '../../../../iam/application/services/auth.service';
 import { SessionCounterService } from '../../../infrastructure/session-counter.service';
 import { AlertSessionService } from '../../../infrastructure/alert-session.service';
 import { PreferencesService } from '../../../infrastructure/preferences.service';
+import { VitalAlertBanner } from '../../../../patients/presentation/components/vital-alert-banner/vital-alert-banner';
+import { VitalSignGeneratorService, VitalAlert } from '../../../../patients/infrastructure/services/vital-sign-generator.service';
 
 interface NavOption { link: string; label: string; icon?: string; }
 interface Subscription { plan: string; status: string; price: number; endDate: string; userId: number; }
-interface Patient { id: number; users_id: number; }
+interface Patient { id: number; name: string; users_id: number; }
 interface Patch { status: string; patients_id: number; }
 interface SupportTicket { id: number; status: string; users_id: number; }
 
@@ -65,7 +67,7 @@ function buildDashboard(userId: number, d: {
     MatIcon, MatTooltip,
     MatProgressSpinner,
     RouterLink, RouterLinkActive, RouterOutlet,
-    TranslatePipe, LanguageSwitcher, AccessibilityFab,
+    TranslatePipe, LanguageSwitcher, AccessibilityFab, VitalAlertBanner,
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
@@ -78,6 +80,10 @@ export class Home implements OnInit {
   private readonly sessionCounter = inject(SessionCounterService);
   private readonly alertSession = inject(AlertSessionService);
   private readonly preferences = inject(PreferencesService);
+  private readonly vitalGenerator = inject(VitalSignGeneratorService);
+
+  readonly showHomeAlerts = this.preferences.showHomeAlerts;
+  readonly homeAlerts = signal<VitalAlert[]>([]);
 
   readonly navOptions = signal<NavOption[]>([
     { link: '/home', label: 'nav.home', icon: 'home' },
@@ -136,6 +142,7 @@ export class Home implements OnInit {
       next: d => {
         d.tickets.forEach(t => { if (t.id != null) this.sessionCounter.ensureTracked(t.id); });
         this.data.set(buildDashboard(userId, d, this.alertSession.count, id => this.sessionCounter.isResolved(id)));
+        this.buildHomeAlerts(d.patients);
         this.isLoading.set(false);
       },
       error: () => {
@@ -143,5 +150,18 @@ export class Home implements OnInit {
         this.isLoading.set(false);
       },
     });
+  }
+
+  private buildHomeAlerts(patients: Patient[]): void {
+    if (!this.showHomeAlerts() || patients.length === 0) {
+      this.homeAlerts.set([]);
+      return;
+    }
+    const alerts = this.vitalGenerator.generateForPatients(patients as any).flatMap(r => r.alerts);
+    this.homeAlerts.set(alerts);
+  }
+
+  dismissHomeAlerts(): void {
+    this.homeAlerts.set([]);
   }
 }

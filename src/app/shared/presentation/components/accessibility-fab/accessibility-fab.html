@@ -20,6 +20,11 @@
           }
         </select>
       </label>
+
+      <label class="a11y-check">
+        <input type="checkbox" [ngModel]="showHomeAlerts()" (ngModelChange)="onShowHomeAlertsChange($event)" />
+        <span>{{ 'accessibility.show_home_alerts' | translate }}</span>
+      </label>
     </div>
   }
 

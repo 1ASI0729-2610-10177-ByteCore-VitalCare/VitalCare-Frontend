@@ -21,6 +21,7 @@ export class AccessibilityFab {
   readonly open = signal(false);
   readonly fontSize = this.prefs.fontSize;
   readonly backgroundColor = this.prefs.backgroundColor;
+  readonly showHomeAlerts = this.prefs.showHomeAlerts;
 
   readonly fontOptions: FontSize[] = ['SMALL', 'MEDIUM', 'LARGE'];
   readonly bgOptions: BackgroundColor[] = ['DEFAULT', 'BLUE', 'GREEN', 'YELLOW'];
@@ -35,5 +36,9 @@ export class AccessibilityFab {
 
   onBackgroundChange(value: BackgroundColor): void {
     this.prefs.setBackgroundColor(value);
+  }
+
+  onShowHomeAlertsChange(value: boolean): void {
+    this.prefs.setShowHomeAlerts(value);
   }
 }

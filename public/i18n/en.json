@@ -211,7 +211,8 @@
     "bg_default": "Default",
     "bg_blue": "Blue",
     "bg_green": "Green",
-    "bg_yellow": "Yellow"
+    "bg_yellow": "Yellow",
+    "show_home_alerts": "Show alerts on home"
   },
   "support": {
     "title": "Help & Support",

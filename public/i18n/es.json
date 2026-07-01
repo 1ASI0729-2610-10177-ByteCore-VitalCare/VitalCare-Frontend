@@ -211,7 +211,8 @@
     "bg_default": "Predeterminado",
     "bg_blue": "Azul",
     "bg_green": "Verde",
-    "bg_yellow": "Amarillo"
+    "bg_yellow": "Amarillo",
+    "show_home_alerts": "Mostrar alertas en el inicio"
   },
   "support": {
     "title": "Ayuda y Soporte",

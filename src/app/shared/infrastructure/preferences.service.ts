@@ -9,6 +9,7 @@ export type BackgroundColor = 'DEFAULT' | 'BLUE' | 'GREEN' | 'YELLOW';
 
 const FONT_KEY = 'vital-pref-font';
 const BG_KEY = 'vital-pref-bg';
+const HOME_ALERTS_KEY = 'vital-pref-home-alerts';
 
 const BG_CLASSES: Record<BackgroundColor, string> = {
   DEFAULT: '',
@@ -40,6 +41,7 @@ export class PreferencesService {
 
   readonly fontSize = signal<FontSize>(this.readFont());
   readonly backgroundColor = signal<BackgroundColor>(this.readBg());
+  readonly showHomeAlerts = signal<boolean>(localStorage.getItem(HOME_ALERTS_KEY) === 'true');
 
   // Se conservan para reenviar el payload completo en cada upsert.
   private language = 'es';
@@ -86,6 +88,11 @@ export class PreferencesService {
     localStorage.setItem(BG_KEY, color);
     this.applyBackground(color);
     this.persist();
+  }
+
+  setShowHomeAlerts(value: boolean): void {
+    this.showHomeAlerts.set(value);
+    localStorage.setItem(HOME_ALERTS_KEY, String(value));
   }
 
   private persist(): void {

@@ -93,18 +93,6 @@
               <span class="label">{{ 'profile.pref_theme' | translate }}</span>
               <span class="value">{{ themeKey(data.preferences.backgroundColor) | translate }}</span>
             </div>
-            <div class="info-row">
-              <span class="label">{{ 'profile.pref_email_notif' | translate }}</span>
-              <span class="value notif-badge" [class.notif-on]="data.preferences.emailNotifications">
-                {{ (data.preferences.emailNotifications ? 'profile.notif_on' : 'profile.notif_off') | translate }}
-              </span>
-            </div>
-            <div class="info-row">
-              <span class="label">{{ 'profile.pref_push_notif' | translate }}</span>
-              <span class="value notif-badge" [class.notif-on]="data.preferences.pushNotifications">
-                {{ (data.preferences.pushNotifications ? 'profile.notif_on' : 'profile.notif_off') | translate }}
-              </span>
-            </div>
           </div>
         } @else {
           <p class="no-data-text">{{ 'profile.no_preferences' | translate }}</p>
