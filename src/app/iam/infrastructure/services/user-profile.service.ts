@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
 export interface UserProfile {
@@ -46,8 +46,10 @@ export class UserProfileService {
     return this.http.get<UserProfile>(`${this.base}api/v1/users/${userId}`);
   }
 
-  getPreferences(userId: number): Observable<UserPreferences[]> {
-    return this.http.get<UserPreferences[]>(`${this.base}api/v1/user_preferences?users_id=${userId}`);
+  getPreferences(userId: number): Observable<UserPreferences | null> {
+    return this.http.get<UserPreferences>(`${this.base}api/v1/user_preferences?users_id=${userId}`).pipe(
+      catchError(() => of(null)),
+    );
   }
 
   getSubscription(userId: number): Observable<UserSubscription[]> {

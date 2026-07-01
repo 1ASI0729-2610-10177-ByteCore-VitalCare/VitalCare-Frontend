@@ -32,9 +32,12 @@ const FONT_SIZE_KEY: Record<string, string> = {
 };
 
 const THEME_KEY: Record<string, string> = {
+  DEFAULT: 'profile.theme_light',
   DARK: 'profile.theme_dark',
   LIGHT: 'profile.theme_light',
   BLUE: 'profile.theme_blue',
+  GREEN: 'accessibility.bg_green',
+  YELLOW: 'accessibility.bg_yellow',
 };
 
 const PLAN_COLORS: Record<string, string> = {
@@ -77,7 +80,7 @@ export class Profile implements OnInit {
       .pipe(
         map(([user, prefs, subs]) => ({
           user,
-          preferences: prefs[0] ?? null,
+          preferences: prefs ?? null,
           subscription: subs.find(s => s.status === 'ACTIVE') ?? subs[0] ?? null,
         })),
       )

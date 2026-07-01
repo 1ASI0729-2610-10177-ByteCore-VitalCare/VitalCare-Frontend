@@ -84,7 +84,7 @@ export class Register {
           this.profileService.createPreferences({
             language: 'es',
             fontSize: 'MEDIUM',
-            backgroundColor: 'LIGHT',
+            backgroundColor: 'DEFAULT',
             emailNotifications: false,
             pushNotifications: false,
             users_id: user.id,

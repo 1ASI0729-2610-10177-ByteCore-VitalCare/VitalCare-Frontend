@@ -17,6 +17,7 @@ import { environment } from '../../../../../environments/environment';
 import { AuthService } from '../../../../iam/application/services/auth.service';
 import { SessionCounterService } from '../../../infrastructure/session-counter.service';
 import { AlertSessionService } from '../../../infrastructure/alert-session.service';
+import { PreferencesService } from '../../../infrastructure/preferences.service';
 
 interface NavOption { link: string; label: string; icon?: string; }
 interface Subscription { plan: string; status: string; price: number; endDate: string; userId: number; }
@@ -76,6 +77,7 @@ export class Home implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly sessionCounter = inject(SessionCounterService);
   private readonly alertSession = inject(AlertSessionService);
+  private readonly preferences = inject(PreferencesService);
 
   readonly navOptions = signal<NavOption[]>([
     { link: '/home', label: 'nav.home', icon: 'home' },
@@ -104,6 +106,7 @@ export class Home implements OnInit {
     const initialPath = this.router.url.split('?')[0];
     this.isHomeDashboard.set(initialPath === '/home');
     this.isProfileRoute.set(initialPath === '/home/profile');
+    this.preferences.loadForUser();
     this.loadDashboard();
   }
 
