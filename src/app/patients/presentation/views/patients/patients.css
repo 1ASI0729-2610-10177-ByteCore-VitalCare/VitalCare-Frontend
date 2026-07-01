@@ -633,3 +633,14 @@
     padding: 3px 8px;
   }
 }
+
+.btn-danger {
+  background: #e53935;
+  color: #fff;
+  border-color: #e53935;
+}
+
+.btn-danger:hover {
+  background: #c62828;
+  border-color: #c62828;
+}

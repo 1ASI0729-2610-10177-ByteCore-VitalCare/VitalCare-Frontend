@@ -112,6 +112,8 @@
     "header_location": "Patient Location",
     "view_status": "View Status",
     "view_location": "View Location",
+    "header_actions": "Actions",
+    "delete": "Delete",
     "add_patch": "Add Patch",
     "add_patient_title": "Add New Patient",
     "add_photo": "Add Photo",

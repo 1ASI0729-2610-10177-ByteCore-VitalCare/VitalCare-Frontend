@@ -112,6 +112,8 @@
     "header_location": "Ubicación del paciente",
     "view_status": "Ver Status",
     "view_location": "Ver Ubicación",
+    "header_actions": "Acciones",
+    "delete": "Eliminar",
     "add_patch": "Agregar Parche",
     "add_patient_title": "Agregar Nuevo Paciente",
     "add_photo": "Añadir foto",

@@ -7,6 +7,7 @@
       <div class="col">{{ 'patients.header_status' | translate }}</div>
       <div class="col">{{ 'patients.header_location' | translate }}</div>
       <div class="col">{{ 'patients_extra.history_col' | translate }}</div>
+      <div class="col">{{ 'patients.header_actions' | translate }}</div>
     </header>
 
     <div class="card-body">
@@ -38,6 +39,10 @@
 
           <div class="col">
             <button class="btn" (click)="openHistoryModal(patient)">{{ 'patients_extra.view_history_btn' | translate }}</button>
+          </div>
+
+          <div class="col">
+            <button class="btn btn-danger" (click)="deletePatient(patient)">{{ 'patients.delete' | translate }}</button>
           </div>
         </div>
       }

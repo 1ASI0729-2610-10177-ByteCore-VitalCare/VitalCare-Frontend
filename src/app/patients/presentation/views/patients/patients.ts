@@ -220,6 +220,17 @@ export class Patients implements OnInit, OnDestroy {
     this.closeAddPatientModal();
   }
 
+  deletePatient(patient: Patient): void {
+    if (!confirm(`¿Eliminar al paciente ${patient.name}?`)) return;
+    this.patientService.delete(patient.id).subscribe({
+      next: () => {
+        this.patients.set(this.patients().filter(p => p.id !== patient.id));
+        this.generatedVitals.delete(patient.id);
+      },
+      error: (err) => console.error('Error deleting patient:', err),
+    });
+  }
+
   onImageError(event: ErrorEvent): void {
     const img = event.target as HTMLImageElement;
     if (img) {
