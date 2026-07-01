@@ -284,3 +284,70 @@
   .welcome-title { font-size: 1.2rem; }
   .welcome-banner { padding: 20px; }
 }
+
+/* Guía de uso del parche */
+.patch-guide {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.guide-heading {
+  font-size: 1.4rem;
+  color: #0d47a1;
+  text-align: center;
+  margin: 8px 0;
+}
+
+.guide-row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px 28px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.guide-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.guide-text {
+  flex: 1;
+}
+
+.guide-step-title {
+  font-size: 1.25rem;
+  color: #1976d2;
+  margin-bottom: 10px;
+}
+
+.guide-step-desc {
+  color: #455a64;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.guide-media {
+  flex: 0 0 260px;
+  display: flex;
+  justify-content: center;
+}
+
+.guide-media img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  .guide-row,
+  .guide-row-reverse {
+    flex-direction: column;
+    text-align: center;
+  }
+  .guide-media {
+    flex-basis: auto;
+  }
+}
