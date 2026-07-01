@@ -6,11 +6,11 @@ export type BackgroundColor = 'DEFAULT' | 'BLUE' | 'GREEN' | 'YELLOW';
 const FONT_KEY = 'vital-pref-font';
 const BG_KEY = 'vital-pref-bg';
 
-const BG_COLORS: Record<BackgroundColor, string> = {
+const BG_CLASSES: Record<BackgroundColor, string> = {
   DEFAULT: '',
-  BLUE: '#e3f2fd',
-  GREEN: '#e8f5e9',
-  YELLOW: '#fffde7',
+  BLUE: 'vc-bg-blue',
+  GREEN: 'vc-bg-green',
+  YELLOW: 'vc-bg-yellow',
 };
 
 /**
@@ -48,11 +48,11 @@ export class PreferencesService {
   }
 
   private applyBackground(color: BackgroundColor): void {
-    const value = BG_COLORS[color];
-    if (value) {
-      document.body.style.setProperty('background-color', value, 'important');
-    } else {
-      document.body.style.removeProperty('background-color');
+    const body = document.body;
+    body.classList.remove('vc-bg-blue', 'vc-bg-green', 'vc-bg-yellow');
+    const cls = BG_CLASSES[color];
+    if (cls) {
+      body.classList.add(cls);
     }
   }
 

@@ -37,3 +37,22 @@ body.vc-font-small li,
 body.vc-font-small label,
 body.vc-font-small a,
 body.vc-font-small button { font-size: 0.9em; }
+
+/* Preferencias de accesibilidad: color de fondo global */
+body.vc-bg-blue,
+body.vc-bg-blue .main-content,
+body.vc-bg-blue .pricing-container,
+body.vc-bg-blue .support-container,
+body.vc-bg-blue .page { background-color: #e3f2fd !important; }
+
+body.vc-bg-green,
+body.vc-bg-green .main-content,
+body.vc-bg-green .pricing-container,
+body.vc-bg-green .support-container,
+body.vc-bg-green .page { background-color: #e8f5e9 !important; }
+
+body.vc-bg-yellow,
+body.vc-bg-yellow .main-content,
+body.vc-bg-yellow .pricing-container,
+body.vc-bg-yellow .support-container,
+body.vc-bg-yellow .page { background-color: #fffde7 !important; }
