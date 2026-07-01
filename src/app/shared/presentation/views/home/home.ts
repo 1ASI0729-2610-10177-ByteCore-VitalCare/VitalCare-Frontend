@@ -6,6 +6,7 @@ import { forkJoin, of } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe } from '@ngx-translate/core';
+import { AccessibilityFab } from '../../components/accessibility-fab/accessibility-fab';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -63,7 +64,7 @@ function buildDashboard(userId: number, d: {
     MatIcon, MatTooltip,
     MatProgressSpinner,
     RouterLink, RouterLinkActive, RouterOutlet,
-    TranslatePipe, LanguageSwitcher,
+    TranslatePipe, LanguageSwitcher, AccessibilityFab,
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
@@ -85,6 +86,7 @@ export class Home implements OnInit {
   ]);
 
   readonly isHomeDashboard = signal(false);
+  readonly isProfileRoute = signal(false);
   readonly isLoading = signal(true);
   readonly hasError = signal(false);
   readonly data = signal<DashboardData | null>(null);
@@ -95,9 +97,13 @@ export class Home implements OnInit {
       filter((e): e is NavigationEnd => e instanceof NavigationEnd),
       takeUntilDestroyed(this.destroyRef),
     ).subscribe(e => {
-      this.isHomeDashboard.set(e.urlAfterRedirects.split('?')[0] === '/home');
+      const path = e.urlAfterRedirects.split('?')[0];
+      this.isHomeDashboard.set(path === '/home');
+      this.isProfileRoute.set(path === '/home/profile');
     });
-    this.isHomeDashboard.set(this.router.url.split('?')[0] === '/home');
+    const initialPath = this.router.url.split('?')[0];
+    this.isHomeDashboard.set(initialPath === '/home');
+    this.isProfileRoute.set(initialPath === '/home/profile');
     this.loadDashboard();
   }
 

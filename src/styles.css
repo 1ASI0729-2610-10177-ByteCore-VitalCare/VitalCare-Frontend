@@ -14,3 +14,26 @@ html, body {
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+/* Preferencias de accesibilidad: tamaño de letra global */
+body.vc-font-small { font-size: 14px; }
+body.vc-font-medium { font-size: 16px; }
+body.vc-font-large { font-size: 18px; }
+
+body.vc-font-large p,
+body.vc-font-large span,
+body.vc-font-large td,
+body.vc-font-large th,
+body.vc-font-large li,
+body.vc-font-large label,
+body.vc-font-large a,
+body.vc-font-large button { font-size: 1.15em; }
+
+body.vc-font-small p,
+body.vc-font-small span,
+body.vc-font-small td,
+body.vc-font-small th,
+body.vc-font-small li,
+body.vc-font-small label,
+body.vc-font-small a,
+body.vc-font-small button { font-size: 0.9em; }

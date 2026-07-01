@@ -134,4 +134,8 @@
   }
 
   <router-outlet></router-outlet>
+
+  @if (!isProfileRoute()) {
+    <app-accessibility-fab />
+  }
 </main>

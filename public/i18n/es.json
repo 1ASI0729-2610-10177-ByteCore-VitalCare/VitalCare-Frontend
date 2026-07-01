@@ -201,6 +201,18 @@
     "no_subscription": "No tienes una suscripción activa. Explora nuestros planes.",
     "no_preferences": "No tienes preferencias configuradas aún."
   },
+  "accessibility": {
+    "title": "Accesibilidad",
+    "font_size": "Tamaño de letra",
+    "background": "Color de fondo",
+    "font_small": "Pequeño",
+    "font_medium": "Mediano",
+    "font_large": "Grande",
+    "bg_default": "Predeterminado",
+    "bg_blue": "Azul",
+    "bg_green": "Verde",
+    "bg_yellow": "Amarillo"
+  },
   "support": {
     "title": "Ayuda y Soporte",
     "faq_title": "Preguntas Frecuentes",

@@ -1,0 +1,29 @@
+<div class="a11y-wrap">
+  @if (open()) {
+    <div class="a11y-panel">
+      <h3 class="a11y-title">{{ 'accessibility.title' | translate }}</h3>
+
+      <label class="a11y-field">
+        <span>{{ 'accessibility.font_size' | translate }}</span>
+        <select [ngModel]="fontSize()" (ngModelChange)="onFontChange($event)">
+          @for (opt of fontOptions; track opt) {
+            <option [value]="opt">{{ 'accessibility.font_' + opt.toLowerCase() | translate }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="a11y-field">
+        <span>{{ 'accessibility.background' | translate }}</span>
+        <select [ngModel]="backgroundColor()" (ngModelChange)="onBackgroundChange($event)">
+          @for (opt of bgOptions; track opt) {
+            <option [value]="opt">{{ 'accessibility.bg_' + opt.toLowerCase() | translate }}</option>
+          }
+        </select>
+      </label>
+    </div>
+  }
+
+  <button class="a11y-fab" (click)="toggle()" [attr.aria-label]="'accessibility.title' | translate">
+    <span class="a11y-icon">&#9855;</span>
+  </button>
+</div>
