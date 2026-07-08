@@ -38,6 +38,19 @@
     </div>
   }
 
+  @if (showClearConfirm()) {
+    <div class="description-overlay" (click)="cancelClearAll()">
+      <div class="description-card" (click)="$event.stopPropagation()">
+        <h3>{{ 'notifications.clear_confirm_title' | translate }}</h3>
+        <p>{{ 'notifications.clear_confirm_body' | translate }}</p>
+        <div class="confirm-actions">
+          <button mat-button (click)="cancelClearAll()">{{ 'notifications.clear_confirm_cancel' | translate }}</button>
+          <button mat-raised-button color="warn" (click)="confirmClearAll()">{{ 'notifications.clear_confirm_yes' | translate }}</button>
+        </div>
+      </div>
+    </div>
+  }
+
   <div class="actions-container">
     @if (notifications().length > 0) {
       <button mat-stroked-button color="warn" class="clear-button" (click)="clearAll()">

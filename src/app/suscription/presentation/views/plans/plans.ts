@@ -32,6 +32,8 @@ export class Plans {
   public readonly changing = signal(false);
   public readonly changeSuccess = signal(false);
   public readonly changeError = signal(false);
+  public readonly pendingPlan = signal<Plan | null>(null);
+  public readonly pendingSubscription = signal<Subscription | null>(null);
 
   private readonly planPriority: Record<string, number> = {
     basic: 1,
@@ -130,6 +132,39 @@ export class Plans {
   ];
 
   onSelectPlan(plan: Plan, activeSubscription: Subscription | null): void {
+    this.pendingPlan.set(plan);
+    this.pendingSubscription.set(activeSubscription);
+  }
+
+  cancelPlanChange(): void {
+    this.pendingPlan.set(null);
+    this.pendingSubscription.set(null);
+  }
+
+  isDowngrade(plan: Plan, activeSubscription: Subscription | null): boolean {
+    if (!activeSubscription) return false;
+    const currentPriority = this.planPriority[activeSubscription.plan.toLowerCase()] ?? 0;
+    const targetPriority = this.planPriority[plan.name.toLowerCase()] ?? 0;
+    return targetPriority < currentPriority;
+  }
+
+  lostFeatures(plan: Plan, activeSubscription: Subscription | null): string[] {
+    if (!activeSubscription) return [];
+    const currentPlan = this.plans.find(
+      p => p.name.toLowerCase() === activeSubscription.plan.toLowerCase(),
+    );
+    if (!currentPlan) return [];
+    return currentPlan.features.filter(f => !plan.features.includes(f));
+  }
+
+  confirmPlanChange(): void {
+    const plan = this.pendingPlan();
+    const activeSubscription = this.pendingSubscription();
+    if (!plan) return;
+
+    this.pendingPlan.set(null);
+    this.pendingSubscription.set(null);
+
     this.changing.set(true);
     this.changeSuccess.set(false);
     this.changeError.set(false);

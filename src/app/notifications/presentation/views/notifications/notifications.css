@@ -103,6 +103,17 @@
   width: 100%;
 }
 
+.confirm-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.confirm-actions button {
+  margin-top: 0;
+  flex: 1;
+}
+
 .actions-container {
   display: flex;
   justify-content: center;
