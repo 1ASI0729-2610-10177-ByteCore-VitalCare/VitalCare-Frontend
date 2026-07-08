@@ -61,6 +61,7 @@ export class Notifications implements OnInit {
   }
 
   clearAll(): void {
+    if (!confirm('¿Borrar todo el historial de notificaciones? Esta acción no se puede deshacer.')) return;
     const current = this.notifications();
     this.notificationStore.clear();
     this.notifications.set([]);

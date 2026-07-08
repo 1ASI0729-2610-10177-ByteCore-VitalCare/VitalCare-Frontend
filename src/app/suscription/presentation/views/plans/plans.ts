@@ -130,6 +130,14 @@ export class Plans {
   ];
 
   onSelectPlan(plan: Plan, activeSubscription: Subscription | null): void {
+    if (activeSubscription) {
+      const currentPriority = this.planPriority[activeSubscription.plan.toLowerCase()] ?? 0;
+      const targetPriority = this.planPriority[plan.name.toLowerCase()] ?? 0;
+      if (targetPriority < currentPriority &&
+          !confirm(`Vas a bajar tu plan a ${plan.name}. Podrías perder funciones de tu plan actual. ¿Deseas continuar?`)) {
+        return;
+      }
+    }
     this.changing.set(true);
     this.changeSuccess.set(false);
     this.changeError.set(false);
