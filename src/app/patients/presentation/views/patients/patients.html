@@ -109,4 +109,32 @@
       (close)="closeHistoryModal()">
     </app-patient-history-modal>
   }
+
+  <!-- Modal: Confirm delete -->
+  @if (patientToDelete(); as toDelete) {
+    <div class="modal-overlay" (click)="cancelDeletePatient()">
+      <div class="modal delete-confirm-modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>{{ 'patients.delete_confirm_title' | translate }}</h2>
+          <button type="button" class="close-btn" (click)="cancelDeletePatient()" [disabled]="isDeleting()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>{{ 'patients.delete_confirm_body' | translate: { name: toDelete.name } }}</p>
+          @if (deleteError()) {
+            <div class="error-container">
+              <p>{{ 'patients.delete_error' | translate }}</p>
+            </div>
+          }
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cancelDeletePatient()" [disabled]="isDeleting()">
+            {{ 'patients.delete_confirm_cancel' | translate }}
+          </button>
+          <button type="button" class="btn btn-danger" (click)="confirmDeletePatient()" [disabled]="isDeleting()">
+            {{ (isDeleting() ? 'patients.deleting' : 'patients.delete_confirm_yes') | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
 </main>

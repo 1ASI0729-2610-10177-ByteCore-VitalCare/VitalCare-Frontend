@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { Location } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { NotificationService } from '../../../infrastructure/notification.service';
@@ -14,13 +13,14 @@ import { AuthService } from '../../../../iam/application/services/auth.service';
 @Component({
   selector: 'app-notifications',
   standalone: true,
-  imports: [CommonModule, MatButton, MatIcon, MatTooltip, TranslatePipe],
+  imports: [CommonModule, MatButton, MatIcon, TranslatePipe],
   templateUrl: './notifications.html',
   styleUrl: './notifications.css',
 })
 export class Notifications implements OnInit {
   notifications = signal<Notification[]>([]);
   selectedDescription = signal<string | null>(null);
+  showClearConfirm = signal(false);
 
   private router = inject(Router);
   private authService = inject(AuthService);
@@ -61,7 +61,14 @@ export class Notifications implements OnInit {
   }
 
   clearAll(): void {
-    if (!confirm('¿Borrar todo el historial de notificaciones? Esta acción no se puede deshacer.')) return;
+    this.showClearConfirm.set(true);
+  }
+
+  cancelClearAll(): void {
+    this.showClearConfirm.set(false);
+  }
+
+  confirmClearAll(): void {
     const current = this.notifications();
     this.notificationStore.clear();
     this.notifications.set([]);
@@ -71,6 +78,7 @@ export class Notifications implements OnInit {
         this.notificationService.deleteById(n.id).subscribe();
       }
     }
+    this.showClearConfirm.set(false);
   }
 
   goBack(): void {

@@ -250,14 +250,38 @@ export class Patients implements OnInit, OnDestroy {
     this.closeAddPatientModal();
   }
 
+  patientToDelete = signal<Patient | null>(null);
+  isDeleting = signal(false);
+  deleteError = signal(false);
+
   deletePatient(patient: Patient): void {
-    if (!confirm(`¿Eliminar al paciente ${patient.name}?`)) return;
+    this.deleteError.set(false);
+    this.patientToDelete.set(patient);
+  }
+
+  cancelDeletePatient(): void {
+    if (this.isDeleting()) return;
+    this.patientToDelete.set(null);
+    this.deleteError.set(false);
+  }
+
+  confirmDeletePatient(): void {
+    const patient = this.patientToDelete();
+    if (!patient) return;
+    this.isDeleting.set(true);
+    this.deleteError.set(false);
     this.patientService.delete(patient.id).subscribe({
       next: () => {
         this.patients.set(this.patients().filter(p => p.id !== patient.id));
         this.generatedVitals.delete(patient.id);
+        this.isDeleting.set(false);
+        this.patientToDelete.set(null);
       },
-      error: (err) => console.error('Error deleting patient:', err),
+      error: (err) => {
+        console.error('Error deleting patient:', err);
+        this.isDeleting.set(false);
+        this.deleteError.set(true);
+      },
     });
   }
 
