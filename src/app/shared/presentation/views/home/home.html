@@ -1,6 +1,9 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <img src="/assets/vital-care-logo.png" [alt]="'home.logoAlt' | translate" class="logo">
+    <a class="brand" routerLink="/home">
+      <img src="/assets/vital-care-icon.png" [alt]="'home.logoAlt' | translate" class="logo">
+      <span class="brand-text">Vital<span class="brand-text-accent">Care</span></span>
+    </a>
     <div class="spacer"></div>
 
     @for (option of navOptions(); track option.label) {

@@ -5,15 +5,36 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
 }
 
-.logo {
-  height: 40px;
-  width: auto;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin-right: 20px;
   cursor: pointer;
+  text-decoration: none;
+}
+
+.logo {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
   transition: transform 0.2s ease;
 }
 
-.logo:hover { transform: scale(1.05); }
+.brand:hover .logo { transform: scale(1.05); }
+
+.brand-text {
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.brand-text-accent {
+  color: #7fe0d4;
+}
 
 .spacer { flex: 1 1 auto; }
 
