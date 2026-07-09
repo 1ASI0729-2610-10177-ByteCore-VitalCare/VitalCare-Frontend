@@ -6,7 +6,7 @@ import { MatIcon } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { NotificationService } from '../../../infrastructure/notification.service';
-import { NotificationStoreService } from '../../../infrastructure/notification-store.service';
+import { NotificationStoreService } from '../../../application/services/notification-store.service';
 import { Notification } from '../../../domain/notification';
 import { AuthService } from '../../../../iam/application/services/auth.service';
 

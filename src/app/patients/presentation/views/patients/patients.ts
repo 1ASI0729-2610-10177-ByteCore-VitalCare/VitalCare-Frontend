@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { getPlanLimits, PlanLimits } from '../../../../shared/infrastructure/plan-limits';
 
-import { PatientService } from '../../../infrastructure/services/patient.service';
+import { PatientStore } from '../../../application/services/patient-store.service';
 import { Patient } from '../../../domain/model/patient.entity';
 import { VitalSignsModal } from '../../components/vital-signs-modal/vital-signs-modal';
 import { LocationModal } from '../../components/location-modal/location-modal';
@@ -16,7 +16,7 @@ import { AddPatientModal } from '../../components/add-patient-modal/add-patient-
 import { PatientHistoryModal } from '../patient-history-modal/patient-history-modal';
 import { VitalAlertBanner } from '../../components/vital-alert-banner/vital-alert-banner';
 import { VitalSignGeneratorService, VitalAlert, GeneratedVitalSign } from '../../../infrastructure/services/vital-sign-generator.service';
-import { NotificationStoreService } from '../../../../notifications/infrastructure/notification-store.service';
+import { NotificationStoreService } from '../../../../notifications/application/services/notification-store.service';
 import { NotificationService } from '../../../../notifications/infrastructure/notification.service';
 import { AlertService } from '../../../infrastructure/services/alert.service';
 import { AuthService } from '../../../../iam/application/services/auth.service';
@@ -39,7 +39,7 @@ import { AlertSessionService } from '../../../../shared/infrastructure/alert-ses
   styleUrl: './patients.css',
 })
 export class Patients implements OnInit, OnDestroy {
-  private patientService = inject(PatientService);
+  private patientStore = inject(PatientStore);
   private vitalGenerator = inject(VitalSignGeneratorService);
   private notificationStore = inject(NotificationStoreService);
   private notificationService = inject(NotificationService);
@@ -54,7 +54,7 @@ export class Patients implements OnInit, OnDestroy {
   planName = signal<string>('BASIC');
   readonly canAddPatient = computed(() => this.patients().length < this.planLimits().maxPatients);
 
-  patients = signal<Patient[]>([]);
+  readonly patients = this.patientStore.patients;
   selectedPatient = signal<Patient | null>(null);
   showVitalSignsModal = signal(false);
   showLocationModal = signal(false);
@@ -85,9 +85,8 @@ export class Patients implements OnInit, OnDestroy {
   }
 
   private loadPatients(): void {
-    this.patientService.getAll().subscribe({
+    this.patientStore.load().subscribe({
       next: (data) => {
-        this.patients.set(data);
         this.checkVitalAlerts(data);
         this.flushPendingNavigation();
       },
@@ -245,8 +244,7 @@ export class Patients implements OnInit, OnDestroy {
   }
 
   onPatientAdded(newPatient: Patient): void {
-    const currentPatients = this.patients();
-    this.patients.set([...currentPatients, newPatient]);
+    this.patientStore.add(newPatient);
     this.closeAddPatientModal();
   }
 
@@ -270,9 +268,8 @@ export class Patients implements OnInit, OnDestroy {
     if (!patient) return;
     this.isDeleting.set(true);
     this.deleteError.set(false);
-    this.patientService.delete(patient.id).subscribe({
+    this.patientStore.delete(patient.id).subscribe({
       next: () => {
-        this.patients.set(this.patients().filter(p => p.id !== patient.id));
         this.generatedVitals.delete(patient.id);
         this.isDeleting.set(false);
         this.patientToDelete.set(null);

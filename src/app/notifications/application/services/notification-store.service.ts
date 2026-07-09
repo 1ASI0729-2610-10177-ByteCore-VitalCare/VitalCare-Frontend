@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Notification } from '../domain/notification';
+import { Notification } from '../../domain/notification';
 
 @Injectable({ providedIn: 'root' })
 export class NotificationStoreService {
