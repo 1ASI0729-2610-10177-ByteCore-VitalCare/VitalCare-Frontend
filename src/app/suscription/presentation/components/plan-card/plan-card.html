@@ -1,5 +1,7 @@
-<div class="plan-card" [class.popular-card]="isRecommended">
-  @if (isRecommended) {
+<div class="plan-card" [class.popular-card]="isRecommended" [class.active-plan-card]="isActive">
+  @if (isActive) {
+    <span class="current-tag">{{ 'plans.current_badge' | translate }}</span>
+  } @else if (isRecommended) {
     <span class="popular-tag">{{ 'plans.recommended' | translate }}</span>
   }
 
