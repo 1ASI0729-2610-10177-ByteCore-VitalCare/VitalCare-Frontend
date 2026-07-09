@@ -38,6 +38,13 @@
           @if (form.controls.password.touched && form.controls.password.hasError('required')) {
             <small class="field-error">{{ 'register.passwordRequired' | translate }}</small>
           }
+          @if (form.controls.password.dirty && form.controls.password.value) {
+            <ul class="pass-reqs">
+              @for (req of passReqs(); track req.key) {
+                <li [class.met]="req.met">{{ req.key | translate }}</li>
+              }
+            </ul>
+          }
 
           <label class="field">
             <span>{{ 'register.confirmPassword' | translate }}</span>

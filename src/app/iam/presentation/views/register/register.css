@@ -121,6 +121,36 @@
   font-size: 10px;
 }
 
+.pass-reqs {
+  list-style: none;
+  padding: 0;
+  margin: -4px 0 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pass-reqs li {
+  color: #b3261e;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pass-reqs li::before {
+  content: '✗';
+  font-size: 9px;
+}
+
+.pass-reqs li.met {
+  color: #2e7d32;
+}
+
+.pass-reqs li.met::before {
+  content: '✓';
+}
+
 .login-error {
   margin-bottom: 10px;
   color: #b3261e;

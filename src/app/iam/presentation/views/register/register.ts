@@ -15,6 +15,27 @@ const passwordMatchValidator: ValidatorFn = (group: AbstractControl): Validation
   return pass === confirm ? null : { passwordMismatch: true };
 };
 
+interface Requirement {
+  key: string;
+  test: (value: string) => boolean;
+}
+
+const PASSWORD_REQUIREMENTS: Requirement[] = [
+  { key: 'register.passwordMinLength', test: v => v.length >= 8 },
+  { key: 'register.passwordUppercase', test: v => /[A-Z]/.test(v) },
+  { key: 'register.passwordLowercase', test: v => /[a-z]/.test(v) },
+  { key: 'register.passwordDigit', test: v => /\d/.test(v) },
+  { key: 'register.passwordSpecial', test: v => /[!@#$%^&*(),.?":{}|<>]/.test(v) },
+];
+
+const passwordStrengthValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const value = control.value ?? '';
+  for (const r of PASSWORD_REQUIREMENTS) {
+    if (!r.test(value)) return { passwordStrength: true };
+  }
+  return null;
+};
+
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -39,15 +60,25 @@ export class Register {
   readonly emailExists = signal(false);
   readonly hasError = signal(false);
 
+  readonly passReqs = signal<Array<{ key: string; met: boolean }>>([]);
+
   readonly form = this.fb.nonNullable.group(
     {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, passwordStrengthValidator]],
       confirmPassword: ['', Validators.required],
     },
     { validators: passwordMatchValidator },
   );
+
+  constructor() {
+    this.form.controls.password.valueChanges.subscribe(value => {
+      this.passReqs.set(
+        PASSWORD_REQUIREMENTS.map(r => ({ key: r.key, met: r.test(value ?? '') })),
+      );
+    });
+  }
 
   submit(): void {
     if (this.form.invalid || this.isLoading()) {
