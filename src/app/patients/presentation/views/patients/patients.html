@@ -62,7 +62,7 @@
       </button>
       @if (!canAddPatient()) {
         <span class="limit-msg">
-          {{ 'patients.limit_reached' | translate }} ({{ planName() }})
+          ⚠️ {{ 'patients.limit_reached' | translate }} ({{ planName() }})
         </span>
       }
     </footer>
