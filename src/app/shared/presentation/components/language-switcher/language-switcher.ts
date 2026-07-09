@@ -1,12 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
 
 interface Language {
   code: string;
   name: string;
   flag: string;
 }
+
+const LANGUAGE_STORAGE_KEY = 'vitalcare-language';
+const SUPPORTED_LANGUAGES = ['en', 'es'];
 
 @Component({
   selector: 'app-language-switcher',
@@ -18,26 +21,34 @@ interface Language {
   styleUrl: './language-switcher.css',
 })
 export class LanguageSwitcher implements OnInit {
-  protected currentLanguage: string = 'en';
+  protected currentLanguage: string = 'es';
   protected languages: Language[] = [
     { code: 'en', name: 'English', flag: 'EN' },
-    { code: 'es', name: 'Español', flag: 'ES' }
+    { code: 'es', name: 'Spanish', flag: 'ES' }
   ];
 
-  private translate!: TranslateService;
-
-  constructor(private translateService: TranslateService) {
-    this.translate = translateService;
-  }
+  constructor(private readonly translate: TranslateService) {}
 
   ngOnInit(): void {
-    this.translate.setDefaultLang('en');
-    this.translate.use('en');
-    this.currentLanguage = 'en';
+    this.translate.addLangs(SUPPORTED_LANGUAGES);
+    this.translate.setDefaultLang('es');
+
+    const savedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+    const browserLanguage = this.translate.getBrowserLang();
+    const initialLanguage = this.resolveLanguage(savedLanguage ?? browserLanguage ?? 'es');
+
+    this.useLanguage(initialLanguage);
   }
 
   useLanguage(languageCode: string): void {
-    this.translate.use(languageCode);
-    this.currentLanguage = languageCode;
+    const language = this.resolveLanguage(languageCode);
+    this.translate.use(language);
+    this.currentLanguage = language;
+    localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+    document.documentElement.lang = language;
+  }
+
+  private resolveLanguage(languageCode: string): string {
+    return SUPPORTED_LANGUAGES.includes(languageCode) ? languageCode : 'es';
   }
 }
