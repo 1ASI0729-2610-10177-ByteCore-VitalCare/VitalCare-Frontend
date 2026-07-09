@@ -45,8 +45,10 @@ export class Notifications implements OnInit {
 
   private mergeNotifications(remote: Notification[]): void {
     const local = this.notificationStore.notifications$();
-    const remoteIds = new Set(remote.map(n => n.id));
-    const localOnly = local.filter(n => !remoteIds.has(n.id));
+    // Dedupe by content: the same alert lives in the local store and the backend
+    // with different ids, so keying by id would show it twice.
+    const seen = new Set(remote.map(n => `${n.patientId}|${n.descripcion}`));
+    const localOnly = local.filter(n => !seen.has(`${n.patientId}|${n.descripcion}`));
     this.notifications.set([...localOnly, ...remote]);
   }
 
@@ -72,13 +74,23 @@ export class Notifications implements OnInit {
     const current = this.notifications();
     this.notificationStore.clear();
     this.notifications.set([]);
-    sessionStorage.removeItem('vital-alerts-last-registered');
+    this.clearAlertRegistrations();
     for (const n of current) {
       if (n.id) {
         this.notificationService.deleteById(n.id).subscribe();
       }
     }
     this.showClearConfirm.set(false);
+  }
+
+  /** Removes the per-alert dedup markers so cleared alerts can be registered again. */
+  private clearAlertRegistrations(): void {
+    for (let i = sessionStorage.length - 1; i >= 0; i--) {
+      const key = sessionStorage.key(i);
+      if (key?.startsWith('vital-alert-registered:')) {
+        sessionStorage.removeItem(key);
+      }
+    }
   }
 
   goBack(): void {

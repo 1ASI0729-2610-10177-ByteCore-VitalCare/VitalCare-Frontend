@@ -119,21 +119,26 @@ export class Patients implements OnInit, OnDestroy {
     if (allAlerts.length > 0) {
       this.activeAlerts.set(allAlerts);
       this.showAlertBanner.set(true);
-      if (this.shouldRegisterNotifications()) {
-        this.registerNotifications(allAlerts);
+      // One notification per distinct alert (patient + parameter). Skip alerts
+      // already registered this session so reloads don't create duplicates.
+      const newAlerts = allAlerts.filter(a => !this.isAlertRegistered(a));
+      if (newAlerts.length > 0) {
+        this.registerNotifications(newAlerts);
+        newAlerts.forEach(a => this.markAlertRegistered(a));
       }
     }
   }
 
-  private shouldRegisterNotifications(): boolean {
-    const key = 'vital-alerts-last-registered';
-    const last = sessionStorage.getItem(key);
-    const now = Date.now();
-    if (last && now - parseInt(last) < 5 * 60 * 1000) {
-      return false;
-    }
-    sessionStorage.setItem(key, String(now));
-    return true;
+  private alertKey(alert: VitalAlert): string {
+    return `vital-alert-registered:${alert.patientId}:${alert.parameter}`;
+  }
+
+  private isAlertRegistered(alert: VitalAlert): boolean {
+    return sessionStorage.getItem(this.alertKey(alert)) !== null;
+  }
+
+  private markAlertRegistered(alert: VitalAlert): void {
+    sessionStorage.setItem(this.alertKey(alert), '1');
   }
 
   private registerNotifications(alerts: VitalAlert[]): void {
