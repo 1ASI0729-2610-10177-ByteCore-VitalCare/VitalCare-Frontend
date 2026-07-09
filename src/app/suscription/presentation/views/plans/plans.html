@@ -68,36 +68,46 @@
   }
 
   @if (pendingPlan(); as plan) {
-    <div class="modal-overlay" (click)="cancelPlanChange()">
-      <div class="modal plan-confirm-modal" (click)="$event.stopPropagation()">
-        <div class="modal-header">
-          <h2>{{ 'plans.confirm_title' | translate }}</h2>
-          <button type="button" class="close-btn" (click)="cancelPlanChange()">&times;</button>
-        </div>
-        <div class="modal-body">
-          <p>{{ 'plans.confirm_body' | translate: { plan: plan.name } }}</p>
+    @if (!showPaymentModal()) {
+      <div class="modal-overlay" (click)="cancelPlanChange()">
+        <div class="modal plan-confirm-modal" (click)="$event.stopPropagation()">
+          <div class="modal-header">
+            <h2>{{ 'plans.confirm_title' | translate }}</h2>
+            <button type="button" class="close-btn" (click)="cancelPlanChange()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <p>{{ 'plans.confirm_body' | translate: { plan: plan.name } }}</p>
 
-          @if (isDowngrade(plan, pendingSubscription())) {
-            <div class="downgrade-warning">
-              <p class="downgrade-warning-title">{{ 'plans.downgrade_warning_title' | translate }}</p>
-              <ul>
-                @for (feature of lostFeatures(plan, pendingSubscription()); track feature) {
-                  <li>{{ feature | translate }}</li>
-                }
-              </ul>
-            </div>
-          }
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn-secondary" (click)="cancelPlanChange()">
-            {{ 'plans.confirm_cancel' | translate }}
-          </button>
-          <button type="button" class="btn-primary" (click)="confirmPlanChange()">
-            {{ 'plans.confirm_yes' | translate }}
-          </button>
+            @if (isDowngrade(plan, pendingSubscription())) {
+              <div class="downgrade-warning">
+                <p class="downgrade-warning-title">{{ 'plans.downgrade_warning_title' | translate }}</p>
+                <ul>
+                  @for (feature of lostFeatures(plan, pendingSubscription()); track feature) {
+                    <li>{{ feature | translate }}</li>
+                  }
+                </ul>
+              </div>
+            }
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-secondary" (click)="cancelPlanChange()">
+              {{ 'plans.confirm_cancel' | translate }}
+            </button>
+            <button type="button" class="btn-primary" (click)="confirmPlanChange()">
+              {{ 'plans.confirm_yes' | translate }}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    }
+  }
+
+  @if (showPaymentModal() && pendingPlan(); as plan) {
+    <app-payment-modal
+      [plan]="plan"
+      (confirmed)="onPaymentConfirmed()"
+      (cancelled)="onPaymentCancelled()"
+    />
   }
 
 </div>

@@ -4,6 +4,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { SubscriptionFacadeService } from '../../../application/services/subscription-facade.service';
 import { Plan, Subscription } from '../../../domain/model/plan.entity';
 import { PlanCard } from '../../components/plan-card/plan-card';
+import { PaymentModal } from '../../components/payment-modal/payment-modal';
 import { CurrentUserService } from '../../../infrastructure/services/current-user.service';
 import { AuthService } from '../../../../iam/application/services/auth.service';
 import { BehaviorSubject, Observable, combineLatest, map, shareReplay, switchMap } from 'rxjs';
@@ -19,7 +20,7 @@ type PlansViewModel = {
 @Component({
   selector: 'app-plans',
   standalone: true,
-  imports: [CommonModule, TranslatePipe, PlanCard],
+  imports: [CommonModule, TranslatePipe, PlanCard, PaymentModal],
   templateUrl: './plans.html',
   styleUrls: ['./plans.css'],
 })
@@ -34,6 +35,7 @@ export class Plans {
   public readonly changeError = signal(false);
   public readonly pendingPlan = signal<Plan | null>(null);
   public readonly pendingSubscription = signal<Subscription | null>(null);
+  public readonly showPaymentModal = signal(false);
 
   private readonly planPriority: Record<string, number> = {
     basic: 1,
@@ -162,9 +164,37 @@ export class Plans {
     const activeSubscription = this.pendingSubscription();
     if (!plan) return;
 
+    const isPaid = parseFloat(plan.price) > 0;
+    const isBasicUpgrade = isPaid && (!activeSubscription || activeSubscription.price === 0);
+
+    if (isBasicUpgrade) {
+      this.showPaymentModal.set(true);
+      return;
+    }
+
     this.pendingPlan.set(null);
     this.pendingSubscription.set(null);
+    this.executePlanChange(plan, activeSubscription);
+  }
 
+  onPaymentConfirmed(): void {
+    const plan = this.pendingPlan();
+    const activeSubscription = this.pendingSubscription();
+    this.showPaymentModal.set(false);
+    this.pendingPlan.set(null);
+    this.pendingSubscription.set(null);
+    if (plan) {
+      this.executePlanChange(plan, activeSubscription);
+    }
+  }
+
+  onPaymentCancelled(): void {
+    this.showPaymentModal.set(false);
+    this.pendingPlan.set(null);
+    this.pendingSubscription.set(null);
+  }
+
+  private executePlanChange(plan: Plan, activeSubscription: Subscription | null): void {
     this.changing.set(true);
     this.changeSuccess.set(false);
     this.changeError.set(false);

@@ -1,0 +1,78 @@
+<div class="modal-overlay" (click)="cancel()">
+  <div class="modal payment-modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ 'plans.payment_title' | translate }}</h2>
+      <button type="button" class="close-btn" (click)="cancel()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="payment-summary">
+        <span class="payment-plan-name">{{ plan.name }}</span>
+        <span class="payment-amount">S/. {{ plan.price }}</span>
+      </div>
+
+      <div class="card-form">
+        <label class="payment-field">
+          <span>{{ 'plans.card_number' | translate }}</span>
+          <input
+            type="text"
+            [ngModel]="cardNumber()"
+            (ngModelChange)="cardNumber.set($event)"
+            maxlength="19"
+            placeholder="4242 4242 4242 4242"
+          >
+        </label>
+
+        <label class="payment-field">
+          <span>{{ 'plans.card_name' | translate }}</span>
+          <input
+            type="text"
+            [ngModel]="cardName()"
+            (ngModelChange)="cardName.set($event)"
+            placeholder="Juan Pérez"
+          >
+        </label>
+
+        <div class="payment-row">
+          <label class="payment-field payment-field--half">
+            <span>{{ 'plans.card_expiry' | translate }}</span>
+            <input
+              type="text"
+              [ngModel]="cardExpiry()"
+              (ngModelChange)="cardExpiry.set($event)"
+              maxlength="5"
+              placeholder="MM/AA"
+            >
+          </label>
+
+          <label class="payment-field payment-field--half">
+            <span>{{ 'plans.card_cvc' | translate }}</span>
+            <input
+              type="text"
+              [ngModel]="cardCvc()"
+              (ngModelChange)="cardCvc.set($event)"
+              maxlength="4"
+              placeholder="123"
+            >
+          </label>
+        </div>
+      </div>
+
+      @if (error()) {
+        <div class="payment-error">{{ 'plans.payment_error' | translate }}</div>
+      }
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn-secondary" (click)="cancel()" [disabled]="processing()">
+        {{ 'plans.confirm_cancel' | translate }}
+      </button>
+      <button type="button" class="btn-primary" (click)="pay()" [disabled]="processing()">
+        @if (processing()) {
+          <mat-spinner diameter="16"></mat-spinner>
+        }
+        <span>{{ 'plans.pay_button' | translate: { amount: plan.price } }}</span>
+      </button>
+    </div>
+  </div>
+</div>

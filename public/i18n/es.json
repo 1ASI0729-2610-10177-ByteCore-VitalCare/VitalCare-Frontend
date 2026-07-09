@@ -317,7 +317,14 @@
     "feat_advanced_alerts": "Alertas avanzadas",
     "feat_priority_support": "Soporte prioritario",
     "feat_support_247": "Soporte 24/7",
-    "feat_pdf": "Reportes PDF mensuales"
+    "feat_pdf": "Reportes PDF mensuales",
+    "payment_title": "Pago",
+    "pay_button": "Pagar S/. {{ amount }}",
+    "payment_error": "El pago falló. Intenta de nuevo.",
+    "card_number": "Número de tarjeta",
+    "card_name": "Titular",
+    "card_expiry": "Vencimiento",
+    "card_cvc": "CVC"
   },
   "patients_extra": {
     "history_col": "Historial",
