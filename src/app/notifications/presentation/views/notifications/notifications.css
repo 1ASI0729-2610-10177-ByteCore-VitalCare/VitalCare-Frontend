@@ -19,6 +19,7 @@
 .table-container {
   width: 100%;
   max-width: 860px;
+  margin: 0 auto;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
@@ -26,12 +27,13 @@
 
 .notifications-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   background: #fff;
 }
 
 .notifications-table thead {
-  background-color: #0d47a1;
+  background-color: var(--primary-color, #2196d3);
   color: #fff;
 }
 
@@ -43,11 +45,20 @@
   letter-spacing: 0.3px;
 }
 
+.notifications-table th:last-child,
+.notifications-table td:last-child {
+  width: 200px;
+  text-align: right;
+}
+
 .notifications-table td {
   padding: 14px 20px;
   border-bottom: 1px solid #eee;
   color: #333;
   font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .notifications-table tbody tr:last-child td {
