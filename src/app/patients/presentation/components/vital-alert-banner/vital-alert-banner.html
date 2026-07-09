@@ -1,7 +1,7 @@
 <div class="overlay" (click)="dismiss.emit()">
   <div class="banner" (click)="$event.stopPropagation()">
     <div class="banner-header">
-      <span class="icon">⚠️</span>
+      <mat-icon class="icon">warning</mat-icon>
       <h2>{{ 'vital_alerts.title' | translate }}</h2>
       <button class="close-btn" (click)="dismiss.emit()">✕</button>
     </div>

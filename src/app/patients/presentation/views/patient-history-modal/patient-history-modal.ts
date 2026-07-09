@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, signal } from '@angular
 import { CommonModule, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 import { Patient } from '../../../domain/model/patient.entity';
 import { VitalSign } from '../../../domain/model/vital-sign.entity';
@@ -21,7 +22,7 @@ const VITAL_RANGES = {
 @Component({
   selector: 'app-patient-history-modal',
   standalone: true,
-  imports: [CommonModule, TranslateModule, MatButtonModule, DatePipe],
+  imports: [CommonModule, TranslateModule, MatButtonModule, MatIconModule, DatePipe],
   templateUrl: './patient-history-modal.html',
   styleUrl: './patient-history-modal.css',
 })

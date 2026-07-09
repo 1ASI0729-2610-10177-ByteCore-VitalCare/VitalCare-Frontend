@@ -2,6 +2,7 @@ import { Component, computed, inject, OnInit, OnDestroy, signal } from '@angular
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -28,6 +29,7 @@ import { AlertSessionService } from '../../../../shared/infrastructure/alert-ses
   imports: [
     CommonModule,
     MatButtonModule,
+    MatIconModule,
     TranslateModule,
     VitalSignsModal,
     LocationModal,

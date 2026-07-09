@@ -34,9 +34,9 @@
                   <div class="timeline-marker">
                     <div class="timeline-dot" [class.alert-dot]="isIrregular(vital)">
                       @if (isIrregular(vital)) {
-                        <span class="marker-icon">⚠</span>
+                        <mat-icon class="marker-icon">warning</mat-icon>
                       } @else {
-                        <span class="marker-icon">✓</span>
+                        <mat-icon class="marker-icon">check</mat-icon>
                       }
                     </div>
                   </div>

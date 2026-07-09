@@ -37,7 +37,7 @@
                 {{ 'patients.view_location' | translate }}
               </button>
             } @else {
-              <span class="locked">🔒 {{ 'patients.locked_feature' | translate }}</span>
+              <span class="locked"><mat-icon>lock</mat-icon> {{ 'patients.locked_feature' | translate }}</span>
             }
           </div>
 
@@ -45,7 +45,7 @@
             @if (planLimits().canViewHistory) {
               <button class="btn" (click)="openHistoryModal(patient)">{{ 'patients_extra.view_history_btn' | translate }}</button>
             } @else {
-              <span class="locked">🔒 {{ 'patients.locked_feature' | translate }}</span>
+              <span class="locked"><mat-icon>lock</mat-icon> {{ 'patients.locked_feature' | translate }}</span>
             }
           </div>
 
@@ -62,7 +62,7 @@
       </button>
       @if (!canAddPatient()) {
         <span class="limit-msg">
-          ⚠️ {{ 'patients.limit_reached' | translate }} ({{ planName() }})
+          <mat-icon>warning</mat-icon> {{ 'patients.limit_reached' | translate }} ({{ planName() }})
         </span>
       }
     </footer>

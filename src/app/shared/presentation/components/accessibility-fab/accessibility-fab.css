@@ -30,8 +30,10 @@
 }
 
 .a11y-icon {
+  width: 28px;
+  height: 28px;
   font-size: 28px;
-  line-height: 1;
+  line-height: 28px;
 }
 
 .a11y-panel {

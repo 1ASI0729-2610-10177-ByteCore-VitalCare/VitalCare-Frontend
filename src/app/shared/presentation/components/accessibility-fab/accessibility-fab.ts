@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
+import { MatIcon } from '@angular/material/icon';
 import {
   PreferencesService,
   FontSize,
@@ -11,7 +12,7 @@ import {
 @Component({
   selector: 'app-accessibility-fab',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslatePipe],
+  imports: [CommonModule, FormsModule, TranslatePipe, MatIcon],
   templateUrl: './accessibility-fab.html',
   styleUrl: './accessibility-fab.css',
 })
